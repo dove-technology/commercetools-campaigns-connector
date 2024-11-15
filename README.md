@@ -74,3 +74,13 @@ You can also map array values. So if you wanted to map the UK english `name` pro
 `{ "lineItems[].name.en-GB": "basket.items[].name" }`
 
 **Note, property names are case sensitive.**
+
+## Additional Discount Features Dovetech Supports
+
+- Earning loyalty points on purchases and redeeming loyalty points by applying discounts to carts
+- Easily generate coupon codes within the tooling without having to generate files
+- Coupon codes are assigned to groups and groups can be used as conditions in discounts. You can easily generate more codes in a group.
+- Amount off and Fixed price Multibuy discounts
+- Fixed price shipping discounts
+- Drag and drop ranking of discounts
+- Create reusable complex expressions that can be used across multiple discounts
