@@ -1,0 +1,308 @@
+{
+  "anonymousId": "0223ad41-80b1-4317-8f01-862a1df769c9",
+  "cartState": "Active",
+  "country": "DE",
+  "createdAt": "2024-10-25T15:27:57.211Z",
+  "createdBy": {
+    "anonymousId": "0223ad41-80b1-4317-8f01-862a1df769c9",
+    "clientId": "hdnhVyq94LyqSm0wkLV8RF9e",
+    "isPlatformClient": false
+  },
+  "customLineItems": [],
+  "deleteDaysAfterLastModification": 90,
+  "directDiscounts": [
+    {
+      "id": "aa623f1d-de83-4196-a939-e16d8b647707",
+      "references": [
+        { "id": "a5b1cc83-d74b-4d49-bdd9-30a13e328672", "typeId": "product" }
+      ],
+      "target": {
+        "predicate": "product.id = \"a5b1cc83-d74b-4d49-bdd9-30a13e328672\"",
+        "type": "lineItems"
+      },
+      "value": {
+        "money": [
+          {
+            "centAmount": 1000,
+            "currencyCode": "EUR",
+            "fractionDigits": 2,
+            "type": "centPrecision"
+          }
+        ],
+        "type": "absolute"
+      }
+    }
+  ],
+  "discountCodes": [],
+  "id": "82ca4bd5-4820-4770-a35c-93deb4d9b2f6",
+  "inventoryMode": "None",
+  "itemShippingAddresses": [],
+  "lastMessageSequenceNumber": 1,
+  "lastModifiedAt": "2024-10-25T15:29:43.722Z",
+  "lastModifiedBy": {
+    "anonymousId": "0223ad41-80b1-4317-8f01-862a1df769c9",
+    "clientId": "hdnhVyq94LyqSm0wkLV8RF9e",
+    "isPlatformClient": false
+  },
+  "lineItems": [
+    {
+      "addedAt": "2024-10-25T15:27:57.443Z",
+      "discountedPrice": {
+        "includedDiscounts": [
+          {
+            "discount": {
+              "id": "aa623f1d-de83-4196-a939-e16d8b647707",
+              "typeId": "direct-discount"
+            },
+            "discountedAmount": {
+              "centAmount": 1000,
+              "currencyCode": "EUR",
+              "fractionDigits": 2,
+              "type": "centPrecision"
+            }
+          }
+        ],
+        "value": {
+          "centAmount": 4299,
+          "currencyCode": "EUR",
+          "fractionDigits": 2,
+          "type": "centPrecision"
+        }
+      },
+      "discountedPricePerQuantity": [
+        {
+          "discountedPrice": {
+            "includedDiscounts": [
+              {
+                "discount": {
+                  "id": "aa623f1d-de83-4196-a939-e16d8b647707",
+                  "typeId": "direct-discount"
+                },
+                "discountedAmount": {
+                  "centAmount": 1000,
+                  "currencyCode": "EUR",
+                  "fractionDigits": 2,
+                  "type": "centPrecision"
+                }
+              }
+            ],
+            "value": {
+              "centAmount": 4299,
+              "currencyCode": "EUR",
+              "fractionDigits": 2,
+              "type": "centPrecision"
+            }
+          },
+          "quantity": 1
+        }
+      ],
+      "id": "abd6db05-e8de-486e-98d2-d5aa1cf36b89",
+      "lastModifiedAt": "2024-10-25T15:29:48.861Z",
+      "lineItemMode": "Standard",
+      "name": {
+        "de-DE": "Moderne Landschaftsmalerei",
+        "en-GB": "Modern Landscape Painting",
+        "en-US": "Modern Landscape Painting"
+      },
+      "perMethodTaxRate": [],
+      "price": {
+        "country": "DE",
+        "id": "db423e81-8098-42c3-9602-79859609eca6",
+        "value": {
+          "centAmount": 5299,
+          "currencyCode": "EUR",
+          "fractionDigits": 2,
+          "type": "centPrecision"
+        }
+      },
+      "priceMode": "Platform",
+      "productId": "a5b1cc83-d74b-4d49-bdd9-30a13e328672",
+      "productKey": "modern-landscape-painting",
+      "productSlug": {
+        "de-DE": "moderne-landschaftsmalerei",
+        "en-GB": "modern-landscape-painting",
+        "en-US": "modern-landscape-painting"
+      },
+      "productType": {
+        "id": "e04b1724-013c-4d6c-8f53-7a8807fdbe3a",
+        "typeId": "product-type",
+        "version": 1
+      },
+      "quantity": 1,
+      "state": [
+        {
+          "quantity": 1,
+          "state": {
+            "id": "fce0e3a1-1ac3-47e4-b936-89d1a53c9905",
+            "typeId": "state"
+          }
+        }
+      ],
+      "taxRate": {
+        "amount": 0.19,
+        "country": "DE",
+        "id": "y2uQlkPH",
+        "includedInPrice": true,
+        "key": "vat-standard-de",
+        "name": "Standard VAT for Germany",
+        "subRates": []
+      },
+      "taxedPrice": {
+        "taxPortions": [
+          {
+            "amount": {
+              "centAmount": 686,
+              "currencyCode": "EUR",
+              "fractionDigits": 2,
+              "type": "centPrecision"
+            },
+            "name": "Standard VAT for Germany",
+            "rate": 0.19
+          }
+        ],
+        "totalGross": {
+          "centAmount": 4299,
+          "currencyCode": "EUR",
+          "fractionDigits": 2,
+          "type": "centPrecision"
+        },
+        "totalNet": {
+          "centAmount": 3613,
+          "currencyCode": "EUR",
+          "fractionDigits": 2,
+          "type": "centPrecision"
+        },
+        "totalTax": {
+          "centAmount": 686,
+          "currencyCode": "EUR",
+          "fractionDigits": 2,
+          "type": "centPrecision"
+        }
+      },
+      "taxedPricePortions": [],
+      "totalPrice": {
+        "centAmount": 4299,
+        "currencyCode": "EUR",
+        "fractionDigits": 2,
+        "type": "centPrecision"
+      },
+      "variant": {
+        "assets": [],
+        "attributes": [
+          {
+            "name": "productspec",
+            "value": {
+              "de-DE": "- Öl auf Leinwand\n- Rahmen nicht im Lieferumfang enthalten\n- 3 Fuß mal 4 Fuß",
+              "en-GB": "- Oil on canvas\n- Frame not included\n- 3ft by 4ft",
+              "en-US": "- Oil on canvas\n- Frame not included\n- 3ft by 4ft"
+            }
+          },
+          {
+            "name": "color",
+            "value": {
+              "de-DE": "Himmel blau:#87CEEB",
+              "en-GB": "Sky Blue:#87CEEB",
+              "en-US": "Sky Blue:#87CEEB"
+            }
+          }
+        ],
+        "availability": {
+          "availableQuantity": 84,
+          "id": "c055928f-e0a8-4686-9dc8-bb477d034b21",
+          "isOnStock": true,
+          "version": 1
+        },
+        "id": 1,
+        "images": [
+          {
+            "dimensions": { "h": 5355, "w": 5313 },
+            "url": "https://storage.googleapis.com/merchant-center-europe/sample-data/b2c-lifestyle/Modern_Landscape_Painting-1.1.jpeg"
+          }
+        ],
+        "prices": [
+          {
+            "country": "DE",
+            "id": "db423e81-8098-42c3-9602-79859609eca6",
+            "value": {
+              "centAmount": 5299,
+              "currencyCode": "EUR",
+              "fractionDigits": 2,
+              "type": "centPrecision"
+            }
+          },
+          {
+            "country": "GB",
+            "id": "7b789210-2082-4e7b-a168-1027dde0aef5",
+            "value": {
+              "centAmount": 5299,
+              "currencyCode": "GBP",
+              "fractionDigits": 2,
+              "type": "centPrecision"
+            }
+          },
+          {
+            "country": "US",
+            "id": "e90dd6a3-a67d-4792-aae8-34177a4c5c6e",
+            "value": {
+              "centAmount": 5299,
+              "currencyCode": "USD",
+              "fractionDigits": 2,
+              "type": "centPrecision"
+            }
+          }
+        ],
+        "sku": "MLP-01"
+      }
+    }
+  ],
+  "origin": "Customer",
+  "refusedGifts": [],
+  "shipping": [],
+  "shippingAddress": { "country": "DE" },
+  "shippingMode": "Single",
+  "taxCalculationMode": "LineItemLevel",
+  "taxMode": "Platform",
+  "taxRoundingMode": "HalfEven",
+  "taxedPrice": {
+    "taxPortions": [
+      {
+        "amount": {
+          "centAmount": 686,
+          "currencyCode": "EUR",
+          "fractionDigits": 2,
+          "type": "centPrecision"
+        },
+        "name": "Standard VAT for Germany",
+        "rate": 0.19
+      }
+    ],
+    "totalGross": {
+      "centAmount": 4299,
+      "currencyCode": "EUR",
+      "fractionDigits": 2,
+      "type": "centPrecision"
+    },
+    "totalNet": {
+      "centAmount": 3613,
+      "currencyCode": "EUR",
+      "fractionDigits": 2,
+      "type": "centPrecision"
+    },
+    "totalTax": {
+      "centAmount": 686,
+      "currencyCode": "EUR",
+      "fractionDigits": 2,
+      "type": "centPrecision"
+    }
+  },
+  "totalLineItemQuantity": 1,
+  "totalPrice": {
+    "centAmount": 4299,
+    "currencyCode": "EUR",
+    "fractionDigits": 2,
+    "type": "centPrecision"
+  },
+  "type": "Cart",
+  "version": 15,
+  "versionModifiedAt": "2024-10-25T15:29:43.722Z"
+}

@@ -1,0 +1,347 @@
+{
+  "type": "Order",
+  "id": "7a0581c3-f5f2-4cea-acba-181b0a14d424",
+  "version": 121,
+  "versionModifiedAt": "2024-11-08T11:49:31.335Z",
+  "lastMessageSequenceNumber": 1,
+  "createdAt": "2024-11-08T09:04:05.735Z",
+  "lastModifiedAt": "2024-11-08T11:49:31.335Z",
+  "lastModifiedBy": {
+    "clientId": "hdnhVyq94LyqSm0wkLV8RF9e",
+    "isPlatformClient": false,
+    "anonymousId": "483aca73-1715-42a1-accc-8f01ae8fe537"
+  },
+  "createdBy": {
+    "clientId": "hdnhVyq94LyqSm0wkLV8RF9e",
+    "isPlatformClient": false,
+    "anonymousId": "483aca73-1715-42a1-accc-8f01ae8fe537"
+  },
+  "anonymousId": "483aca73-1715-42a1-accc-8f01ae8fe537",
+  "lineItems": [
+    {
+      "id": "e1b2e7a4-d82f-427c-9ec1-d5507625b45b",
+      "productId": "dbc5d2ec-d269-4b3b-b92e-7d6723401131",
+      "productKey": "lana-pillow-cover",
+      "name": {
+        "en-US": "Lana Pillow Cover",
+        "en-GB": "Lana Pillow Cover",
+        "de-DE": "Lana Kissenbezug"
+      },
+      "productType": {
+        "typeId": "product-type",
+        "id": "e04b1724-013c-4d6c-8f53-7a8807fdbe3a",
+        "version": 1
+      },
+      "productSlug": {
+        "en-US": "lana-pillow-cover",
+        "en-GB": "lana-pillow-cover",
+        "de-DE": "lana-kissenbezug"
+      },
+      "variant": {
+        "id": 1,
+        "sku": "LPC-09",
+        "prices": [
+          {
+            "id": "b5eb0cfc-0c8f-4e14-bef6-22f13cb65b48",
+            "value": {
+              "type": "centPrecision",
+              "currencyCode": "EUR",
+              "centAmount": 1099,
+              "fractionDigits": 2
+            },
+            "country": "DE"
+          },
+          {
+            "id": "4525e9b2-1d06-4f28-90fa-1a38e72e3976",
+            "value": {
+              "type": "centPrecision",
+              "currencyCode": "GBP",
+              "centAmount": 1099,
+              "fractionDigits": 2
+            },
+            "country": "GB"
+          },
+          {
+            "id": "315fc612-1d74-475f-b364-07e1a20ef84f",
+            "value": {
+              "type": "centPrecision",
+              "currencyCode": "USD",
+              "centAmount": 1099,
+              "fractionDigits": 2
+            },
+            "country": "US"
+          }
+        ],
+        "images": [
+          {
+            "url": "https://storage.googleapis.com/merchant-center-europe/sample-data/b2c-lifestyle/Lana_Pillow_Cover-1.1.jpeg",
+            "dimensions": {
+              "w": 4350,
+              "h": 3143
+            }
+          }
+        ],
+        "attributes": [
+          {
+            "name": "productspec",
+            "value": {
+              "en-GB": "- Machine washable\n- Pillow not included\n- Has a zip enclosure",
+              "de-DE": "- Waschmaschinenfest\n- Kissen nicht im Lieferumfang enthalten\n- Verfügt über ein Reißverschlussgehäuse",
+              "en-US": "- Machine washable\n- Pillow not included\n- Has a zip enclosure"
+            }
+          },
+          {
+            "name": "color",
+            "value": {
+              "en-GB": "Light Grey:#D3D3D3",
+              "de-DE": "Hell grau:#D3D3D3",
+              "en-US": "Light Gray:#D3D3D3"
+            }
+          }
+        ],
+        "assets": [],
+        "availability": {
+          "isOnStock": true,
+          "availableQuantity": 100,
+          "version": 1,
+          "id": "019f3c53-7d9a-455e-9f33-cffba87d3d2d"
+        }
+      },
+      "price": {
+        "id": "b5eb0cfc-0c8f-4e14-bef6-22f13cb65b48",
+        "value": {
+          "type": "centPrecision",
+          "currencyCode": "EUR",
+          "centAmount": 1099,
+          "fractionDigits": 2
+        },
+        "country": "DE"
+      },
+      "quantity": 3,
+      "discountedPrice": {
+        "value": {
+          "type": "centPrecision",
+          "currencyCode": "EUR",
+          "centAmount": 766,
+          "fractionDigits": 2
+        },
+        "includedDiscounts": [
+          {
+            "discount": {
+              "typeId": "direct-discount",
+              "id": "d802314b-2da8-4eb7-be48-aa1f61d6d53b"
+            },
+            "discountedAmount": {
+              "type": "centPrecision",
+              "currencyCode": "EUR",
+              "centAmount": 333,
+              "fractionDigits": 2
+            }
+          }
+        ]
+      },
+      "discountedPricePerQuantity": [
+        {
+          "quantity": 2,
+          "discountedPrice": {
+            "value": {
+              "type": "centPrecision",
+              "currencyCode": "EUR",
+              "centAmount": 766,
+              "fractionDigits": 2
+            },
+            "includedDiscounts": [
+              {
+                "discount": {
+                  "typeId": "direct-discount",
+                  "id": "d802314b-2da8-4eb7-be48-aa1f61d6d53b"
+                },
+                "discountedAmount": {
+                  "type": "centPrecision",
+                  "currencyCode": "EUR",
+                  "centAmount": 333,
+                  "fractionDigits": 2
+                }
+              }
+            ]
+          }
+        },
+        {
+          "quantity": 1,
+          "discountedPrice": {
+            "value": {
+              "type": "centPrecision",
+              "currencyCode": "EUR",
+              "centAmount": 765,
+              "fractionDigits": 2
+            },
+            "includedDiscounts": [
+              {
+                "discount": {
+                  "typeId": "direct-discount",
+                  "id": "d802314b-2da8-4eb7-be48-aa1f61d6d53b"
+                },
+                "discountedAmount": {
+                  "type": "centPrecision",
+                  "currencyCode": "EUR",
+                  "centAmount": 334,
+                  "fractionDigits": 2
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "taxRate": {
+        "name": "Standard VAT for Germany",
+        "amount": 0.19,
+        "includedInPrice": true,
+        "country": "DE",
+        "id": "U2Vcwxm-",
+        "key": "vat-standard-de",
+        "subRates": []
+      },
+      "perMethodTaxRate": [],
+      "addedAt": "2024-11-08T11:33:26.120Z",
+      "lastModifiedAt": "2024-11-08T11:49:30.939Z",
+      "state": [
+        {
+          "quantity": 3,
+          "state": {
+            "typeId": "state",
+            "id": "fce0e3a1-1ac3-47e4-b936-89d1a53c9905"
+          }
+        }
+      ],
+      "priceMode": "Platform",
+      "lineItemMode": "Standard",
+      "totalPrice": {
+        "type": "centPrecision",
+        "currencyCode": "EUR",
+        "centAmount": 2297,
+        "fractionDigits": 2
+      },
+      "taxedPrice": {
+        "totalNet": {
+          "type": "centPrecision",
+          "currencyCode": "EUR",
+          "centAmount": 1930,
+          "fractionDigits": 2
+        },
+        "totalGross": {
+          "type": "centPrecision",
+          "currencyCode": "EUR",
+          "centAmount": 2297,
+          "fractionDigits": 2
+        },
+        "taxPortions": [
+          {
+            "rate": 0.19,
+            "amount": {
+              "type": "centPrecision",
+              "currencyCode": "EUR",
+              "centAmount": 367,
+              "fractionDigits": 2
+            },
+            "name": "Standard VAT for Germany"
+          }
+        ],
+        "totalTax": {
+          "type": "centPrecision",
+          "currencyCode": "EUR",
+          "centAmount": 367,
+          "fractionDigits": 2
+        }
+      },
+      "taxedPricePortions": []
+    }
+  ],
+  "cartState": "Active",
+  "totalPrice": {
+    "type": "centPrecision",
+    "currencyCode": "EUR",
+    "centAmount": 2297,
+    "fractionDigits": 2
+  },
+  "taxedPrice": {
+    "totalNet": {
+      "type": "centPrecision",
+      "currencyCode": "EUR",
+      "centAmount": 1930,
+      "fractionDigits": 2
+    },
+    "totalGross": {
+      "type": "centPrecision",
+      "currencyCode": "EUR",
+      "centAmount": 2297,
+      "fractionDigits": 2
+    },
+    "taxPortions": [
+      {
+        "rate": 0.19,
+        "amount": {
+          "type": "centPrecision",
+          "currencyCode": "EUR",
+          "centAmount": 367,
+          "fractionDigits": 2
+        },
+        "name": "Standard VAT for Germany"
+      }
+    ],
+    "totalTax": {
+      "type": "centPrecision",
+      "currencyCode": "EUR",
+      "centAmount": 367,
+      "fractionDigits": 2
+    }
+  },
+  "country": "DE",
+  "shippingMode": "Single",
+  "shippingAddress": {
+    "country": "DE"
+  },
+  "shipping": [],
+  "customLineItems": [],
+  "discountCodes": [],
+  "directDiscounts": [
+    {
+      "id": "d802314b-2da8-4eb7-be48-aa1f61d6d53b",
+      "value": {
+        "type": "absolute",
+        "money": [
+          {
+            "type": "centPrecision",
+            "currencyCode": "EUR",
+            "centAmount": 1000,
+            "fractionDigits": 2
+          }
+        ]
+      },
+      "target": {
+        "type": "lineItems",
+        "predicate": "sku = \"LPC-09\""
+      },
+      "references": []
+    }
+  ],
+  "custom": {
+    "type": {
+      "typeId": "type",
+      "id": "7ed91942-285c-45d1-807e-07347ce9cc16"
+    },
+    "fields": {
+      "dovetech-discounts-couponCodes": "[]",
+      "dovetech-discounts-evaluationCurrency": "EUR",
+      "dovetech-discounts-evaluationResponse": "{\"actions\":[{\"id\":\"668afdc1-d0d7-4621-a05e-d78459111698\",\"discountId\":\"dd13a27b-0dce-424e-abb3-db88b62ceac9\",\"type\":\"AmountOffBasket\",\"qualifiedCouponCode\":null,\"amountOffType\":\"AmountOff\",\"value\":10,\"amountOff\":10,\"displayMessages\":[]}],\"basket\":{\"total\":22.97,\"totalAmountOff\":10,\"items\":[{\"total\":22.97,\"totalAmountOff\":10,\"actions\":[{\"id\":\"668afdc1-d0d7-4621-a05e-d78459111698\",\"subItemId\":1,\"amountOff\":3.34},{\"id\":\"668afdc1-d0d7-4621-a05e-d78459111698\",\"subItemId\":2,\"amountOff\":3.33},{\"id\":\"668afdc1-d0d7-4621-a05e-d78459111698\",\"subItemId\":3,\"amountOff\":3.33}]}]},\"aggregates\":{\"total\":22.97,\"totalAmountOff\":10},\"costs\":[],\"commitId\":null,\"evaluationLog\":null}"
+    }
+  },
+  "inventoryMode": "None",
+  "taxMode": "Platform",
+  "taxRoundingMode": "HalfEven",
+  "taxCalculationMode": "LineItemLevel",
+  "deleteDaysAfterLastModification": 90,
+  "refusedGifts": [],
+  "origin": "Customer",
+  "itemShippingAddresses": [],
+  "totalLineItemQuantity": 3
+}

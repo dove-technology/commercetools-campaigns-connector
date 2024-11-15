@@ -1,0 +1,361 @@
+{
+  "type": "Cart",
+  "id": "3ab43a1d-219a-4ec4-bfd0-3f8318fa98c8",
+  "version": 9,
+  "versionModifiedAt": "2024-10-24T07:48:26.140Z",
+  "lastMessageSequenceNumber": 1,
+  "createdAt": "2024-10-24T07:48:25.280Z",
+  "lastModifiedAt": "2024-10-24T07:48:26.140Z",
+  "lastModifiedBy": {
+    "clientId": "hdnhVyq94LyqSm0wkLV8RF9e",
+    "isPlatformClient": false,
+    "anonymousId": "386c1fc6-8c0f-4fb7-8e45-2802599aa41e"
+  },
+  "createdBy": {
+    "clientId": "hdnhVyq94LyqSm0wkLV8RF9e",
+    "isPlatformClient": false,
+    "anonymousId": "386c1fc6-8c0f-4fb7-8e45-2802599aa41e"
+  },
+  "anonymousId": "386c1fc6-8c0f-4fb7-8e45-2802599aa41e",
+  "lineItems": [
+    {
+      "id": "74f3e9e5-18b1-42ca-ad53-fdc0c1608ef2",
+      "productId": "a5b1cc83-d74b-4d49-bdd9-30a13e328672",
+      "productKey": "modern-landscape-painting",
+      "name": {
+        "en-GB": "Modern Landscape Painting",
+        "de-DE": "Moderne Landschaftsmalerei",
+        "en-US": "Modern Landscape Painting"
+      },
+      "productType": {
+        "typeId": "product-type",
+        "id": "e04b1724-013c-4d6c-8f53-7a8807fdbe3a",
+        "version": 1
+      },
+      "productSlug": {
+        "en-GB": "modern-landscape-painting",
+        "de-DE": "moderne-landschaftsmalerei",
+        "en-US": "modern-landscape-painting"
+      },
+      "variant": {
+        "id": 1,
+        "sku": "MLP-01",
+        "prices": [
+          {
+            "id": "db423e81-8098-42c3-9602-79859609eca6",
+            "value": {
+              "type": "centPrecision",
+              "currencyCode": "EUR",
+              "centAmount": 5299,
+              "fractionDigits": 2
+            },
+            "country": "DE"
+          },
+          {
+            "id": "7b789210-2082-4e7b-a168-1027dde0aef5",
+            "value": {
+              "type": "centPrecision",
+              "currencyCode": "GBP",
+              "centAmount": 5299,
+              "fractionDigits": 2
+            },
+            "country": "GB"
+          },
+          {
+            "id": "e90dd6a3-a67d-4792-aae8-34177a4c5c6e",
+            "value": {
+              "type": "centPrecision",
+              "currencyCode": "USD",
+              "centAmount": 5299,
+              "fractionDigits": 2
+            },
+            "country": "US"
+          }
+        ],
+        "images": [
+          {
+            "url": "https://storage.googleapis.com/merchant-center-europe/sample-data/b2c-lifestyle/Modern_Landscape_Painting-1.1.jpeg",
+            "dimensions": { "w": 5313, "h": 5355 }
+          }
+        ],
+        "attributes": [
+          {
+            "name": "productspec",
+            "value": {
+              "en-GB": "- Oil on canvas\n- Frame not included\n- 3ft by 4ft",
+              "de-DE": "- Öl auf Leinwand\n- Rahmen nicht im Lieferumfang enthalten\n- 3 Fuß mal 4 Fuß",
+              "en-US": "- Oil on canvas\n- Frame not included\n- 3ft by 4ft"
+            }
+          },
+          {
+            "name": "color",
+            "value": {
+              "en-US": "Sky Blue:#87CEEB",
+              "en-GB": "Sky Blue:#87CEEB",
+              "de-DE": "Himmel blau:#87CEEB"
+            }
+          }
+        ],
+        "assets": [],
+        "availability": {
+          "isOnStock": true,
+          "availableQuantity": 84,
+          "version": 1,
+          "id": "c055928f-e0a8-4686-9dc8-bb477d034b21"
+        }
+      },
+      "price": {
+        "id": "db423e81-8098-42c3-9602-79859609eca6",
+        "value": {
+          "type": "centPrecision",
+          "currencyCode": "EUR",
+          "centAmount": 5299,
+          "fractionDigits": 2
+        },
+        "country": "DE"
+      },
+      "quantity": 1,
+      "discountedPricePerQuantity": [],
+      "taxRate": {
+        "name": "Standard VAT for Germany",
+        "amount": 0.19,
+        "includedInPrice": true,
+        "country": "DE",
+        "id": "y2uQlkPH",
+        "key": "vat-standard-de",
+        "subRates": []
+      },
+      "perMethodTaxRate": [],
+      "addedAt": "2024-10-24T07:48:25.707Z",
+      "lastModifiedAt": "2024-10-24T07:48:25.707Z",
+      "state": [
+        {
+          "quantity": 1,
+          "state": {
+            "typeId": "state",
+            "id": "fce0e3a1-1ac3-47e4-b936-89d1a53c9905"
+          }
+        }
+      ],
+      "priceMode": "Platform",
+      "lineItemMode": "Standard",
+      "totalPrice": {
+        "type": "centPrecision",
+        "currencyCode": "EUR",
+        "centAmount": 5299,
+        "fractionDigits": 2
+      },
+      "taxedPrice": {
+        "totalNet": {
+          "type": "centPrecision",
+          "currencyCode": "EUR",
+          "centAmount": 4453,
+          "fractionDigits": 2
+        },
+        "totalGross": {
+          "type": "centPrecision",
+          "currencyCode": "EUR",
+          "centAmount": 5299,
+          "fractionDigits": 2
+        },
+        "taxPortions": [
+          {
+            "rate": 0.19,
+            "amount": {
+              "type": "centPrecision",
+              "currencyCode": "EUR",
+              "centAmount": 846,
+              "fractionDigits": 2
+            },
+            "name": "Standard VAT for Germany"
+          }
+        ],
+        "totalTax": {
+          "type": "centPrecision",
+          "currencyCode": "EUR",
+          "centAmount": 846,
+          "fractionDigits": 2
+        }
+      },
+      "taxedPricePortions": []
+    }
+  ],
+  "cartState": "Active",
+  "totalPrice": {
+    "type": "centPrecision",
+    "currencyCode": "EUR",
+    "centAmount": 10299,
+    "fractionDigits": 2
+  },
+  "taxedPrice": {
+    "totalNet": {
+      "type": "centPrecision",
+      "currencyCode": "EUR",
+      "centAmount": 8655,
+      "fractionDigits": 2
+    },
+    "totalGross": {
+      "type": "centPrecision",
+      "currencyCode": "EUR",
+      "centAmount": 10299,
+      "fractionDigits": 2
+    },
+    "taxPortions": [
+      {
+        "rate": 0.19,
+        "amount": {
+          "type": "centPrecision",
+          "currencyCode": "EUR",
+          "centAmount": 1644,
+          "fractionDigits": 2
+        },
+        "name": "Standard VAT for Germany"
+      }
+    ],
+    "totalTax": {
+      "type": "centPrecision",
+      "currencyCode": "EUR",
+      "centAmount": 1644,
+      "fractionDigits": 2
+    }
+  },
+  "country": "DE",
+  "taxedShippingPrice": {
+    "totalNet": {
+      "type": "centPrecision",
+      "currencyCode": "EUR",
+      "centAmount": 4202,
+      "fractionDigits": 2
+    },
+    "totalGross": {
+      "type": "centPrecision",
+      "currencyCode": "EUR",
+      "centAmount": 5000,
+      "fractionDigits": 2
+    },
+    "taxPortions": [
+      {
+        "rate": 0.19,
+        "amount": {
+          "type": "centPrecision",
+          "currencyCode": "EUR",
+          "centAmount": 798,
+          "fractionDigits": 2
+        },
+        "name": "Standard VAT for Germany"
+      }
+    ],
+    "totalTax": {
+      "type": "centPrecision",
+      "currencyCode": "EUR",
+      "centAmount": 798,
+      "fractionDigits": 2
+    }
+  },
+  "shippingMode": "Single",
+  "shippingInfo": {
+    "shippingMethodName": "Standard Delivery",
+    "price": {
+      "type": "centPrecision",
+      "currencyCode": "EUR",
+      "centAmount": 10000,
+      "fractionDigits": 2
+    },
+    "shippingRate": {
+      "price": {
+        "type": "centPrecision",
+        "currencyCode": "EUR",
+        "centAmount": 10000,
+        "fractionDigits": 2
+      },
+      "tiers": []
+    },
+    "taxRate": {
+      "name": "Standard VAT for Germany",
+      "amount": 0.19,
+      "includedInPrice": true,
+      "country": "DE",
+      "id": "y2uQlkPH",
+      "key": "vat-standard-de",
+      "subRates": []
+    },
+    "taxCategory": {
+      "typeId": "tax-category",
+      "id": "24b6c133-fcad-43cc-b8a6-fa30bba30ba0"
+    },
+    "deliveries": [],
+    "shippingMethod": {
+      "typeId": "shipping-method",
+      "id": "30a8abf8-4124-42f7-b26a-1b9e565d7078"
+    },
+    "discountedPrice": {
+      "value": {
+        "type": "centPrecision",
+        "currencyCode": "EUR",
+        "centAmount": 5000,
+        "fractionDigits": 2
+      },
+      "includedDiscounts": [
+        {
+          "discount": {
+            "typeId": "cart-discount",
+            "id": "f30d1407-9b25-4a8a-808f-c8f2245fc6c8"
+          },
+          "discountedAmount": {
+            "type": "centPrecision",
+            "currencyCode": "EUR",
+            "centAmount": 5000,
+            "fractionDigits": 2
+          }
+        }
+      ]
+    },
+    "taxedPrice": {
+      "totalNet": {
+        "type": "centPrecision",
+        "currencyCode": "EUR",
+        "centAmount": 4202,
+        "fractionDigits": 2
+      },
+      "totalGross": {
+        "type": "centPrecision",
+        "currencyCode": "EUR",
+        "centAmount": 5000,
+        "fractionDigits": 2
+      },
+      "taxPortions": [
+        {
+          "rate": 0.19,
+          "amount": {
+            "type": "centPrecision",
+            "currencyCode": "EUR",
+            "centAmount": 798,
+            "fractionDigits": 2
+          },
+          "name": "Standard VAT for Germany"
+        }
+      ],
+      "totalTax": {
+        "type": "centPrecision",
+        "currencyCode": "EUR",
+        "centAmount": 798,
+        "fractionDigits": 2
+      }
+    },
+    "shippingMethodState": "MatchesCart"
+  },
+  "shippingAddress": { "country": "DE" },
+  "shipping": [],
+  "customLineItems": [],
+  "discountCodes": [],
+  "directDiscounts": [],
+  "inventoryMode": "None",
+  "taxMode": "Platform",
+  "taxRoundingMode": "HalfEven",
+  "taxCalculationMode": "LineItemLevel",
+  "deleteDaysAfterLastModification": 90,
+  "refusedGifts": [],
+  "origin": "Customer",
+  "itemShippingAddresses": [],
+  "totalLineItemQuantity": 1
+}

@@ -1,0 +1,36 @@
+deployAs:
+  - name: cart-service
+    applicationType: service
+    endpoint: /cart-service
+    scripts:
+      postDeploy: yarn install && yarn build && yarn connector:post-deploy
+      preUndeploy: yarn install && yarn build && yarn connector:pre-undeploy
+    configuration:
+      standardConfiguration:
+        - key: CTP_REGION
+          description: commercetools API region
+          required: true
+          default: "europe-west1.gcp"
+        - key: DOVETECH_API_HOST
+          description: Dovetech Processor API host
+          required: true
+          default: "https://dev-eu-west-2-discounts.dovetech.com"
+        - key: MAPPING_CONFIGURATION
+          description: JSON serialised property mapping configuration
+          required: false
+      securedConfiguration:
+        - key: DOVETECH_API_KEY
+          description: Dovetech Processor API key
+          required: true
+        - key: CTP_PROJECT_KEY
+          description: commercetools project key
+          required: true
+        - key: CTP_CLIENT_ID
+          description: commercetools client ID
+          required: true
+        - key: CTP_CLIENT_SECRET
+          description: commercetools client secret
+          required: true
+        - key: CTP_SCOPES
+          description: commercetools client scopes (e.g. manage_extensions:${project key} manage_types:${project key})
+          required: true

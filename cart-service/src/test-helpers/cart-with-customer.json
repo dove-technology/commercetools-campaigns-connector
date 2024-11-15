@@ -1,0 +1,312 @@
+{
+  "anonymousId": "a953618d-5a79-4719-9db3-743e92779aac",
+  "cartState": "Active",
+  "country": "DE",
+  "createdAt": "2024-11-07T13:10:24.873Z",
+  "createdBy": {
+    "anonymousId": "a953618d-5a79-4719-9db3-743e92779aac",
+    "clientId": "hdnhVyq94LyqSm0wkLV8RF9e",
+    "isPlatformClient": false
+  },
+  "customLineItems": [],
+  "customerEmail": "test@example.com",
+  "customerGroup": {
+    "id": "2a447f5d-7d08-4930-82b6-769baf8874a8",
+    "typeId": "customer-group"
+  },
+  "customerId": "475aaa5e-e4c7-4945-866f-56a184e6ef2b",
+  "deleteDaysAfterLastModification": 90,
+  "directDiscounts": [
+    {
+      "id": "5d55851c-da38-4fa1-bb20-318684fed78a",
+      "references": [],
+      "target": { "predicate": "sku = \"IQB-09\"", "type": "lineItems" },
+      "value": {
+        "money": [
+          {
+            "centAmount": 90000,
+            "currencyCode": "EUR",
+            "fractionDigits": 2,
+            "type": "centPrecision"
+          }
+        ],
+        "type": "absolute"
+      }
+    }
+  ],
+  "discountCodes": [],
+  "id": "3ebd7fcd-35d1-4da5-8265-132d07ce534f",
+  "inventoryMode": "None",
+  "itemShippingAddresses": [],
+  "lastMessageSequenceNumber": 1,
+  "lastModifiedAt": "2024-11-07T14:04:59.823Z",
+  "lastModifiedBy": {
+    "clientId": "hdnhVyq94LyqSm0wkLV8RF9e",
+    "customer": {
+      "id": "475aaa5e-e4c7-4945-866f-56a184e6ef2b",
+      "typeId": "customer"
+    },
+    "isPlatformClient": false
+  },
+  "lineItems": [
+    {
+      "addedAt": "2024-11-07T14:04:54.806Z",
+      "discountedPrice": {
+        "includedDiscounts": [
+          {
+            "discount": {
+              "id": "5d55851c-da38-4fa1-bb20-318684fed78a",
+              "typeId": "direct-discount"
+            },
+            "discountedAmount": {
+              "centAmount": 30000,
+              "currencyCode": "EUR",
+              "fractionDigits": 2,
+              "type": "centPrecision"
+            }
+          }
+        ],
+        "value": {
+          "centAmount": 69900,
+          "currencyCode": "EUR",
+          "fractionDigits": 2,
+          "type": "centPrecision"
+        }
+      },
+      "discountedPricePerQuantity": [
+        {
+          "discountedPrice": {
+            "includedDiscounts": [
+              {
+                "discount": {
+                  "id": "5d55851c-da38-4fa1-bb20-318684fed78a",
+                  "typeId": "direct-discount"
+                },
+                "discountedAmount": {
+                  "centAmount": 30000,
+                  "currencyCode": "EUR",
+                  "fractionDigits": 2,
+                  "type": "centPrecision"
+                }
+              }
+            ],
+            "value": {
+              "centAmount": 69900,
+              "currencyCode": "EUR",
+              "fractionDigits": 2,
+              "type": "centPrecision"
+            }
+          },
+          "quantity": 3
+        }
+      ],
+      "id": "c6fff15e-c2ca-4182-8777-073b2ea49aad",
+      "lastModifiedAt": "2024-11-07T14:27:27.109Z",
+      "lineItemMode": "Standard",
+      "name": {
+        "de-DE": "Queensize-Bett >Serenity<",
+        "en-GB": "Serenity Queen Bed",
+        "en-US": "Serenity Queen Bed"
+      },
+      "perMethodTaxRate": [],
+      "price": {
+        "country": "DE",
+        "id": "18be3cfa-feff-4c06-92e9-eae40f2e1309",
+        "value": {
+          "centAmount": 99900,
+          "currencyCode": "EUR",
+          "fractionDigits": 2,
+          "type": "centPrecision"
+        }
+      },
+      "priceMode": "Platform",
+      "productId": "ce0d8c7f-9d93-4312-af33-e6badfd7720c",
+      "productKey": "serenity-queen-bed",
+      "productSlug": {
+        "de-DE": "gelassenheit-queen-bett",
+        "en-GB": "serenity-queen-bed",
+        "en-US": "serenity-queen-bed"
+      },
+      "productType": {
+        "id": "e04b1724-013c-4d6c-8f53-7a8807fdbe3a",
+        "typeId": "product-type",
+        "version": 1
+      },
+      "quantity": 3,
+      "state": [
+        {
+          "quantity": 3,
+          "state": {
+            "id": "fce0e3a1-1ac3-47e4-b936-89d1a53c9905",
+            "typeId": "state"
+          }
+        }
+      ],
+      "taxRate": {
+        "amount": 0.19,
+        "country": "DE",
+        "id": "U2Vcwxm-",
+        "includedInPrice": true,
+        "key": "vat-standard-de",
+        "name": "Standard VAT for Germany",
+        "subRates": []
+      },
+      "taxedPrice": {
+        "taxPortions": [
+          {
+            "amount": {
+              "centAmount": 33482,
+              "currencyCode": "EUR",
+              "fractionDigits": 2,
+              "type": "centPrecision"
+            },
+            "name": "Standard VAT for Germany",
+            "rate": 0.19
+          }
+        ],
+        "totalGross": {
+          "centAmount": 209700,
+          "currencyCode": "EUR",
+          "fractionDigits": 2,
+          "type": "centPrecision"
+        },
+        "totalNet": {
+          "centAmount": 176218,
+          "currencyCode": "EUR",
+          "fractionDigits": 2,
+          "type": "centPrecision"
+        },
+        "totalTax": {
+          "centAmount": 33482,
+          "currencyCode": "EUR",
+          "fractionDigits": 2,
+          "type": "centPrecision"
+        }
+      },
+      "taxedPricePortions": [],
+      "totalPrice": {
+        "centAmount": 209700,
+        "currencyCode": "EUR",
+        "fractionDigits": 2,
+        "type": "centPrecision"
+      },
+      "variant": {
+        "assets": [],
+        "attributes": [
+          {
+            "name": "productspec",
+            "value": {
+              "de-DE": "- Montage im Lieferumfang enthalten",
+              "en-GB": "- Assembly included in delivery",
+              "en-US": "- Assembly included in delivery"
+            }
+          },
+          {
+            "name": "color",
+            "value": {
+              "de-DE": "Beige:#F5F5DC",
+              "en-GB": "Beige:#F5F5DC",
+              "en-US": "Beige:#F5F5DC"
+            }
+          }
+        ],
+        "availability": {
+          "availableQuantity": 100,
+          "id": "0225dce7-01af-45a5-938f-86f0fb85924f",
+          "isOnStock": true,
+          "version": 1
+        },
+        "id": 1,
+        "images": [
+          {
+            "dimensions": { "h": 2000, "w": 2000 },
+            "url": "https://storage.googleapis.com/merchant-center-europe/sample-data/b2c-lifestyle/Serenity_Queen_Bed-1.1.jpeg"
+          }
+        ],
+        "prices": [
+          {
+            "country": "DE",
+            "id": "18be3cfa-feff-4c06-92e9-eae40f2e1309",
+            "value": {
+              "centAmount": 99900,
+              "currencyCode": "EUR",
+              "fractionDigits": 2,
+              "type": "centPrecision"
+            }
+          },
+          {
+            "country": "GB",
+            "id": "9295e8df-85d4-41e1-af3a-3ee8933a3129",
+            "value": {
+              "centAmount": 99900,
+              "currencyCode": "GBP",
+              "fractionDigits": 2,
+              "type": "centPrecision"
+            }
+          },
+          {
+            "country": "US",
+            "id": "1c570495-c04d-448e-84bf-811ed510ef65",
+            "value": {
+              "centAmount": 99900,
+              "currencyCode": "USD",
+              "fractionDigits": 2,
+              "type": "centPrecision"
+            }
+          }
+        ],
+        "sku": "IQB-09"
+      }
+    }
+  ],
+  "origin": "Customer",
+  "refusedGifts": [],
+  "shipping": [],
+  "shippingAddress": { "country": "DE" },
+  "shippingMode": "Single",
+  "taxCalculationMode": "LineItemLevel",
+  "taxMode": "Platform",
+  "taxRoundingMode": "HalfEven",
+  "taxedPrice": {
+    "taxPortions": [
+      {
+        "amount": {
+          "centAmount": 33482,
+          "currencyCode": "EUR",
+          "fractionDigits": 2,
+          "type": "centPrecision"
+        },
+        "name": "Standard VAT for Germany",
+        "rate": 0.19
+      }
+    ],
+    "totalGross": {
+      "centAmount": 209700,
+      "currencyCode": "EUR",
+      "fractionDigits": 2,
+      "type": "centPrecision"
+    },
+    "totalNet": {
+      "centAmount": 176218,
+      "currencyCode": "EUR",
+      "fractionDigits": 2,
+      "type": "centPrecision"
+    },
+    "totalTax": {
+      "centAmount": 33482,
+      "currencyCode": "EUR",
+      "fractionDigits": 2,
+      "type": "centPrecision"
+    }
+  },
+  "totalLineItemQuantity": 3,
+  "totalPrice": {
+    "centAmount": 209700,
+    "currencyCode": "EUR",
+    "fractionDigits": 2,
+    "type": "centPrecision"
+  },
+  "type": "Cart",
+  "version": 163,
+  "versionModifiedAt": "2024-11-07T14:04:59.823Z"
+}
