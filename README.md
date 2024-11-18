@@ -84,3 +84,11 @@ You can also map array values. So if you wanted to map the UK english `name` pro
 - Fixed price shipping discounts
 - Drag and drop ranking of discounts
 - Create reusable complex expressions that can be used across multiple discounts
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
