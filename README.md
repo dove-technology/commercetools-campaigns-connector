@@ -25,6 +25,21 @@ When a cart is converted to an order, the same flow occurs but the Dovetech serv
 
 This process checks to ensure the total order price hasn't changed (e.g. discounts have expired). If it has changed between the last evaluation of the cart and converting to an order, an error with code `InvalidOperation` will be returned.
 
+## Additional Discount Features Dovetech Supports
+
+- Earning loyalty points on purchases and redeeming loyalty points by applying discounts to carts
+- Easily generate coupon codes within the tooling without having to generate files
+- Coupon codes are assigned to groups and groups can be used as conditions in discounts. You can easily generate more codes in a group.
+- Amount off and Fixed price Multibuy discounts
+- Fixed price shipping discounts
+- Drag and drop ranking of discounts
+- Create reusable complex expressions that can be used across multiple discounts
+
+## Prerequisites
+
+1. Dovetech [account](https://dovetech.com/starter-sign-up) and Processor API Key
+2. commercetools composable commerce [account](https://commercetools.com/free-trial)
+
 ## Limitations
 
 ### Carts with Multiple Shipping Methods
@@ -91,13 +106,3 @@ You can also map array values. So if you wanted to map the UK english `name` pro
 `{ "lineItems[].name.en-GB": "basket.items[].name" }`
 
 **Note, property names are case sensitive.**
-
-## Additional Discount Features Dovetech Supports
-
-- Earning loyalty points on purchases and redeeming loyalty points by applying discounts to carts
-- Easily generate coupon codes within the tooling without having to generate files
-- Coupon codes are assigned to groups and groups can be used as conditions in discounts. You can easily generate more codes in a group.
-- Amount off and Fixed price Multibuy discounts
-- Fixed price shipping discounts
-- Drag and drop ranking of discounts
-- Create reusable complex expressions that can be used across multiple discounts
