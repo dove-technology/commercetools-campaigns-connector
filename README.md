@@ -86,9 +86,14 @@ You can also map array values. So if you wanted to map the UK english `name` pro
 - Create reusable complex expressions that can be used across multiple discounts
 
 ```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
+sequenceDiagram
+    participant ct as commercetools
+    participant conn as commercetools connect service
+    participant dt as Dovetech
+ct->>conn: cart/order
+Note right of ct: API Extension
+conn-->>dt: Request
+dt-->>conn: Response
+conn-->>ct: cart updates
+Note right of ct: Direct Discounts
 ```
