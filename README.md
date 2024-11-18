@@ -90,7 +90,7 @@ sequenceDiagram
     participant ct as commercetools
     participant conn as commercetools connect service
     participant dt as Dovetech
-ct->>conn: cart/order
+ct->>conn: cart
 Note right of ct: API Extension
 conn-->>dt: Request
 dt-->>conn: Response
