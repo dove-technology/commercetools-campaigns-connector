@@ -40,6 +40,23 @@ This process checks to ensure the total order price hasn't changed (e.g. discoun
 1. Dovetech [account](https://dovetech.com/starter-sign-up) and Processor API Key
 2. commercetools composable commerce [account](https://commercetools.com/free-trial)
 
+## Installing the connector
+
+Firstly, you'll need an API client with the `manage_extensions` and `manage_types` permissions.
+
+To install the connector you will need to provide the following configuration settings:
+
+- `DOVETECH_API_HOST` - this is available on the Details tab of the Dovetech Customer Portal
+- `DOVETECH_API_KEY` - this is the Processor API Key from your project in the Dovetech Customer Portal
+- The settings prefixed with `CTP_` should be populated from the API client created above
+- Optional - set any custom mapping rules in `MAPPING_CONFIGURATION` (see the Custom Mapping section below for more details)
+
+As part of the deployment, the `connector:post-deploy` command will be called. This will create the API Extension in commercetools.
+
+## Uninstalling the connector
+
+When you uninstall the connector deployment the `connector:pre-undeploy` command will be called. This will remove the API extension.
+
 ## Limitations
 
 ### Carts with Multiple Shipping Methods
