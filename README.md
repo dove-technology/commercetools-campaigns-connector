@@ -42,7 +42,7 @@ This process checks to ensure the total order price hasn't changed (e.g. discoun
 
 ## Installing the connector
 
-Firstly, you'll need an API client with the `manage_extensions` and `manage_types` permissions.
+Firstly, you'll need a commercetools API client with the `manage_extensions` and `manage_types` permissions.
 
 To install the connector you will need to provide the following configuration settings:
 
