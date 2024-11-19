@@ -1,22 +1,71 @@
 # Dovetech commercetools Connector
 
+## Overview
+
 This project provides a commercetools connector to integrate the Dovetech discounts and loyalty solution into commercetools.
 
 An API extension is used (see [API Extensions](https://docs.commercetools.com/api/projects/api-extensions)) to pass carts and orders to the Dovetech Processor API and apply any discounts returned to the commercetools cart using Direct Discounts. See [Direct Discounts](https://docs.commercetools.com/api/pricing-and-discounts-overview#direct-discounts) for more details.
 
-## Carts with Multiple Shipping Methods
+The diagram below provides an overview of the integration.
+
+```mermaid
+sequenceDiagram
+    participant ct as commercetools
+    participant conn as commercetools connect service
+    participant dt as Dovetech
+ct->>conn: cart
+Note right of ct: API Extension
+conn-->>dt: Request
+dt-->>conn: Response
+conn-->>ct: cart updates
+Note right of ct: Direct Discounts
+```
+
+When a cart is converted to an order, the same flow occurs but the Dovetech service is called in commit mode. This will mark coupon codes as used etc.
+
+This process checks to ensure the total order price hasn't changed (e.g. discounts have expired). If it has changed between the last evaluation of the cart and converting to an order, an error with code `InvalidOperation` will be returned.
+
+## Additional Discount Features Dovetech Supports
+
+- Earning loyalty points on purchases and redeeming loyalty points by applying discounts to carts
+- Easily generate coupon codes within the tooling without having to generate files
+- Coupon codes are assigned to groups and groups can be used as conditions in discounts. You can easily generate more codes in a group.
+- Amount off and Fixed price Multibuy discounts
+- Fixed price shipping discounts
+- Drag and drop ranking of discounts
+- Create reusable complex expressions that can be used across multiple discounts
+
+## Prerequisites
+
+1. Dovetech [account](https://dovetech.com/starter-sign-up) and Processor API Key
+2. commercetools composable commerce [account](https://commercetools.com/free-trial)
+
+## Installing the connector
+
+Firstly, you'll need a commercetools API client with the `manage_extensions` and `manage_types` permissions.
+
+To install the connector you will need to provide the following configuration settings:
+
+- `DOVETECH_API_HOST` - this is available on the Details tab of the Dovetech Customer Portal
+- `DOVETECH_API_KEY` - this is the Processor API Key from your project in the Dovetech Customer Portal
+- The commercetools settings prefixed with `CTP_` should be populated from the API client created above
+- Optional - set any custom mapping rules in `MAPPING_CONFIGURATION` (see the Custom Mapping section below for more details)
+
+As part of the deployment, the `connector:post-deploy` command will be called. This will create the API Extension in commercetools.
+
+## Uninstalling the connector
+
+When you uninstall the connector deployment the `connector:pre-undeploy` command will be called. This will remove the API extension.
+
+## Limitations
+
+### Carts with Multiple Shipping Methods
 
 Carts with multiple Shipping Methods (i.e. carts with a Shipping Mode of `Multiple`) do not have their shipping cost passed to Dovetech so no shipping discounts setup in Dovetech will apply.
 
-## Frozen Carts
+### Frozen Carts
 
 [Frozen carts](https://docs.commercetools.com/api/carts-orders-overview#frozen-carts) are not supported. This is due to the fact that Direct Discounts don't apply to frozen carts. If you freeze a cart that has Direct Discounts applied, the prices are no longer discounted (even though the Direct Discounts are still on the cart). If you unfreeze the cart, the prices will be discounted again.
-
-## Order Placement
-
-When a cart is converted to an order the extension calls the Dovetech service in commit mode. This will mark coupon codes as used etc.
-
-This process checks to ensure the total order price hasn't changed (e.g. discounts have expired). If it has changed between the last evaluation of the cart and converting to an order an error with code `InvalidOperation` will be returned.
 
 ## Running the Connector locally (as an API Extension)
 
@@ -74,13 +123,3 @@ You can also map array values. So if you wanted to map the UK english `name` pro
 `{ "lineItems[].name.en-GB": "basket.items[].name" }`
 
 **Note, property names are case sensitive.**
-
-## Additional Discount Features Dovetech Supports
-
-- Earning loyalty points on purchases and redeeming loyalty points by applying discounts to carts
-- Easily generate coupon codes within the tooling without having to generate files
-- Coupon codes are assigned to groups and groups can be used as conditions in discounts. You can easily generate more codes in a group.
-- Amount off and Fixed price Multibuy discounts
-- Fixed price shipping discounts
-- Drag and drop ranking of discounts
-- Create reusable complex expressions that can be used across multiple discounts
