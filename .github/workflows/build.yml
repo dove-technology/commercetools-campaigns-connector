@@ -20,6 +20,8 @@ jobs:
       - name: Build
         run: yarn build
       - name: Unit Test
+        env:
+          CONNECTOR_BASIC_AUTH_PASSWORD: mockedCPassword
         run: yarn test
       - name: Prettier
         run: yarn prettier
@@ -33,6 +35,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-          CONNECTOR_BASIC_AUTH_PASSWORD: mockedCPassword
         with:
           major-version: 1
