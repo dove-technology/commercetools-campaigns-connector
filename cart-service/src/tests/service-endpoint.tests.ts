@@ -241,6 +241,12 @@ test('should return action to set coupon codes on cart when Dovetech service ret
   });
 });
 
+test('should return 403 if no basic auth is provided', async () => {
+  const response = await request(app).post('/cart-service');
+  expect(response.status).toBe(403);
+  expect(response.body).toEqual({ message: 'Forbidden' });
+});
+
 test('should return 404 when non existing route', async () => {
   const response = await request(app).post('/does-not-exist');
   expect(response.status).toBe(404);
