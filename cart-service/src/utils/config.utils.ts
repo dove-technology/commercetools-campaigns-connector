@@ -12,6 +12,7 @@ export const readConfiguration = (): Configuration => {
     region: process.env.CTP_REGION as string,
     dovetechApiHost: process.env.DOVETECH_API_HOST as string,
     dovetechApiKey: process.env.DOVETECH_API_KEY as string,
+    connectorBasicAuthPassword: process.env.CONNECTOR_BASIC_AUTH_PASSWORD as string
   };
 
   if (process.env.MAPPING_CONFIGURATION) {

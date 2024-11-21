@@ -10,6 +10,7 @@ export const getConfig = (
     region: 'mockedRegion',
     scopes: 'scopes',
     dovetechApiHost: 'https://example.com',
+    connectorBasicAuthPassword: 'mockedCPassword',
     dovetechApiKey: 'API-KEY',
     ...overrides,
   };

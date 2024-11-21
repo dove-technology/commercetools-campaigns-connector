@@ -34,3 +34,6 @@ deployAs:
         - key: CTP_SCOPES
           description: commercetools client scopes (e.g. manage_extensions:${project key} manage_types:${project key})
           required: true
+        - key: CONNECTOR_BASIC_AUTH_PASSWORD
+          description: Basic auth password for the connector to prevent unauthorized access
+          required: true

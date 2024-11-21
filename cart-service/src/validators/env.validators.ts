@@ -47,6 +47,13 @@ const envValidators = [
     message: 'Dovetech API Host is not a valid URL.',
     referencedBy: 'environmentVariables',
   }),
+
+  standardString(['connectorBasicAuthPassword'],{
+    code: 'connectorBasicAuthPassword',
+    message: 'Connector should be a valid authentication password.',
+    referencedBy: 'environmentVariables',
+  },{ min: 10, max: undefined })
+
 ];
 
 export default envValidators;
