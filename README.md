@@ -74,7 +74,7 @@ Carts with multiple Shipping Methods (i.e. carts with a Shipping Mode of `Multip
 - Run `yarn install`
 - Run `yarn build`
 - Run `yarn start` or `yarn start:dev` (for hotloading) to start the server
-- Run `ngrok http 8080` to expose the server to the internet/commercetools
+- Run `ngrok http 8080 --url <your-ngrok-domain-url>` to expose the server to the internet/commercetools
 - Run `yarn connector:post-deploy` to create the API extension in commercetools (note, this won't create a Connect install in this particular situation)
 - Run `yarn connector:pre-undeploy` to clean up the API extension in commercetools
 

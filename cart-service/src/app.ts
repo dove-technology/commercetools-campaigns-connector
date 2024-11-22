@@ -23,9 +23,9 @@ app.post('/cart-service', async (req: Request, res: Response) => {
     return;
   }
 
-  //check if the request header has the correct basic auth password ane return 403 if it does not
+  //check if the request header has the correct basic auth password and return 403 if it does not
 
-  const basicAuthPassword = process.env.CONNECTOR_BASIC_AUTH_PASSWORD;
+  const basicAuthPassword = configuration.connectorBasicAuthPassword;
   const authHeader = req.headers.authorization;
   const encodedPassword = authHeader.split(' ')[1];
   const decodedPassword = Buffer.from(encodedPassword, 'base64').toString('utf-8');

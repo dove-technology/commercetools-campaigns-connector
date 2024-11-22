@@ -52,7 +52,7 @@ const envValidators = [
     code: 'connectorBasicAuthPassword',
     message: 'Connector should be a valid authentication password.',
     referencedBy: 'environmentVariables',
-  },{ min: 10, max: undefined })
+  })
 
 ];
 

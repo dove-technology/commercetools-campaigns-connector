@@ -20,8 +20,6 @@ jobs:
       - name: Build
         run: yarn build
       - name: Unit Test
-        env:
-          CONNECTOR_BASIC_AUTH_PASSWORD: mockedCPassword
         run: yarn test
       - name: Prettier
         run: yarn prettier
