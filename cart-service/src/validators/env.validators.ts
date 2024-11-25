@@ -50,7 +50,7 @@ const envValidators = [
 
   standardString(['connectorBasicAuthPassword'],{
     code: 'connectorBasicAuthPassword',
-    message: 'Connector should be a valid authentication password.',
+    message: 'Basic auth password should be a valid string',
     referencedBy: 'environmentVariables',
   })
 
