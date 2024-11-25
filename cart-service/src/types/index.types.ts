@@ -36,6 +36,7 @@ export interface Configuration {
   region: string;
   dovetechApiHost: string;
   dovetechApiKey: string;
+  connectorBasicAuthPassword: string;
   mappingConfiguration?: object;
 }
 

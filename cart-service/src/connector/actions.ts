@@ -1,4 +1,5 @@
 import { ByProjectKeyRequestBuilder } from '@commercetools/platform-sdk/dist/declarations/src/generated/client/by-project-key-request-builder';
+import { readConfiguration } from '../utils/config.utils';
 import {
   CART_METADATA,
   CART_ACTION,
@@ -14,7 +15,9 @@ export async function createCartUpdateExtension(
   applicationUrl: string
 ): Promise<void> {
   const extension = await getExtension(apiRoot);
-
+  const configuration = readConfiguration();
+  const encodedPassword = Buffer.from(configuration.connectorBasicAuthPassword).toString('base64');
+  
   if (!extension) {
     await apiRoot
       .extensions()
@@ -24,6 +27,10 @@ export async function createCartUpdateExtension(
           destination: {
             type: 'HTTP',
             url: applicationUrl,
+            authentication: {
+              type: 'AuthorizationHeader',
+              headerValue: `Basic ${encodedPassword}`,
+            },
           },
           triggers: [
             {
