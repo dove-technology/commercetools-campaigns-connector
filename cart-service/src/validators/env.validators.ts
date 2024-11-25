@@ -3,6 +3,7 @@ import {
   standardKey,
   standardUrl,
   optional,
+  longString,
 } from './helpers.validators';
 
 const envValidators = [
@@ -48,9 +49,9 @@ const envValidators = [
     referencedBy: 'environmentVariables',
   }),
 
-  standardString(['basicAuthPwdCurrent'],{
-    code: 'connectorBasicAuthPassword',
-    message: 'Basic auth password should be a valid string',
+  longString(['basicAuthPwdCurrent'],{
+    code: 'basicAuthPwdCurrent',
+    message: 'Basic auth current password should be a valid string',
     referencedBy: 'environmentVariables',
   })
 
