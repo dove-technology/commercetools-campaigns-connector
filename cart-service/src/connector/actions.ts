@@ -16,7 +16,7 @@ export async function createCartUpdateExtension(
 ): Promise<void> {
   const extension = await getExtension(apiRoot);
   const configuration = readConfiguration();
-  const encodedPassword = Buffer.from(configuration.connectorBasicAuthPassword).toString('base64');
+  const encodedPassword = Buffer.from(configuration.basicAuthPwdCurrent).toString('base64');
   
   if (!extension) {
     await apiRoot

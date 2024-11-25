@@ -247,6 +247,28 @@ test('should return 403 if no basic auth is provided', async () => {
   expect(response.body).toEqual({ message: 'Forbidden' });
 });
 
+test('should return 403 if incorrect basic auth is provided', async () => {
+  const response = await request(app).post('/cart-service').set('Authorization', 'Basic 123');
+  expect(response.status).toBe(403);
+  expect(response.body).toEqual({ message: 'Forbidden' });
+});
+
+test ('should return valid response if the correct basic auth is the current password', async () => {
+  const basicAuthPassword = readConfiguration().basicAuthPwdCurrent;
+  const response = await request(app).post('/cart-service').set('Authorization', 'Basic ' + Buffer.from(basicAuthPassword).toString('base64'));
+
+  //expecting 400 because the request body is empty
+  expect(response.status).toBe(400);
+});
+
+test ('should return valid response if the correct basic auth is the previous password', async () => {
+  const basicAuthPassword = readConfiguration().basicAuthPwdPrevious;
+  const response = await request(app).post('/cart-service').set('Authorization', 'Basic ' + Buffer.from(basicAuthPassword).toString('base64'));
+
+  //expecting 400 because the request body is empty
+  expect(response.status).toBe(400);
+});
+
 test('should return 404 when non existing route', async () => {
   const response = await request(app).post('/does-not-exist');
   expect(response.status).toBe(404);
@@ -256,7 +278,7 @@ test('should return 404 when non existing route', async () => {
 });
 
 test('should return 400 bad request when post invalid resource', async () => {
-  const basicAuthPassword = readConfiguration().connectorBasicAuthPassword;
+  const basicAuthPassword = readConfiguration().basicAuthPwdCurrent;
   const response = await request(app)
     .post('/cart-service')
     .set('Authorization', 'Basic ' + Buffer.from(basicAuthPassword).toString('base64'))
@@ -372,7 +394,7 @@ test('should reject order if aggregate-total-mismatch error returned', async () 
 
 const postCart = async (cartOrOrder: CartOrOrder) => {
 
-  const basicAuthPassword = readConfiguration().connectorBasicAuthPassword;
+  const basicAuthPassword = readConfiguration().basicAuthPwdCurrent;
 
   return await request(app)
     .post('/cart-service')

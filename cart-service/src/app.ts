@@ -24,17 +24,17 @@ app.post('/cart-service', async (req: Request, res: Response) => {
   }
 
   //check if the request header has the correct basic auth password and return 403 if it does not
+  const currentBasicAuthPassword = configuration.basicAuthPwdCurrent;
+  const previousBasicAuthPassword = configuration.basicAuthPwdPrevious;
 
-  const basicAuthPassword = configuration.connectorBasicAuthPassword;
   const authHeader = req.headers.authorization;
   const encodedPassword = authHeader.split(' ')[1];
   const decodedPassword = Buffer.from(encodedPassword, 'base64').toString('utf-8');
-  if (decodedPassword !== basicAuthPassword) {
+
+  if (decodedPassword !== currentBasicAuthPassword && decodedPassword !== previousBasicAuthPassword) {
     setErrorResponse(res, 403, 'Forbidden');
     return;
   }
-
-
 
   const { resource } = req.body;
 

@@ -48,7 +48,7 @@ const envValidators = [
     referencedBy: 'environmentVariables',
   }),
 
-  standardString(['connectorBasicAuthPassword'],{
+  standardString(['basicAuthPwdCurrent'],{
     code: 'connectorBasicAuthPassword',
     message: 'Basic auth password should be a valid string',
     referencedBy: 'environmentVariables',
