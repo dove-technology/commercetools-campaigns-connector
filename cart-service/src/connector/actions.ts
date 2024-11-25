@@ -14,17 +14,21 @@ export async function createCartUpdateExtension(
   applicationUrl: string
 ): Promise<void> {
   const extension = await getExtension(apiRoot);
+  const encodedPassword = Buffer.from(process.env.CONNECTOR_BASIC_AUTH_PASSWORD!).toString('base64');
   
   if (!extension) {
     await apiRoot
       .extensions()
       .post({
-        headers: {'Authorization': 'Basic ' + Buffer.from(process.env.CONNECTOR_BASIC_AUTH_PASSWORD!).toString('base64')},
         body: {
           key: CART_EXTENSION_KEY,
           destination: {
             type: 'HTTP',
             url: applicationUrl,
+            authentication: {
+              type: 'AuthorizationHeader',
+              headerValue: `Basic ${encodedPassword}`,
+            },
           },
           triggers: [
             {
