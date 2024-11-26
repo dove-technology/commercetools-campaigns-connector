@@ -7,6 +7,7 @@ import {
   EVALUATION_RESPONSE,
   EVALUATION_CURRENCY,
 } from '../lib/cart-constants';
+import { ExtensionDestination } from '@commercetools/platform-sdk';
 
 const CART_EXTENSION_KEY = 'dovetech-discountsExtension';
 
@@ -14,24 +15,27 @@ export async function createCartUpdateExtension(
   apiRoot: ByProjectKeyRequestBuilder,
   applicationUrl: string
 ): Promise<void> {
+  
   const extension = await getExtension(apiRoot);
   const configuration = readConfiguration();
   const encodedPassword = Buffer.from(configuration.basicAuthPwdCurrent).toString('base64');
-  
+
+  const destination : ExtensionDestination= {
+    type: 'HTTP',
+    url: applicationUrl,
+    authentication: {
+      type: 'AuthorizationHeader',
+      headerValue: `Basic ${encodedPassword}`,
+    },
+  };
+
   if (!extension) {
     await apiRoot
       .extensions()
       .post({
         body: {
           key: CART_EXTENSION_KEY,
-          destination: {
-            type: 'HTTP',
-            url: applicationUrl,
-            authentication: {
-              type: 'AuthorizationHeader',
-              headerValue: `Basic ${encodedPassword}`,
-            },
-          },
+          destination: destination,
           triggers: [
             {
               resourceTypeId: 'cart',
@@ -45,6 +49,23 @@ export async function createCartUpdateExtension(
         },
       })
       .execute();
+  }else{
+    await apiRoot
+      .extensions()
+      .withKey({ key: CART_EXTENSION_KEY })
+      .post({
+        body:{
+          version: extension.version ,
+          actions:[
+            {
+              action: 'changeDestination',
+              destination:destination,
+            }
+          ]
+        }
+      })
+      .execute();
+
   }
 }
 
