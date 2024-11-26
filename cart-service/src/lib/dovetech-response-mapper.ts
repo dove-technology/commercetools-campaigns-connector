@@ -142,16 +142,22 @@ const buildSetDirectDiscountForBasket = (
   const fractionDigits = commerceToolsCart.totalPrice.fractionDigits;
 
   const discountActions = dtBasketItems
-    .filter((item) => item.totalAmountOff > 0)
     .map((item, index) => {
+      // line items from Dovetech are returned in the same order as they are passed in
       const ctLineItem = commerceToolsCart.lineItems[index];
+
+      if (item.totalAmountOff === 0) {
+        return undefined;
+      }
+
       return buildSetDirectDiscountForLineItem(
         item,
         ctLineItem,
         currencyCode,
         fractionDigits
       );
-    });
+    })
+    .filter((item) => item !== undefined) as DirectDiscountDraft[];
 
   return discountActions;
 };

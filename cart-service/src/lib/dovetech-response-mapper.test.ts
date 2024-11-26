@@ -19,6 +19,7 @@ import { CartSetDirectDiscountsAction } from '@commercetools/platform-sdk';
 import crypto from 'crypto';
 import {
   buildAmountOffBasketAction,
+  buildAmountOffLineItemAction,
   buildAmountOffCostAction,
 } from '../test-helpers/dovetech-action-builders';
 import * as cartWithSingleShippingModeDiscounted from '../test-helpers/cart-with-single-shipping-mode-discounted.json';
@@ -39,7 +40,7 @@ it('should return no actions if there are no line items or shipping methods', ()
   });
 });
 
-it('should map DoveTech line item discounts to line item direct discounts', () => {
+it('should map DoveTech Amount off Basket apportioned line item amounts to line item direct discounts', () => {
   const currencyCode = 'USD';
   const originalLineItemCentAmount = 4000;
 
@@ -90,6 +91,75 @@ it('should map DoveTech line item discounts to line item direct discounts', () =
         target: {
           type: 'lineItems',
           predicate: `sku = "${lineItem.variant.sku}"`,
+        },
+      },
+    ],
+  };
+
+  const result = map(dtResponse, ctCart);
+
+  expect(result).toEqual({
+    success: true,
+    actions: expect.arrayContaining([expectedAction]),
+  });
+});
+
+it('should map DoveTech Amount off Line Item discounts to line item direct discounts', () => {
+  const currencyCode = 'USD';
+
+  const lineItem1 = new CommerceToolsLineItemBuilder(
+    4000,
+    currencyCode
+  ).build();
+
+  const lineItem2 = new CommerceToolsLineItemBuilder(
+    3000,
+    currencyCode
+  ).build();
+
+  const ctCart = new CommerceToolsCartBuilder(currencyCode)
+    .addLineItem(lineItem1)
+    .addLineItem(lineItem2)
+    .build();
+
+  const amountOffLineItem: AmountOffAction = buildAmountOffLineItemAction(10);
+
+  const dtResponse = new DoveTechResponseBuilder()
+    .addAction(amountOffLineItem)
+    .addLineItem({
+      totalAmountOff: 0,
+      total: 40,
+      actions: [],
+    })
+    .addLineItem({
+      totalAmountOff: amountOffLineItem.amountOff,
+      total: 20,
+      actions: [
+        {
+          id: amountOffLineItem.id,
+          subItemId: 0,
+          amountOff: amountOffLineItem.amountOff,
+        },
+      ],
+    })
+    .build();
+
+  const expectedAction: CartSetDirectDiscountsAction = {
+    action: 'setDirectDiscounts',
+    discounts: [
+      {
+        value: {
+          type: 'absolute',
+          money: [
+            {
+              centAmount: 1000,
+              currencyCode: 'USD',
+            },
+          ],
+        },
+        target: {
+          type: 'lineItems',
+          predicate: `sku = "${lineItem2.variant.sku}"`,
         },
       },
     ],
