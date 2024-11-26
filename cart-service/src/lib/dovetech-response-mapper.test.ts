@@ -17,11 +17,7 @@ import {
 } from '../types/custom-commerce-tools.types';
 import { CartSetDirectDiscountsAction } from '@commercetools/platform-sdk';
 import crypto from 'crypto';
-import {
-  buildAmountOffBasketAction,
-  buildAmountOffLineItemAction,
-  buildAmountOffCostAction,
-} from '../test-helpers/dovetech-action-builders';
+import { buildAmountOffAction } from '../test-helpers/dovetech-action-builders';
 import * as cartWithSingleShippingModeDiscounted from '../test-helpers/cart-with-single-shipping-mode-discounted.json';
 import * as cartWithSingleShippingModeDirectDiscounts from '../test-helpers/cart-with-single-shipping-mode-direct-discounts.json';
 import { SHIPPING_COST_NAME } from './dovetech-property-constants';
@@ -57,8 +53,10 @@ it('should map DoveTech Amount off Basket apportioned line item amounts to line 
     .addLineItem(lineItem)
     .build();
 
-  const amountOffBasketAction: AmountOffAction =
-    buildAmountOffBasketAction(amountOff);
+  const amountOffBasketAction: AmountOffAction = buildAmountOffAction(
+    DoveTechActionType.AmountOffBasket,
+    amountOff
+  );
 
   const dtResponse = new DoveTechResponseBuilder()
     .addAction(amountOffBasketAction)
@@ -122,7 +120,10 @@ it('should map DoveTech Amount off Line Item discounts to line item direct disco
     .addLineItem(lineItem2)
     .build();
 
-  const amountOffLineItem: AmountOffAction = buildAmountOffLineItemAction(10);
+  const amountOffLineItem: AmountOffAction = buildAmountOffAction(
+    DoveTechActionType.AmountOffLineItem,
+    10
+  );
 
   const dtResponse = new DoveTechResponseBuilder()
     .addAction(amountOffLineItem)
@@ -197,8 +198,10 @@ it.each([
       .addLineItem(lineItem)
       .build();
 
-    const amountOffBasketAction: AmountOffAction =
-      buildAmountOffBasketAction(amountOff);
+    const amountOffBasketAction: AmountOffAction = buildAmountOffAction(
+      DoveTechActionType.AmountOffBasket,
+      amountOff
+    );
 
     const dtResponse = new DoveTechResponseBuilder()
       .addAction(amountOffBasketAction)
@@ -264,8 +267,10 @@ it('should return direct discounts correctly for multiple line items', () => {
     .addLineItem(lineItem2)
     .build();
 
-  const amountOffBasketAction: AmountOffAction =
-    buildAmountOffBasketAction(amountOff);
+  const amountOffBasketAction: AmountOffAction = buildAmountOffAction(
+    DoveTechActionType.AmountOffBasket,
+    amountOff
+  );
 
   const dtResponse = new DoveTechResponseBuilder()
     .addAction(amountOffBasketAction)
@@ -507,7 +512,8 @@ describe('shipping costs', () => {
 
     // original shipping amount is 10000
 
-    const amountOffCostAction: AmountOffAction = buildAmountOffCostAction(
+    const amountOffCostAction: AmountOffAction = buildAmountOffAction(
+      DoveTechActionType.AmountOffCost,
       amountOffInCurrencyUnits
     );
 
