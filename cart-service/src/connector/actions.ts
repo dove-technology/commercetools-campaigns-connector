@@ -15,12 +15,12 @@ export async function createCartUpdateExtension(
   apiRoot: ByProjectKeyRequestBuilder,
   applicationUrl: string
 ): Promise<void> {
-  
+
   const extension = await getExtension(apiRoot);
   const configuration = readConfiguration();
   const encodedPassword = Buffer.from(configuration.basicAuthPwdCurrent).toString('base64');
 
-  const destination : ExtensionDestination= {
+  const destination : ExtensionDestination = {
     type: 'HTTP',
     url: applicationUrl,
     authentication: {

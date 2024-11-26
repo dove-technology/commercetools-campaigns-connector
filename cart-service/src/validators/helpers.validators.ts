@@ -28,21 +28,6 @@ export const standardString: ValidatorCreator = (
   ],
 ];
 
-export const longString: ValidatorCreator = (
-  path,
-  message,
-  overrideConfig = {}
-) => [
-  path,
-  [
-    [
-      required(validator.isLength),
-      message,
-      [{ min: 2, max: 50, ...overrideConfig }],
-    ],
-  ],
-];
-
 export const standardEmail: ValidatorCreator = (path, message) => [
   path,
   [[required(validator.isEmail), message]],
