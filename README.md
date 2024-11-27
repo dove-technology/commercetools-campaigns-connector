@@ -58,6 +58,14 @@ As part of the deployment, the `connector:post-deploy` command will be called. T
 
 When you uninstall the connector deployment the `connector:pre-undeploy` command will be called. This will remove the API extension.
 
+## Demo
+
+For an example of using the connector, see the [demo repo](https://github.com/dove-technology/commercetools-campaigns-connector-demo).
+
+## Coupon Codes
+
+See the [Coupon Codes](https://github.com/dove-technology/commercetools-campaigns-connector-demo?tab=readme-ov-file#coupon-codes) section of the demo readme for more information on how to use coupon codes.
+
 ## Limitations
 
 ### Carts with Multiple Shipping Methods
