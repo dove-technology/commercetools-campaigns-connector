@@ -5,6 +5,7 @@
   "main": "index.js",
   "private": true,
   "scripts": {
+    "postinstall": "cd .. && husky ./cart-service/.husky",
     "start": "node build/index.js",
     "gcp-build": "tsc",
     "start:dev": "concurrently -k \"tsc --watch\" \"nodemon -q build/index.js\"",
@@ -32,6 +33,7 @@
     "@typescript-eslint/parser": "^8.9.0",
     "concurrently": "^9.0.1",
     "eslint": "^9.12.0",
+    "husky": "^9.1.7",
     "jest": "^29.6.2",
     "jest-fetch-mock": "^3.0.3",
     "nodemon": "^3.0.1",
