@@ -6,6 +6,7 @@ import {
   COUPON_CODES,
   EVALUATION_RESPONSE,
   EVALUATION_CURRENCY,
+  COMMIT_ID,
 } from '../lib/cart-constants';
 import { ExtensionDestination } from '@commercetools/platform-sdk';
 
@@ -156,6 +157,17 @@ export async function createCustomTypes(
               required: false,
               inputHint: 'SingleLine',
             },
+            {
+              type: {
+                name: 'String',
+              },
+              name: COMMIT_ID,
+              label: {
+                en: 'Dovetech Discounts Commit ID',
+              },
+              required: false,
+              inputHint: 'SingleLine',
+            }
           ],
         },
       })
