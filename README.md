@@ -58,6 +58,31 @@ As part of the deployment, the `connector:post-deploy` command will be called. T
 
 When you uninstall the connector deployment the `connector:pre-undeploy` command will be called. This will remove the API extension.
 
+## Demo
+
+For an example of using the connector, see the [demo repo](https://github.com/dove-technology/commercetools-campaigns-connector-demo).
+
+## Coupon Codes
+
+Coupon codes are stored on the cart using the `dovetech-discounts-couponCodes` custom field. This is an array of coupon code objects serialised in JSON.
+
+Coupon codes are added to the cart using the `dovetech-discounts-cartAction` custom field. This is a JSON object with the following structure:
+
+```json
+{
+  "type": "addCouponCode",
+  "code": "CODE"
+}
+```
+
+When a call is made to update the cart, commercetools calls the service in the Dovetech connector (using an API extension) to validate the coupon code.
+
+Valid coupon codes are added to the `dovetech-discounts-couponCodes` field.
+
+If a coupon code isn't valid an error with status 400 is returned and the coupon code is not added to the cart.
+
+Coupon codes can be removed from the cart by updating the `dovetech-discounts-couponCodes` custom field.
+
 ## Limitations
 
 ### Carts with Multiple Shipping Methods
