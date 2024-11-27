@@ -1,0 +1,1 @@
+cd cart-service && yarn lint

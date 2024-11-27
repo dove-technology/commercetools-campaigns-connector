@@ -56,8 +56,7 @@ const envValidators = [
       referencedBy: 'environmentVariables',
     },
     { min: 1, max: 50 }
-  )
-
+  ),
 ];
 
 export default envValidators;

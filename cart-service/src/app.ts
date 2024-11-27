@@ -16,7 +16,6 @@ app.disable('x-powered-by');
 app.use(bodyParser.json());
 
 app.post('/cart-service', async (req: Request, res: Response) => {
-
   //check if the request has a basic auth header
   if (!req.headers.authorization) {
     setErrorResponse(res, 403, 'Forbidden');
@@ -29,9 +28,14 @@ app.post('/cart-service', async (req: Request, res: Response) => {
 
   const authHeader = req.headers.authorization;
   const encodedPassword = authHeader.split(' ')[1];
-  const decodedPassword = Buffer.from(encodedPassword, 'base64').toString('utf-8');
+  const decodedPassword = Buffer.from(encodedPassword, 'base64').toString(
+    'utf-8'
+  );
 
-  if (decodedPassword !== currentBasicAuthPassword && decodedPassword !== previousBasicAuthPassword) {
+  if (
+    decodedPassword !== currentBasicAuthPassword &&
+    decodedPassword !== previousBasicAuthPassword
+  ) {
     setErrorResponse(res, 403, 'Forbidden');
     return;
   }
