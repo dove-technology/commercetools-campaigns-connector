@@ -17,10 +17,7 @@ import {
   CartActionType,
   CartOrOrder,
 } from '../types/custom-commerce-tools.types';
-import {
-  buildAmountOffBasketAction,
-  buildAmountOffCostAction,
-} from '../test-helpers/dovetech-action-builders';
+import { buildAmountOffAction } from '../test-helpers/dovetech-action-builders';
 import { SHIPPING_COST_NAME } from '../lib/dovetech-property-constants';
 import * as cartWithSingleShippingModeDiscounted from '../test-helpers/cart-with-single-shipping-mode-discounted.json';
 import * as orderWithEvaluationResult from '../test-helpers/order-with-evaluation-result.json';
@@ -64,8 +61,10 @@ test('should return set direct discount line item actions when Dovetech service 
     .addLineItem(lineItem)
     .build();
 
-  const amountOffBasketAction: AmountOffAction =
-    buildAmountOffBasketAction(amountOff);
+  const amountOffBasketAction: AmountOffAction = buildAmountOffAction(
+    DoveTechActionType.AmountOffBasket,
+    amountOff
+  );
 
   const dtResponse = new DoveTechResponseBuilder()
     .addAction(amountOffBasketAction)
@@ -123,9 +122,13 @@ test('should return set direct discounts when Dovetech service returns discounte
 
   const ctCart = cartWithSingleShippingModeDiscounted as CartOrOrder;
 
-  const amountOffBasketAction: AmountOffAction = buildAmountOffBasketAction(2);
+  const amountOffBasketAction: AmountOffAction = buildAmountOffAction(
+    DoveTechActionType.AmountOffBasket,
+    2
+  );
 
-  const amountOffCostAction: AmountOffAction = buildAmountOffCostAction(
+  const amountOffCostAction: AmountOffAction = buildAmountOffAction(
+    DoveTechActionType.AmountOffCost,
     amountOffShippingInCurrencyUnits
   );
 
@@ -248,22 +251,34 @@ test('should return 403 if no basic auth is provided', async () => {
 });
 
 test('should return 403 if incorrect basic auth is provided', async () => {
-  const response = await request(app).post('/cart-service').set('Authorization', 'Basic 123');
+  const response = await request(app)
+    .post('/cart-service')
+    .set('Authorization', 'Basic 123');
   expect(response.status).toBe(403);
   expect(response.body).toEqual({ message: 'Forbidden' });
 });
 
-test ('should return valid response if the correct basic auth is the current password', async () => {
+test('should return valid response if the correct basic auth is the current password', async () => {
   const basicAuthPassword = readConfiguration().basicAuthPwdCurrent;
-  const response = await request(app).post('/cart-service').set('Authorization', 'Basic ' + Buffer.from(basicAuthPassword).toString('base64'));
+  const response = await request(app)
+    .post('/cart-service')
+    .set(
+      'Authorization',
+      'Basic ' + Buffer.from(basicAuthPassword).toString('base64')
+    );
 
   //expecting 400 because the request body is empty
   expect(response.status).toBe(400);
 });
 
-test ('should return valid response if the correct basic auth is the previous password', async () => {
+test('should return valid response if the correct basic auth is the previous password', async () => {
   const basicAuthPassword = readConfiguration().basicAuthPwdPrevious;
-  const response = await request(app).post('/cart-service').set('Authorization', 'Basic ' + Buffer.from(basicAuthPassword).toString('base64'));
+  const response = await request(app)
+    .post('/cart-service')
+    .set(
+      'Authorization',
+      'Basic ' + Buffer.from(basicAuthPassword).toString('base64')
+    );
 
   //expecting 400 because the request body is empty
   expect(response.status).toBe(400);
@@ -281,7 +296,10 @@ test('should return 400 bad request when post invalid resource', async () => {
   const basicAuthPassword = readConfiguration().basicAuthPwdCurrent;
   const response = await request(app)
     .post('/cart-service')
-    .set('Authorization', 'Basic ' + Buffer.from(basicAuthPassword).toString('base64'))
+    .set(
+      'Authorization',
+      'Basic ' + Buffer.from(basicAuthPassword).toString('base64')
+    )
     .send({});
 
   expect(response.status).toBe(400);
@@ -330,8 +348,10 @@ test('should return no actions when type is Order', async () => {
 
   const ctCart = orderWithEvaluationResult as CartOrOrder;
 
-  const amountOffBasketAction: AmountOffAction =
-    buildAmountOffBasketAction(amountOff);
+  const amountOffBasketAction: AmountOffAction = buildAmountOffAction(
+    DoveTechActionType.AmountOffBasket,
+    amountOff
+  );
 
   const dtResponse = new DoveTechResponseBuilder()
     .addAction(amountOffBasketAction)
@@ -393,12 +413,14 @@ test('should reject order if aggregate-total-mismatch error returned', async () 
 });
 
 const postCart = async (cartOrOrder: CartOrOrder) => {
-
   const basicAuthPassword = readConfiguration().basicAuthPwdCurrent;
 
   return await request(app)
     .post('/cart-service')
-    .set('Authorization', 'Basic ' + Buffer.from(basicAuthPassword).toString('base64'))
+    .set(
+      'Authorization',
+      'Basic ' + Buffer.from(basicAuthPassword).toString('base64')
+    )
     .send({
       resource: {
         obj: cartOrOrder,

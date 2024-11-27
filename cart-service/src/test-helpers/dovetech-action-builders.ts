@@ -4,7 +4,8 @@ import {
   DoveTechActionType,
 } from '../types/dovetech.types';
 
-export const buildAmountOffBasketAction = (
+export const buildAmountOffAction = (
+  type: DoveTechActionType,
   amountOff: number,
   value = amountOff
 ): AmountOffAction => {
@@ -12,21 +13,7 @@ export const buildAmountOffBasketAction = (
     id: crypto.randomUUID(),
     amountOff: amountOff,
     discountId: crypto.randomUUID(),
-    type: DoveTechActionType.AmountOffBasket,
-    amountOffType: AmountOffType.AmountOff,
-    value,
-  };
-};
-
-export const buildAmountOffCostAction = (
-  amountOff: number,
-  value = amountOff
-): AmountOffAction => {
-  return {
-    id: crypto.randomUUID(),
-    amountOff: amountOff,
-    discountId: crypto.randomUUID(),
-    type: DoveTechActionType.AmountOffCost,
+    type: type,
     amountOffType: AmountOffType.AmountOff,
     value,
   };
