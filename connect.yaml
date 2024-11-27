@@ -14,7 +14,6 @@ deployAs:
         - key: DOVETECH_API_HOST
           description: Dovetech Processor API host
           required: true
-          default: "https://dev-eu-west-2-discounts.dovetech.com"
         - key: MAPPING_CONFIGURATION
           description: JSON serialised property mapping configuration
           required: false
@@ -36,7 +35,7 @@ deployAs:
           required: true
         - key: BASIC_AUTH_PASSWORD_CURRENT
           description: Basic auth password for the connector to prevent unauthorized access. Use this to set a password for the first time or to change the password
-          required: true       
+          required: true
         - key: BASIC_AUTH_PASSWORD_PREVIOUS
           description: Basic auth password for the connector to prevent unauthorized access. Use this to ensure safe rotation of the password
           required: false
