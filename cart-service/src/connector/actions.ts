@@ -15,12 +15,13 @@ export async function createCartUpdateExtension(
   apiRoot: ByProjectKeyRequestBuilder,
   applicationUrl: string
 ): Promise<void> {
-
   const extension = await getExtension(apiRoot);
   const configuration = readConfiguration();
-  const encodedPassword = Buffer.from(configuration.basicAuthPwdCurrent).toString('base64');
+  const encodedPassword = Buffer.from(
+    configuration.basicAuthPwdCurrent
+  ).toString('base64');
 
-  const destination : ExtensionDestination = {
+  const destination: ExtensionDestination = {
     type: 'HTTP',
     url: applicationUrl,
     authentication: {
@@ -49,23 +50,22 @@ export async function createCartUpdateExtension(
         },
       })
       .execute();
-  }else{
+  } else {
     await apiRoot
       .extensions()
       .withKey({ key: CART_EXTENSION_KEY })
       .post({
-        body:{
-          version: extension.version ,
-          actions:[
+        body: {
+          version: extension.version,
+          actions: [
             {
               action: 'changeDestination',
-              destination:destination,
-            }
-          ]
-        }
+              destination: destination,
+            },
+          ],
+        },
       })
       .execute();
-
   }
 }
 
