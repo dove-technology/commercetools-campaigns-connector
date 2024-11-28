@@ -474,7 +474,7 @@ it('CouponCodeRejected action for existing coupon code should remove coupon code
   });
 });
 
-it('no actions should be returned if type is Order', () => {
+it('should return setCustomType action including commitId field if type is Order', () => {
   const currencyCode = 'USD';
   const originalLineItemCentAmount = 40000;
 
@@ -489,6 +489,7 @@ it('no actions should be returned if type is Order', () => {
     .build();
 
   const dtResponse = new DoveTechResponseBuilder()
+    .addCommitId('123')
     .addLineItem({
       totalAmountOff: 0,
       total: 30,
