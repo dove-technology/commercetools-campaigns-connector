@@ -13,7 +13,7 @@ export const readConfiguration = (): Configuration => {
     dovetechApiHost: process.env.DOVETECH_API_HOST as string,
     dovetechApiKey: process.env.DOVETECH_API_KEY as string,
     basicAuthPwdCurrent: process.env.BASIC_AUTH_PASSWORD_CURRENT as string,
-    basicAuthPwdPrevious: process.env.BASIC_AUTH_PASSWORD_PREVIOUS as string
+    basicAuthPwdPrevious: process.env.BASIC_AUTH_PASSWORD_PREVIOUS as string,
   };
 
   if (process.env.MAPPING_CONFIGURATION) {

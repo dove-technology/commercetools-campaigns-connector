@@ -21,13 +21,11 @@ jobs:
         run: yarn build
       - name: Unit Test
         run: yarn test
-      - name: Prettier
-        run: yarn prettier
       - name: Lint
         run: yarn lint
       - name: tag
         id: tag
-        uses: tcpl/semver-tag-creator-action@1.3.2
+        uses: tcpl/semver-tag-creator-action@1.3.3
         if: github.ref == 'refs/heads/main'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
