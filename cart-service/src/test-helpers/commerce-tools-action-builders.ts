@@ -4,7 +4,7 @@ import {
   COUPON_CODES,
   EVALUATION_CURRENCY,
   EVALUATION_RESPONSE,
-  COMMIT_ID
+  COMMIT_ID,
 } from '../lib/cart-constants';
 import { DoveTechDiscountsResponse } from '../types/dovetech.types';
 
@@ -13,7 +13,6 @@ export const buildSetCustomTypeAction = (
   currencyCode: string,
   serialisedCouponCodes: string
 ): CartSetCustomTypeAction => {
-
   const fields: { [key: string]: string } = {
     [COUPON_CODES]: `${serialisedCouponCodes}`,
     [EVALUATION_RESPONSE]: JSON.stringify(dtResponse),
@@ -30,6 +29,6 @@ export const buildSetCustomTypeAction = (
       key: CART_METADATA,
       typeId: 'type',
     },
-    fields: fields
+    fields: fields,
   };
 };

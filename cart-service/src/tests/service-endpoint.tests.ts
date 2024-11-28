@@ -273,9 +273,7 @@ test('should return setCustomType action including commitId field if type is Ord
   expect(response.status).toBe(200);
 
   expect(response.body).toEqual({
-    actions: [
-      buildSetCustomTypeAction(  dtResponse, currencyCode, '[]' ),
-    ],
+    actions: [buildSetCustomTypeAction(dtResponse, currencyCode, '[]')],
   });
 });
 
@@ -316,7 +314,6 @@ test('should return no coupocode accepted actions when type is Order', async () 
     actions: [buildSetCustomTypeAction(dtResponse, currencyCode, '[]')],
   });
 });
-
 
 test('should return 403 if no basic auth is provided', async () => {
   const response = await request(app).post('/cart-service');

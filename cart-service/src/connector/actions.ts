@@ -113,7 +113,8 @@ export async function createCustomTypes(
           },
           resourceTypeIds: ['order'],
           fieldDefinitions: [
-            { name: COUPON_CODES,
+            {
+              name: COUPON_CODES,
               type: {
                 name: 'String',
               },
@@ -123,7 +124,8 @@ export async function createCustomTypes(
               required: false,
               inputHint: 'SingleLine',
             },
-            { name: CART_ACTION,
+            {
+              name: CART_ACTION,
               type: {
                 name: 'String',
               },
@@ -133,36 +135,39 @@ export async function createCustomTypes(
               required: false,
               inputHint: 'SingleLine',
             },
-            { name: EVALUATION_RESPONSE,
+            {
+              name: EVALUATION_RESPONSE,
               type: {
                 name: 'String',
-              },             
+              },
               label: {
                 en: 'Dovetech Evaluation Result',
               },
               required: false,
               inputHint: 'SingleLine',
             },
-            { name: EVALUATION_CURRENCY,
+            {
+              name: EVALUATION_CURRENCY,
               type: {
                 name: 'String',
-              },            
+              },
               label: {
                 en: 'Dovetech Evaluation Currency',
               },
               required: false,
               inputHint: 'SingleLine',
             },
-            { name: COMMIT_ID,
+            {
+              name: COMMIT_ID,
               type: {
                 name: 'String',
-              }, 
+              },
               label: {
                 en: 'Dovetech Commit ID',
               },
               required: false,
               inputHint: 'SingleLine',
-            }
+            },
           ],
         },
       })

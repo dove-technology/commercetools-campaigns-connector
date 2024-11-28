@@ -50,16 +50,14 @@ export default (
   dtResponse: DoveTechDiscountsResponse,
   commerceToolsCart: CartOrOrder
 ): ExtensionResponse => {
-
   const actions: CartUpdateAction[] = [];
-  let commitId : string | null = null;
+  let commitId: string | null = null;
 
   if (commerceToolsCart.type !== 'Order') {
-
     const couponCodeRejectedActions = dtResponse.actions.filter(
       (a) => a.type === DoveTechActionType.CouponCodeRejected
     ) as CouponCodeRejectedAction[];
-  
+
     if (newCouponCodeInvalid(couponCodeRejectedActions, commerceToolsCart)) {
       return invalidCouponCodeResponse;
     }
@@ -75,8 +73,7 @@ export default (
     if (directDiscountAction) {
       actions.push(directDiscountAction);
     }
-
-  }else{
+  } else {
     commitId = dtResponse.commitId;
   }
 
@@ -97,7 +94,6 @@ export default (
     success: true,
     actions,
   };
-
 };
 
 const buildDirectDiscountAction = (
@@ -254,10 +250,10 @@ const buildSetCustomTypeAction = (
   couponCodeAcceptedActions: CouponCodeAcceptedAction[],
   currencyCode: string,
   commitId: string | null = null
-  ) => {
-    const couponCodes: CouponCode[] = couponCodeAcceptedActions.map((a) => ({
-      code: a.code,
-    }));
+) => {
+  const couponCodes: CouponCode[] = couponCodeAcceptedActions.map((a) => ({
+    code: a.code,
+  }));
 
   const serialisedCouponCodes = JSON.stringify(couponCodes);
 
