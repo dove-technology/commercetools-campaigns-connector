@@ -500,7 +500,7 @@ it('no actions should be returned if type is Order', () => {
 
   expect(result).toEqual({
     success: true,
-    actions: [],
+    actions: [buildSetCustomTypeAction(dtResponse, currencyCode, '[]')],
   });
 });
 

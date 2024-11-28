@@ -10,6 +10,12 @@ export default class DoveTechResponseBuilder {
   private basket: DoveTechDiscountsResponseBasket | null = null;
   private actions: DoveTechAction[] = [];
   private costs: DoveTechDiscountsResponseCost[] = [];
+  private commitId: string | null = null;
+
+  addCommitId(commitId: string) {
+    this.commitId = commitId;
+    return this;
+  }
 
   addAction(action: DoveTechAction) {
     this.actions.push(action);
@@ -49,7 +55,7 @@ export default class DoveTechResponseBuilder {
     return {
       actions: this.actions,
       basket: this.basket,
-      commitId: null,
+      commitId: this.commitId,
       aggregates: {
         total: aggregateTotal,
         totalAmountOff: aggregateTotalAmountOff,

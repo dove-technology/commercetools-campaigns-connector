@@ -1,5 +1,6 @@
 import {
   CART_METADATA,
+  COMMIT_ID,
   COUPON_CODES,
   EVALUATION_CURRENCY,
   EVALUATION_RESPONSE,
@@ -49,11 +50,26 @@ export default (
   dtResponse: DoveTechDiscountsResponse,
   commerceToolsCart: CartOrOrder
 ): ExtensionResponse => {
-  if (commerceToolsCart.type === 'Order') {
-    return {
-      success: true,
-      actions: [],
-    };
+
+  const actions: CartUpdateAction[] = [];
+  let commitId : string | null = null;
+
+  if (commerceToolsCart.type !== 'Order') {
+
+    const dtBasketItems = dtResponse.basket?.items ?? [];
+
+    const directDiscountAction = buildDirectDiscountAction(
+      dtBasketItems,
+      commerceToolsCart,
+      dtResponse
+    );
+
+    if (directDiscountAction) {
+      actions.push(directDiscountAction);
+    }
+
+  }else{
+    commitId = dtResponse.commitId;
   }
 
   const couponCodeRejectedActions = dtResponse.actions.filter(
@@ -64,19 +80,6 @@ export default (
     return invalidCouponCodeResponse;
   }
 
-  const dtBasketItems = dtResponse.basket?.items ?? [];
-  const actions: CartUpdateAction[] = [];
-
-  const directDiscountAction = buildDirectDiscountAction(
-    dtBasketItems,
-    commerceToolsCart,
-    dtResponse
-  );
-
-  if (directDiscountAction) {
-    actions.push(directDiscountAction);
-  }
-
   const couponCodeAcceptedActions = dtResponse.actions.filter(
     (a) => a.type === DoveTechActionType.CouponCodeAccepted
   ) as CouponCodeAcceptedAction[];
@@ -84,7 +87,8 @@ export default (
   const setCustomTypeAction = buildSetCustomTypeAction(
     dtResponse,
     couponCodeAcceptedActions,
-    getCartCurrencyCode(commerceToolsCart)
+    getCartCurrencyCode(commerceToolsCart),
+    commitId
   );
 
   actions.push(setCustomTypeAction);
@@ -93,6 +97,7 @@ export default (
     success: true,
     actions,
   };
+
 };
 
 const buildDirectDiscountAction = (
@@ -247,13 +252,25 @@ const getDirectDiscountShippingAction = (
 const buildSetCustomTypeAction = (
   dtResponse: DoveTechDiscountsResponse,
   couponCodeAcceptedActions: CouponCodeAcceptedAction[],
-  currencyCode: string
-) => {
-  const couponCodes: CouponCode[] = couponCodeAcceptedActions.map((a) => ({
-    code: a.code,
-  }));
+  currencyCode: string,
+  commitId: string | null = null
+  ) => {
+    const couponCodes: CouponCode[] = couponCodeAcceptedActions.map((a) => ({
+      code: a.code,
+    }));
 
   const serialisedCouponCodes = JSON.stringify(couponCodes);
+
+  const fields: { [key: string]: string } = {
+    // Note. We're removing the dovetech-discounts-cartAction field by not setting it
+    [COUPON_CODES]: serialisedCouponCodes,
+    [EVALUATION_RESPONSE]: JSON.stringify(dtResponse),
+    [EVALUATION_CURRENCY]: currencyCode,
+  };
+
+  if (commitId && commitId !== null) {
+    fields[COMMIT_ID] = commitId;
+  }
 
   const setCustomTypeAction: CartSetCustomTypeAction = {
     action: 'setCustomType',
@@ -261,12 +278,7 @@ const buildSetCustomTypeAction = (
       key: CART_METADATA,
       typeId: 'type',
     },
-    fields: {
-      // Note. We're removing the dovetech-discounts-cartAction field by not setting it
-      [COUPON_CODES]: serialisedCouponCodes,
-      [EVALUATION_RESPONSE]: JSON.stringify(dtResponse),
-      [EVALUATION_CURRENCY]: currencyCode,
-    },
+    fields: fields,
   };
   return setCustomTypeAction;
 };
