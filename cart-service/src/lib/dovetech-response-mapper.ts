@@ -56,6 +56,14 @@ export default (
 
   if (commerceToolsCart.type !== 'Order') {
 
+    const couponCodeRejectedActions = dtResponse.actions.filter(
+      (a) => a.type === DoveTechActionType.CouponCodeRejected
+    ) as CouponCodeRejectedAction[];
+  
+    if (newCouponCodeInvalid(couponCodeRejectedActions, commerceToolsCart)) {
+      return invalidCouponCodeResponse;
+    }
+
     const dtBasketItems = dtResponse.basket?.items ?? [];
 
     const directDiscountAction = buildDirectDiscountAction(
@@ -70,14 +78,6 @@ export default (
 
   }else{
     commitId = dtResponse.commitId;
-  }
-
-  const couponCodeRejectedActions = dtResponse.actions.filter(
-    (a) => a.type === DoveTechActionType.CouponCodeRejected
-  ) as CouponCodeRejectedAction[];
-
-  if (newCouponCodeInvalid(couponCodeRejectedActions, commerceToolsCart)) {
-    return invalidCouponCodeResponse;
   }
 
   const couponCodeAcceptedActions = dtResponse.actions.filter(
