@@ -158,7 +158,7 @@ export async function createCustomTypes(
                 name: 'String',
               }, 
               label: {
-                en: 'Dovetech DiscountsCommit ID',
+                en: 'Dovetech Commit ID',
               },
               required: false,
               inputHint: 'SingleLine',
