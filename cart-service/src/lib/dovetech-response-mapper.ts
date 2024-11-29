@@ -1,5 +1,6 @@
 import {
   CART_METADATA,
+  COMMIT_ID,
   COUPON_CODES,
   EVALUATION_CURRENCY,
   EVALUATION_RESPONSE,
@@ -49,32 +50,31 @@ export default (
   dtResponse: DoveTechDiscountsResponse,
   commerceToolsCart: CartOrOrder
 ): ExtensionResponse => {
-  if (commerceToolsCart.type === 'Order') {
-    return {
-      success: true,
-      actions: [],
-    };
-  }
-
-  const couponCodeRejectedActions = dtResponse.actions.filter(
-    (a) => a.type === DoveTechActionType.CouponCodeRejected
-  ) as CouponCodeRejectedAction[];
-
-  if (newCouponCodeInvalid(couponCodeRejectedActions, commerceToolsCart)) {
-    return invalidCouponCodeResponse;
-  }
-
-  const dtBasketItems = dtResponse.basket?.items ?? [];
   const actions: CartUpdateAction[] = [];
+  let commitId: string | null = null;
 
-  const directDiscountAction = buildDirectDiscountAction(
-    dtBasketItems,
-    commerceToolsCart,
-    dtResponse
-  );
+  if (commerceToolsCart.type !== 'Order') {
+    const couponCodeRejectedActions = dtResponse.actions.filter(
+      (a) => a.type === DoveTechActionType.CouponCodeRejected
+    ) as CouponCodeRejectedAction[];
 
-  if (directDiscountAction) {
-    actions.push(directDiscountAction);
+    if (newCouponCodeInvalid(couponCodeRejectedActions, commerceToolsCart)) {
+      return invalidCouponCodeResponse;
+    }
+
+    const dtBasketItems = dtResponse.basket?.items ?? [];
+
+    const directDiscountAction = buildDirectDiscountAction(
+      dtBasketItems,
+      commerceToolsCart,
+      dtResponse
+    );
+
+    if (directDiscountAction) {
+      actions.push(directDiscountAction);
+    }
+  } else {
+    commitId = dtResponse.commitId;
   }
 
   const couponCodeAcceptedActions = dtResponse.actions.filter(
@@ -84,7 +84,8 @@ export default (
   const setCustomTypeAction = buildSetCustomTypeAction(
     dtResponse,
     couponCodeAcceptedActions,
-    getCartCurrencyCode(commerceToolsCart)
+    getCartCurrencyCode(commerceToolsCart),
+    commitId
   );
 
   actions.push(setCustomTypeAction);
@@ -247,7 +248,8 @@ const getDirectDiscountShippingAction = (
 const buildSetCustomTypeAction = (
   dtResponse: DoveTechDiscountsResponse,
   couponCodeAcceptedActions: CouponCodeAcceptedAction[],
-  currencyCode: string
+  currencyCode: string,
+  commitId: string | null = null
 ) => {
   const couponCodes: CouponCode[] = couponCodeAcceptedActions.map((a) => ({
     code: a.code,
@@ -255,18 +257,24 @@ const buildSetCustomTypeAction = (
 
   const serialisedCouponCodes = JSON.stringify(couponCodes);
 
+  const fields: { [key: string]: string } = {
+    // Note. We're removing the dovetech-discounts-cartAction field by not setting it
+    [COUPON_CODES]: serialisedCouponCodes,
+    [EVALUATION_RESPONSE]: JSON.stringify(dtResponse),
+    [EVALUATION_CURRENCY]: currencyCode,
+  };
+
+  if (commitId && commitId !== null) {
+    fields[COMMIT_ID] = commitId;
+  }
+
   const setCustomTypeAction: CartSetCustomTypeAction = {
     action: 'setCustomType',
     type: {
       key: CART_METADATA,
       typeId: 'type',
     },
-    fields: {
-      // Note. We're removing the dovetech-discounts-cartAction field by not setting it
-      [COUPON_CODES]: serialisedCouponCodes,
-      [EVALUATION_RESPONSE]: JSON.stringify(dtResponse),
-      [EVALUATION_CURRENCY]: currencyCode,
-    },
+    fields: fields,
   };
   return setCustomTypeAction;
 };

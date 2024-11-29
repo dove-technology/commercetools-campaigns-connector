@@ -6,6 +6,7 @@ import {
   COUPON_CODES,
   EVALUATION_RESPONSE,
   EVALUATION_CURRENCY,
+  COMMIT_ID,
 } from '../lib/cart-constants';
 import { ExtensionDestination } from '@commercetools/platform-sdk';
 
@@ -113,10 +114,10 @@ export async function createCustomTypes(
           resourceTypeIds: ['order'],
           fieldDefinitions: [
             {
+              name: COUPON_CODES,
               type: {
                 name: 'String',
               },
-              name: COUPON_CODES,
               label: {
                 en: 'Dovetech Coupon Codes',
               },
@@ -124,10 +125,10 @@ export async function createCustomTypes(
               inputHint: 'SingleLine',
             },
             {
+              name: CART_ACTION,
               type: {
                 name: 'String',
               },
-              name: CART_ACTION,
               label: {
                 en: 'Dovetech Cart Action',
               },
@@ -135,10 +136,10 @@ export async function createCustomTypes(
               inputHint: 'SingleLine',
             },
             {
+              name: EVALUATION_RESPONSE,
               type: {
                 name: 'String',
               },
-              name: EVALUATION_RESPONSE,
               label: {
                 en: 'Dovetech Evaluation Result',
               },
@@ -146,12 +147,23 @@ export async function createCustomTypes(
               inputHint: 'SingleLine',
             },
             {
+              name: EVALUATION_CURRENCY,
               type: {
                 name: 'String',
               },
-              name: EVALUATION_CURRENCY,
               label: {
                 en: 'Dovetech Evaluation Currency',
+              },
+              required: false,
+              inputHint: 'SingleLine',
+            },
+            {
+              name: COMMIT_ID,
+              type: {
+                name: 'String',
+              },
+              label: {
+                en: 'Dovetech Commit ID',
               },
               required: false,
               inputHint: 'SingleLine',
