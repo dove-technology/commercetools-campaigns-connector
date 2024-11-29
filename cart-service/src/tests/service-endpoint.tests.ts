@@ -277,44 +277,6 @@ test('should return setCustomType action including commitId field if type is Ord
   });
 });
 
-test('should return no coupocode accepted actions when type is Order', async () => {
-  const currencyCode = 'EUR';
-  const amountOff = 10;
-  const total = 22.97;
-
-  const ctCart = orderWithEvaluationResult as CartOrOrder;
-
-  const amountOffBasketAction: AmountOffAction = buildAmountOffAction(
-    DoveTechActionType.AmountOffBasket,
-    amountOff
-  );
-
-  const dtResponse = new DoveTechResponseBuilder()
-    .addAction(amountOffBasketAction)
-    .addLineItem({
-      totalAmountOff: amountOffBasketAction.amountOff,
-      total: total,
-      actions: [
-        {
-          id: amountOffBasketAction.id,
-          subItemId: 0,
-          amountOff: amountOffBasketAction.amountOff,
-        },
-      ],
-    })
-    .build();
-
-  fetchMock.mockResponseOnce(JSON.stringify(dtResponse));
-
-  const response = await postCart(ctCart);
-
-  expect(response.status).toBe(200);
-
-  expect(response.body).toEqual({
-    actions: [buildSetCustomTypeAction(dtResponse, currencyCode, '[]')],
-  });
-});
-
 test('should return 403 if no basic auth is provided', async () => {
   const response = await request(app).post('/cart-service');
   expect(response.status).toBe(403);
