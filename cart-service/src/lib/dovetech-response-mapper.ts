@@ -1,9 +1,10 @@
 import {
-  CART_METADATA,
   COMMIT_ID,
   COUPON_CODES,
   EVALUATION_CURRENCY,
   EVALUATION_RESPONSE,
+  EXTENSION_TYPES_METADATA_KEY,
+  EXTENSION_TYPES_METADATA_INTERNAL_KEY,
 } from './cart-constants';
 import type {
   LineItem,
@@ -17,7 +18,6 @@ import {
   AddCouponCodeCartAction,
   CartActionType,
   CartOrOrder,
-  CouponCode,
 } from '../types/custom-commerce-tools.types';
 import {
   CouponCodeAcceptedAction,
@@ -81,14 +81,14 @@ export default (
     (a) => a.type === DoveTechActionType.CouponCodeAccepted
   ) as CouponCodeAcceptedAction[];
 
-  const setCustomTypeAction = buildSetCustomTypeAction(
+  const setCustomTypeActionArray = buildSetCustomTypeActions(
     dtResponse,
     couponCodeAcceptedActions,
     getCartCurrencyCode(commerceToolsCart),
     commitId
   );
 
-  actions.push(setCustomTypeAction);
+  actions.push(...setCustomTypeActionArray);
 
   return {
     success: true,
@@ -245,38 +245,50 @@ const getDirectDiscountShippingAction = (
   return shippingDiscount;
 };
 
-const buildSetCustomTypeAction = (
+const buildSetCustomTypeActions = (
   dtResponse: DoveTechDiscountsResponse,
   couponCodeAcceptedActions: CouponCodeAcceptedAction[],
   currencyCode: string,
   commitId: string | null = null
 ) => {
-  const couponCodes: CouponCode[] = couponCodeAcceptedActions.map((a) => ({
-    code: a.code,
-  }));
-
-  const serialisedCouponCodes = JSON.stringify(couponCodes);
-
-  const fields: { [key: string]: string } = {
-    // Note. We're removing the dovetech-discounts-cartAction field by not setting it
-    [COUPON_CODES]: serialisedCouponCodes,
-    [EVALUATION_RESPONSE]: JSON.stringify(dtResponse),
-    [EVALUATION_CURRENCY]: currencyCode,
+  // set metadata action
+  const fields: { [key: string]: string | string[] } = {
+    [COUPON_CODES]: couponCodeAcceptedActions.map((a) => a.code),
   };
 
   if (commitId && commitId !== null) {
     fields[COMMIT_ID] = commitId;
   }
 
-  const setCustomTypeAction: CartSetCustomTypeAction = {
+  const setCustomTypeMetadataAction: CartSetCustomTypeAction = {
     action: 'setCustomType',
     type: {
-      key: CART_METADATA,
+      key: EXTENSION_TYPES_METADATA_KEY,
       typeId: 'type',
     },
     fields: fields,
   };
-  return setCustomTypeAction;
+
+  /// set metadata internal action
+  const setCustomTypeMetadataInternalAction: CartSetCustomTypeAction = {
+    action: 'setCustomType',
+    type: {
+      key: EXTENSION_TYPES_METADATA_INTERNAL_KEY,
+      typeId: 'type',
+    },
+    fields: {
+      // Note. We're removing the dovetech-discounts-cartAction field by not setting it
+      [EVALUATION_RESPONSE]: JSON.stringify(dtResponse),
+      [EVALUATION_CURRENCY]: currencyCode,
+    },
+  };
+
+  const actions: CartUpdateAction[] = [
+    setCustomTypeMetadataAction,
+    setCustomTypeMetadataInternalAction,
+  ];
+
+  return actions;
 };
 
 const getCurrencyValueInMinorUnits = (

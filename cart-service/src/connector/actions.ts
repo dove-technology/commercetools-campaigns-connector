@@ -1,12 +1,15 @@
 import { ByProjectKeyRequestBuilder } from '@commercetools/platform-sdk/dist/declarations/src/generated/client/by-project-key-request-builder';
 import { readConfiguration } from '../utils/config.utils';
 import {
-  CART_METADATA,
   CART_ACTION,
   COUPON_CODES,
   EVALUATION_RESPONSE,
   EVALUATION_CURRENCY,
   COMMIT_ID,
+  EXTENSION_TYPES_METADATA_KEY,
+  EXTENSION_TYPES_METADATA_LABEL,
+  EXTENSION_TYPES_METADATA_INTERNAL_KEY,
+  EXTENSION_TYPES_METADATA_INTERNAL_LABEL,
 } from '../lib/cart-constants';
 import { ExtensionDestination } from '@commercetools/platform-sdk';
 
@@ -91,13 +94,14 @@ export async function deleteCartUpdateExtension(
 export async function createCustomTypes(
   apiRoot: ByProjectKeyRequestBuilder
 ): Promise<void> {
+  // create metadata types
   const {
     body: { results: types },
   } = await apiRoot
     .types()
     .get({
       queryArgs: {
-        where: `key = "${CART_METADATA}"`,
+        where: `key = "${EXTENSION_TYPES_METADATA_KEY}"`,
       },
     })
     .execute();
@@ -107,16 +111,30 @@ export async function createCustomTypes(
       .types()
       .post({
         body: {
-          key: CART_METADATA,
+          key: EXTENSION_TYPES_METADATA_KEY,
           name: {
-            en: 'Dovetech Cart Metadata',
+            en: EXTENSION_TYPES_METADATA_LABEL,
           },
           resourceTypeIds: ['order'],
           fieldDefinitions: [
             {
-              name: COUPON_CODES,
+              name: COMMIT_ID,
               type: {
                 name: 'String',
+              },
+              label: {
+                en: 'Dovetech Commit ID',
+              },
+              required: false,
+              inputHint: 'SingleLine',
+            },
+            {
+              name: COUPON_CODES,
+              type: {
+                name: 'Set',
+                elementType: {
+                  name: 'String',
+                },
               },
               label: {
                 en: 'Dovetech Coupon Codes',
@@ -124,6 +142,35 @@ export async function createCustomTypes(
               required: false,
               inputHint: 'SingleLine',
             },
+          ],
+        },
+      })
+      .execute();
+  }
+
+  // create internal metadata types
+  const {
+    body: { results: internalTypes },
+  } = await apiRoot
+    .types()
+    .get({
+      queryArgs: {
+        where: `key = "${EXTENSION_TYPES_METADATA_INTERNAL_KEY}"`,
+      },
+    })
+    .execute();
+
+  if (internalTypes.length === 0) {
+    await apiRoot
+      .types()
+      .post({
+        body: {
+          key: EXTENSION_TYPES_METADATA_INTERNAL_KEY,
+          name: {
+            en: EXTENSION_TYPES_METADATA_INTERNAL_LABEL,
+          },
+          resourceTypeIds: ['order'],
+          fieldDefinitions: [
             {
               name: CART_ACTION,
               type: {
@@ -153,17 +200,6 @@ export async function createCustomTypes(
               },
               label: {
                 en: 'Dovetech Evaluation Currency',
-              },
-              required: false,
-              inputHint: 'SingleLine',
-            },
-            {
-              name: COMMIT_ID,
-              type: {
-                name: 'String',
-              },
-              label: {
-                en: 'Dovetech Commit ID',
               },
               required: false,
               inputHint: 'SingleLine',
