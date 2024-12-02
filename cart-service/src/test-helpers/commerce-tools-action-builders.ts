@@ -1,7 +1,7 @@
 import { CartSetCustomTypeAction } from '@commercetools/platform-sdk';
 import {
-  EXTENSION_TYPES_METADATA_KEY,
-  EXTENSION_TYPES_METADATA_INTERNAL_KEY,
+  EXTENSION_TYPES_DATA_KEY,
+  EXTENSION_TYPES_DATA_INTERNAL_KEY,
   COUPON_CODES,
   EVALUATION_CURRENCY,
   EVALUATION_RESPONSE,
@@ -26,7 +26,7 @@ export const buildSetCustomTypeActions = (
   const setCustomTypeMetadataAction: CartSetCustomTypeAction = {
     action: 'setCustomType',
     type: {
-      key: EXTENSION_TYPES_METADATA_KEY,
+      key: EXTENSION_TYPES_DATA_KEY,
       typeId: 'type',
     },
     fields: fields,
@@ -36,7 +36,7 @@ export const buildSetCustomTypeActions = (
   const setCustomTypeMetadataInternalAction: CartSetCustomTypeAction = {
     action: 'setCustomType',
     type: {
-      key: EXTENSION_TYPES_METADATA_INTERNAL_KEY,
+      key: EXTENSION_TYPES_DATA_INTERNAL_KEY,
       typeId: 'type',
     },
     fields: {

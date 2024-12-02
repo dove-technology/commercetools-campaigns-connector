@@ -6,10 +6,10 @@ import {
   EVALUATION_RESPONSE,
   EVALUATION_CURRENCY,
   COMMIT_ID,
-  EXTENSION_TYPES_METADATA_KEY,
-  EXTENSION_TYPES_METADATA_LABEL,
-  EXTENSION_TYPES_METADATA_INTERNAL_KEY,
-  EXTENSION_TYPES_METADATA_INTERNAL_LABEL,
+  EXTENSION_TYPES_DATA_KEY,
+  EXTENSION_TYPES_DATA_LABEL,
+  EXTENSION_TYPES_DATA_INTERNAL_KEY,
+  EXTENSION_TYPES_DATA_INTERNAL_LABEL,
 } from '../lib/cart-constants';
 import { ExtensionDestination } from '@commercetools/platform-sdk';
 
@@ -101,7 +101,7 @@ export async function createCustomTypes(
     .types()
     .get({
       queryArgs: {
-        where: `key = "${EXTENSION_TYPES_METADATA_KEY}"`,
+        where: `key = "${EXTENSION_TYPES_DATA_KEY}"`,
       },
     })
     .execute();
@@ -111,9 +111,9 @@ export async function createCustomTypes(
       .types()
       .post({
         body: {
-          key: EXTENSION_TYPES_METADATA_KEY,
+          key: EXTENSION_TYPES_DATA_KEY,
           name: {
-            en: EXTENSION_TYPES_METADATA_LABEL,
+            en: EXTENSION_TYPES_DATA_LABEL,
           },
           resourceTypeIds: ['order'],
           fieldDefinitions: [
@@ -155,7 +155,7 @@ export async function createCustomTypes(
     .types()
     .get({
       queryArgs: {
-        where: `key = "${EXTENSION_TYPES_METADATA_INTERNAL_KEY}"`,
+        where: `key = "${EXTENSION_TYPES_DATA_INTERNAL_KEY}"`,
       },
     })
     .execute();
@@ -165,9 +165,9 @@ export async function createCustomTypes(
       .types()
       .post({
         body: {
-          key: EXTENSION_TYPES_METADATA_INTERNAL_KEY,
+          key: EXTENSION_TYPES_DATA_INTERNAL_KEY,
           name: {
-            en: EXTENSION_TYPES_METADATA_INTERNAL_LABEL,
+            en: EXTENSION_TYPES_DATA_INTERNAL_LABEL,
           },
           resourceTypeIds: ['order'],
           fieldDefinitions: [
