@@ -2,7 +2,7 @@ const fieldPrefix = 'dovetech-discounts-';
 
 export const EXTENSION_TYPES_METADATA_LABEL = `Dovetech Campaigns`;
 export const EXTENSION_TYPES_METADATA_KEY = `${fieldPrefix}extension-metadata`;
-export const DOVETECH_LABEL = `${fieldPrefix}discounts`;
+
 export const COMMIT_ID = `${fieldPrefix}commitId`;
 export const COUPON_CODES = `${fieldPrefix}couponCodes`;
 
