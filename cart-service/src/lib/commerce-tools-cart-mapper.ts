@@ -65,7 +65,7 @@ export default (
     const couponCodesFromCart: string[] = JSON.parse(
       arrayOfCouponCodesAsString
     );
-    //couponCodes.push(...couponCodesFromCart);
+
     couponCodesFromCart.map((code: string) => {
       couponCodes.push({
         code: code,
