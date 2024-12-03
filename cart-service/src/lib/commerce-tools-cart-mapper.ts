@@ -58,11 +58,19 @@ export default (
     });
   }
 
-  const serialisedCouponCodes = commerceToolsCart.custom?.fields[COUPON_CODES];
+  const arrayOfCouponCodesAsString =
+    commerceToolsCart.custom?.fields[COUPON_CODES];
 
-  if (serialisedCouponCodes) {
-    const couponCodesFromCart = JSON.parse(serialisedCouponCodes);
-    couponCodes.push(...couponCodesFromCart);
+  if (arrayOfCouponCodesAsString) {
+    const couponCodesFromCart: string[] = JSON.parse(
+      arrayOfCouponCodesAsString
+    );
+    //couponCodes.push(...couponCodesFromCart);
+    couponCodesFromCart.map((code: string) => {
+      couponCodes.push({
+        code: code,
+      });
+    });
   }
 
   const shippingCostInCurrency =

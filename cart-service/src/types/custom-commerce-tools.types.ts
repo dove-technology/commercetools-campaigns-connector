@@ -1,9 +1,5 @@
 import type { Cart, Order } from '@commercetools/platform-sdk';
 
-export interface CouponCode {
-  code: string;
-}
-
 export enum CartActionType {
   AddCouponCode = 'addCouponCode',
 }

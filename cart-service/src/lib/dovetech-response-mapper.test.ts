@@ -448,7 +448,7 @@ it('CouponCodeRejected action for existing coupon code should remove coupon code
   const existingCouponCode = 'EXISTING_COUPON';
 
   const ctCart = new CommerceToolsCartBuilder(currencyCode)
-    .addCouponCode({ code: existingCouponCode })
+    .addCouponCode(existingCouponCode)
     .build();
 
   const couponCodeRejectedAction: CouponCodeRejectedAction = {
