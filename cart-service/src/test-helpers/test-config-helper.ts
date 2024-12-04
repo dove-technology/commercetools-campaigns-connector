@@ -13,6 +13,8 @@ export const getConfig = (
     basicAuthPwdCurrent: 'thisIsTheCurrentPassword',
     basicAuthPwdPrevious: 'thisWasThePreviousPassword',
     dovetechApiKey: 'API-KEY',
+    otlpExporterEndpoint: 'https://example.com',
+    otlpExporterEndpointApiKey: 'API-KEY',
     ...overrides,
   };
 };

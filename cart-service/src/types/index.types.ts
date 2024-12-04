@@ -38,6 +38,8 @@ export interface Configuration {
   dovetechApiKey: string;
   basicAuthPwdCurrent: string;
   basicAuthPwdPrevious: string;
+  otlpExporterEndpoint: string;
+  otlpExporterEndpointApiKey: string;
   mappingConfiguration?: object;
 }
 

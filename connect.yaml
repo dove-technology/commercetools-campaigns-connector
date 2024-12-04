@@ -17,6 +17,9 @@ deployAs:
         - key: MAPPING_CONFIGURATION
           description: JSON serialised property mapping configuration
           required: false
+        - key: OTEL_EXPORTER_OTLP_ENDPOINT
+          description: OpenTelemetry OTLP exporter endpoint
+          required: true
       securedConfiguration:
         - key: DOVETECH_API_KEY
           description: Dovetech Processor API key
@@ -39,3 +42,6 @@ deployAs:
         - key: BASIC_AUTH_PASSWORD_PREVIOUS
           description: Basic auth password for the connector to prevent unauthorized access. Use this to ensure safe rotation of the password
           required: false
+        - key: OTEL_EXPORTER_OTLP_ENDPOINT_API_KEY
+          description: OpenTelemetry OTLP exporter API key
+          required: true

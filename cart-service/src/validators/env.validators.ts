@@ -57,6 +57,22 @@ const envValidators = [
     },
     { min: 1, max: 50 }
   ),
+
+  standardUrl(['otlpExporterEndpoint'], {
+    code: 'InvalidOtlpExporterEndpoint',
+    message: 'Otlp Exporter Host is not a valid URL.',
+    referencedBy: 'environmentVariables',
+  }),
+
+  standardString(
+    ['otlpExporterEndpointApiKey'],
+    {
+      code: 'InValidOtlpExporterHostApiKey',
+      message: 'Otlp key not correct.',
+      referencedBy: 'environmentVariables',
+    },
+    { min: 4, max: 128 }
+  ),
 ];
 
 export default envValidators;
