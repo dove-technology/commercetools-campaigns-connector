@@ -19,7 +19,7 @@ deployAs:
           required: false
         - key: OTEL_EXPORTER_OTLP_ENDPOINT
           description: OpenTelemetry OTLP exporter endpoint
-          required: true
+          required: false
       securedConfiguration:
         - key: DOVETECH_API_KEY
           description: Dovetech Processor API key
@@ -44,4 +44,4 @@ deployAs:
           required: false
         - key: OTEL_EXPORTER_OTLP_ENDPOINT_API_KEY
           description: OpenTelemetry OTLP exporter API key
-          required: true
+          required: false
