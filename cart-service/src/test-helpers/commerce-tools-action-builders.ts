@@ -1,7 +1,6 @@
 import { CartSetCustomTypeAction } from '@commercetools/platform-sdk';
 import {
   EXTENSION_TYPES_DATA_KEY,
-  EXTENSION_TYPES_DATA_INTERNAL_KEY,
   COUPON_CODES,
   EVALUATION_CURRENCY,
   EVALUATION_RESPONSE,
@@ -14,9 +13,10 @@ export const buildSetCustomTypeActions = (
   currencyCode: string,
   arrayOfCouponCodes: string[]
 ): CartSetCustomTypeAction[] => {
-  // metadata
   const fields: { [key: string]: string | string[] } = {
     [COUPON_CODES]: arrayOfCouponCodes,
+    [EVALUATION_RESPONSE]: JSON.stringify(dtResponse),
+    [EVALUATION_CURRENCY]: currencyCode,
   };
 
   if (dtResponse.commitId && dtResponse.commitId !== null) {
@@ -32,18 +32,5 @@ export const buildSetCustomTypeActions = (
     fields: fields,
   };
 
-  // metadata internal
-  const setCustomTypeMetadataInternalAction: CartSetCustomTypeAction = {
-    action: 'setCustomType',
-    type: {
-      key: EXTENSION_TYPES_DATA_INTERNAL_KEY,
-      typeId: 'type',
-    },
-    fields: {
-      [EVALUATION_RESPONSE]: JSON.stringify(dtResponse),
-      [EVALUATION_CURRENCY]: currencyCode,
-    },
-  };
-
-  return [setCustomTypeMetadataAction, setCustomTypeMetadataInternalAction];
+  return [setCustomTypeMetadataAction];
 };

@@ -8,8 +8,6 @@ import {
   COMMIT_ID,
   EXTENSION_TYPES_DATA_KEY,
   EXTENSION_TYPES_DATA_LABEL,
-  EXTENSION_TYPES_DATA_INTERNAL_KEY,
-  EXTENSION_TYPES_DATA_INTERNAL_LABEL,
 } from '../lib/cart-constants';
 import { ExtensionDestination } from '@commercetools/platform-sdk';
 
@@ -94,7 +92,6 @@ export async function deleteCartUpdateExtension(
 export async function createCustomTypes(
   apiRoot: ByProjectKeyRequestBuilder
 ): Promise<void> {
-  // create metadata types
   const {
     body: { results: types },
   } = await apiRoot
@@ -142,35 +139,6 @@ export async function createCustomTypes(
               required: false,
               inputHint: 'SingleLine',
             },
-          ],
-        },
-      })
-      .execute();
-  }
-
-  // create internal metadata types
-  const {
-    body: { results: internalTypes },
-  } = await apiRoot
-    .types()
-    .get({
-      queryArgs: {
-        where: `key = "${EXTENSION_TYPES_DATA_INTERNAL_KEY}"`,
-      },
-    })
-    .execute();
-
-  if (internalTypes.length === 0) {
-    await apiRoot
-      .types()
-      .post({
-        body: {
-          key: EXTENSION_TYPES_DATA_INTERNAL_KEY,
-          name: {
-            en: EXTENSION_TYPES_DATA_INTERNAL_LABEL,
-          },
-          resourceTypeIds: ['order'],
-          fieldDefinitions: [
             {
               name: CART_ACTION,
               type: {

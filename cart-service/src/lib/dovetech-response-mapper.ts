@@ -4,7 +4,6 @@ import {
   EVALUATION_CURRENCY,
   EVALUATION_RESPONSE,
   EXTENSION_TYPES_DATA_KEY,
-  EXTENSION_TYPES_DATA_INTERNAL_KEY,
 } from './cart-constants';
 import type {
   LineItem,
@@ -254,6 +253,9 @@ const buildSetCustomTypeActions = (
   // set metadata action
   const fields: { [key: string]: string | string[] } = {
     [COUPON_CODES]: couponCodeAcceptedActions.map((a) => a.code),
+    // Note. We're removing the dovetech-discounts-cartAction field by not setting it
+    [EVALUATION_RESPONSE]: JSON.stringify(dtResponse),
+    [EVALUATION_CURRENCY]: currencyCode,
   };
 
   if (commitId && commitId !== null) {
@@ -269,24 +271,7 @@ const buildSetCustomTypeActions = (
     fields: fields,
   };
 
-  /// set metadata internal action
-  const setCustomTypeMetadataInternalAction: CartSetCustomTypeAction = {
-    action: 'setCustomType',
-    type: {
-      key: EXTENSION_TYPES_DATA_INTERNAL_KEY,
-      typeId: 'type',
-    },
-    fields: {
-      // Note. We're removing the dovetech-discounts-cartAction field by not setting it
-      [EVALUATION_RESPONSE]: JSON.stringify(dtResponse),
-      [EVALUATION_CURRENCY]: currencyCode,
-    },
-  };
-
-  const actions: CartUpdateAction[] = [
-    setCustomTypeMetadataAction,
-    setCustomTypeMetadataInternalAction,
-  ];
+  const actions: CartUpdateAction[] = [setCustomTypeMetadataAction];
 
   return actions;
 };
