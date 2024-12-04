@@ -48,6 +48,7 @@
     "@commercetools-backend/loggers": "^22.35.0",
     "@commercetools/platform-sdk": "^7.17.0",
     "@commercetools/sdk-client-v2": "^2.0.0",
+    "@opentelemetry/winston-transport": "^0.8.0",
     "body-parser": "^1.20.2",
     "decimal.js": "^10.4.3",
     "dotenv": "^16.3.1",
