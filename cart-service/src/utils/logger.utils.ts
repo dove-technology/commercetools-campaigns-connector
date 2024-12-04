@@ -8,6 +8,7 @@ import {
 import { OTLPLogExporter } from '@opentelemetry/exporter-logs-otlp-http';
 
 import { OpenTelemetryTransportV3 } from '@opentelemetry/winston-transport';
+import { readConfiguration } from '../utils/config.utils';
 
 export const logger = createApplicationLogger();
 
@@ -19,15 +20,17 @@ export const getLogger = () => {
       level: process.env.LOG_LEVEL || 'info',
     });
 
+    const configuration = readConfiguration();
+
     if (
-      process.env.OTEL_EXPORTER_OTLP_ENDPOINT &&
-      process.env.OTEL_EXPORTER_OTLP_ENDPOINT_API_KEY
+      configuration.otlpExporterEndpoint &&
+      configuration.otlpExporterEndpointApiKey
     ) {
       const loggerProvider = new LoggerProvider();
       const logExporter = new OTLPLogExporter({
-        url: `${process.env.OTEL_EXPORTER_OTLP_ENDPOINT}/v1/logs`,
+        url: `${configuration.otlpExporterEndpoint}/v1/logs`,
         headers: {
-          'api-key': process.env.OTEL_EXPORTER_OTLP_ENDPOINT_API_KEY!,
+          'api-key': configuration.otlpExporterEndpointApiKey,
         },
         concurrencyLimit: 1,
       });
