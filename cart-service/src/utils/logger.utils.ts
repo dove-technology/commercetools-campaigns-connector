@@ -5,6 +5,7 @@ import {
   LoggerProvider,
   BatchLogRecordProcessor,
 } from '@opentelemetry/sdk-logs';
+import { Resource } from '@opentelemetry/resources';
 import { OTLPLogExporter } from '@opentelemetry/exporter-logs-otlp-http';
 
 import { OpenTelemetryTransportV3 } from '@opentelemetry/winston-transport';
@@ -26,7 +27,11 @@ export const getLogger = () => {
       configuration.otlpExporterEndpoint &&
       configuration.otlpExporterEndpointApiKey
     ) {
-      const loggerProvider = new LoggerProvider();
+      const loggerProvider = new LoggerProvider({
+        resource: new Resource({
+          ['service.name']: `${configuration.projectKey}:${configuration.region}`,
+        }),
+      });
       const logExporter = new OTLPLogExporter({
         url: `${configuration.otlpExporterEndpoint}/v1/logs`,
         headers: {

@@ -50,6 +50,7 @@
     "@commercetools/sdk-client-v2": "^2.0.0",
     "@opentelemetry/api-logs": "^0.55.0",
     "@opentelemetry/exporter-logs-otlp-http": "^0.55.0",
+    "@opentelemetry/resources": "^1.29.0",
     "@opentelemetry/sdk-logs": "^0.55.0",
     "@opentelemetry/winston-transport": "^0.8.0",
     "body-parser": "^1.20.2",
