@@ -15,7 +15,6 @@ let loggerInstance: winston.Logger | undefined = undefined;
 
 export const getLogger = () => {
   if (!loggerInstance) {
-
     const otlpCollectorOptions = {
       url: `${process.env.OTEL_EXPORTER_OTLP_ENDPOINT}/v1/logs`,
       headers: {
@@ -23,7 +22,7 @@ export const getLogger = () => {
       },
       concurrencyLimit: 1,
     };
-    
+
     const loggerProvider = new LoggerProvider();
 
     const logExporter = new OTLPLogExporter(otlpCollectorOptions);
@@ -36,8 +35,8 @@ export const getLogger = () => {
     loggerInstance = createApplicationLogger({
       level: process.env.LOG_LEVEL || 'info',
     });
-    
-    loggerInstance.add(new OpenTelemetryTransportV3())
+
+    loggerInstance.add(new OpenTelemetryTransportV3());
   }
 
   return loggerInstance;
