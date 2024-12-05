@@ -14,6 +14,9 @@ export const readConfiguration = (): Configuration => {
     dovetechApiKey: process.env.DOVETECH_API_KEY as string,
     basicAuthPwdCurrent: process.env.BASIC_AUTH_PASSWORD_CURRENT as string,
     basicAuthPwdPrevious: process.env.BASIC_AUTH_PASSWORD_PREVIOUS as string,
+    otlpExporterEndpoint: process.env.OTEL_EXPORTER_OTLP_ENDPOINT as string,
+    otlpExporterEndpointApiKey: process.env
+      .OTEL_EXPORTER_OTLP_ENDPOINT_API_KEY as string,
   };
 
   if (process.env.MAPPING_CONFIGURATION) {
