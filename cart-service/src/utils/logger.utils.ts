@@ -29,7 +29,7 @@ export const getLogger = () => {
     ) {
       const loggerProvider = new LoggerProvider({
         resource: new Resource({
-          ['service.name']: `${configuration.projectKey}:${configuration.region}`,
+          ['service.name']: `dovetech-campaigns-connector:${configuration.projectKey}:${configuration.region}`,
         }),
       });
       const logExporter = new OTLPLogExporter({
