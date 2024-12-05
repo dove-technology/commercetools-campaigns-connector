@@ -4,6 +4,7 @@ dotenv.config();
 import { createApiRoot } from '../client/create.client';
 import { assertError } from '../utils/assert.utils';
 import { deleteCartUpdateExtension } from './actions';
+import { getLogger } from '../utils/logger.utils';
 
 async function preUndeploy(): Promise<void> {
   const apiRoot = createApiRoot();
@@ -11,11 +12,12 @@ async function preUndeploy(): Promise<void> {
 }
 
 async function run(): Promise<void> {
+  const logger = getLogger(false);
   try {
     await preUndeploy();
   } catch (error) {
     assertError(error);
-    process.stderr.write(`Pre-undeploy failed: ${error.message}`);
+    logger.error('Pre-undeploy failed:', error);
     process.exitCode = 1;
   }
 }

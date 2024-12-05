@@ -4,6 +4,7 @@ import { logs } from '@opentelemetry/api-logs';
 import {
   LoggerProvider,
   BatchLogRecordProcessor,
+  SimpleLogRecordProcessor,
 } from '@opentelemetry/sdk-logs';
 import { Resource } from '@opentelemetry/resources';
 import { OTLPLogExporter } from '@opentelemetry/exporter-logs-otlp-http';
@@ -15,7 +16,7 @@ export const logger = createApplicationLogger();
 
 let loggerInstance: winston.Logger | undefined = undefined;
 
-export const getLogger = () => {
+export const getLogger = (useBatchLogRecordProcessor: boolean = true) => {
   if (!loggerInstance) {
     loggerInstance = createApplicationLogger({
       level: process.env.LOG_LEVEL || 'info',
@@ -40,7 +41,9 @@ export const getLogger = () => {
         concurrencyLimit: 1,
       });
       loggerProvider.addLogRecordProcessor(
-        new BatchLogRecordProcessor(logExporter)
+        useBatchLogRecordProcessor
+          ? new BatchLogRecordProcessor(logExporter)
+          : new SimpleLogRecordProcessor(logExporter)
       );
 
       logs.setGlobalLoggerProvider(loggerProvider);

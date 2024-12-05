@@ -4,6 +4,7 @@ dotenv.config();
 import { createApiRoot } from '../client/create.client';
 import { assertString } from '../utils/assert.utils';
 import { createCartUpdateExtension, createCustomTypes } from './actions';
+import { getLogger } from '../utils/logger.utils';
 
 const CONNECT_APPLICATION_URL_KEY = 'CONNECT_SERVICE_URL';
 
@@ -18,11 +19,14 @@ async function postDeploy(properties: Map<string, unknown>): Promise<void> {
 }
 
 async function run(): Promise<void> {
+  const logger = getLogger(false);
+
   try {
     const properties = new Map(Object.entries(process.env));
     await postDeploy(properties);
+    throw new Error('This is a test error');
   } catch (error) {
-    process.stderr.write(`Post-deploy failed: ${error}`);
+    logger.error('Post-deploy failed:', error);
     process.exitCode = 1;
   }
 }
