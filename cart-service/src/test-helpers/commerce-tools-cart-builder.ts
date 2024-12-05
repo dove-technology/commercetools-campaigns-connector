@@ -91,7 +91,7 @@ export default class CommerceToolsCartBuilder {
 
   build(): CartOrOrder {
     const customFields: FieldContainer = {
-      [COUPON_CODES]: JSON.stringify(this.couponCodes),
+      [COUPON_CODES]: this.couponCodes,
       [CART_ACTION]: JSON.stringify(this.cartAction),
     };
 

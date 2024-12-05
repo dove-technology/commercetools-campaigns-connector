@@ -58,15 +58,11 @@ export default (
     });
   }
 
-  const arrayOfCouponCodesAsString =
-    commerceToolsCart.custom?.fields[COUPON_CODES];
+  const arrayOfCouponCodes: string[] =
+    commerceToolsCart.custom?.fields[COUPON_CODES] ?? [];
 
-  if (arrayOfCouponCodesAsString) {
-    const couponCodesFromCart: string[] = JSON.parse(
-      arrayOfCouponCodesAsString
-    );
-
-    couponCodesFromCart.map((code: string) => {
+  if (arrayOfCouponCodes.length > 0) {
+    arrayOfCouponCodes.map((code: string) => {
       couponCodes.push({
         code: code,
       });

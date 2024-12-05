@@ -10,7 +10,7 @@
   },
   "custom": {
     "fields": {
-      "dovetech-discounts-couponCodes": "[]",
+      "dovetech-discounts-couponCodes": [],
       "dovetech-discounts-evaluationCurrency": "EUR",
       "dovetech-discounts-evaluationResponse": "{\"actions\":[],\"basket\":null,\"aggregates\":{\"total\":0,\"totalAmountOff\":0},\"costs\":[],\"commitId\":null,\"evaluationLog\":null}",
       "test-field": "test-value"
