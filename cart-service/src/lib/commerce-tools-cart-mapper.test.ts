@@ -19,6 +19,8 @@ import { SHIPPING_COST_NAME } from './dovetech-property-constants';
 import AggregateTotalMismatchError from '../errors/aggregate-total-mismatch.error';
 import { Configuration } from '../types/index.types';
 
+jest.mock('../utils/config.utils');
+
 test('single line item mapped correctly', async () => {
   const ctCart = cartWithSingleLineItem as CartOrOrder;
 

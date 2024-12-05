@@ -50,6 +50,7 @@ To install the connector you will need to provide the following configuration se
 - `DOVETECH_API_KEY` - this is the Processor API Key from your project in the Dovetech Customer Portal
 - The commercetools settings prefixed with `CTP_` should be populated from the API client created above
 - `BASIC_AUTH_PASSWORD` - these two variables (current/previous) will allow the connector to validate that calls come from commercetools. `BASIC_AUTH_PASSWORD_CURRENT` is required, and has a minimum length of two characters and a maximum of 50.
+- Optional - The `OTEL_EXPORTER_OTLP_ENDPOINT` and `OTEL_EXPORTER_OTLP_ENDPOINT_API_KEY` variables can be used for Production scenarios - they enable the Connect service application logs to be sent to Dovetech's external monitoring systems, giving Dovetech Tech Support visibility of runtime logging
 - Optional - set any custom mapping rules in `MAPPING_CONFIGURATION` (see the Custom Mapping section below for more details)
 
 As part of the deployment, the `connector:post-deploy` command will be called. This will create the API Extension in commercetools.

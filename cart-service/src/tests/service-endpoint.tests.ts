@@ -306,7 +306,7 @@ test('should return valid response if the correct basic auth is the previous pas
     .post('/cart-service')
     .set(
       'Authorization',
-      'Basic ' + Buffer.from(basicAuthPassword).toString('base64')
+      'Basic ' + Buffer.from(basicAuthPassword!).toString('base64')
     );
 
   //expecting 400 because the request body is empty
