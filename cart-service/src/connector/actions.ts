@@ -8,6 +8,7 @@ import {
   COMMIT_ID,
   EXTENSION_TYPES_DATA_KEY,
   EXTENSION_TYPES_DATA_LABEL,
+  DATA_INSTANCE,
 } from '../lib/cart-constants';
 import { ExtensionDestination } from '@commercetools/platform-sdk';
 
@@ -103,6 +104,8 @@ export async function createCustomTypes(
     })
     .execute();
 
+  console.log('types', types);
+
   if (types.length === 0) {
     await apiRoot
       .types()
@@ -168,6 +171,27 @@ export async function createCustomTypes(
               },
               label: {
                 en: 'Dovetech Evaluation Currency',
+              },
+              required: false,
+              inputHint: 'SingleLine',
+            },
+            {
+              name: DATA_INSTANCE,
+              type: {
+                name: 'Enum',
+                values: [
+                  {
+                    key: 'Staging',
+                    label: 'Staging',
+                  },
+                  {
+                    key: 'Live',
+                    label: 'Live',
+                  },
+                ],
+              },
+              label: {
+                en: 'Dovetech Data Instance',
               },
               required: false,
               inputHint: 'SingleLine',

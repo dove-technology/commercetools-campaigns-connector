@@ -8,3 +8,4 @@ export const COUPON_CODES = `${fieldPrefix}couponCodes`;
 export const CART_ACTION = `${fieldPrefix}cartAction`;
 export const EVALUATION_RESPONSE = `${fieldPrefix}evaluationResponse`;
 export const EVALUATION_CURRENCY = `${fieldPrefix}evaluationCurrency`;
+export const DATA_INSTANCE = `${fieldPrefix}data-instance`;
