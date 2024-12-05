@@ -16,7 +16,6 @@ async function run(): Promise<void> {
   try {
     await preUndeploy();
   } catch (error) {
-    assertError(error);
     logger.error('Pre-undeploy failed:', error);
     process.exitCode = 1;
   }
