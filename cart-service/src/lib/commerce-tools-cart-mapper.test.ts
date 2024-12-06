@@ -8,6 +8,7 @@ import {
   CartActionType,
   CartOrOrder,
 } from '../types/custom-commerce-tools.types';
+import * as cartUsingStagingDataInstance from '../test-helpers/cart-using-staging-data-instance.json';
 import * as cartWithSingleShippingModeDiscounted from '../test-helpers/cart-with-single-shipping-mode-discounted.json';
 import * as cartWithMultipleShippingMode from '../test-helpers/cart-with-multiple-shipping-mode.json';
 import * as cartWithLineItemDirectDiscounts from '../test-helpers/cart-with-line-item-direct-discounts.json';
@@ -307,6 +308,16 @@ test("should not error if mapping configuration has nested path that doesn't exi
   });
 
   expect(result.context?.test).toBeUndefined();
+});
+
+test("should use the default data instance if it's not set in the cart", async () => {
+  const ctCart = cartUsingStagingDataInstance as CartOrOrder;
+
+  const result = map(ctCart);
+
+  expect(result.settings.dataInstance).toBe(
+    DoveTechDiscountsDataInstance.Staging
+  );
 });
 
 const map = (ctCart: CartOrOrder, configOverrides?: Partial<Configuration>) => {
