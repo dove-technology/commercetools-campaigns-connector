@@ -1,6 +1,7 @@
 import {
   COMMIT_ID,
   COUPON_CODES,
+  DATA_INSTANCE,
   EVALUATION_CURRENCY,
   EVALUATION_RESPONSE,
   EXTENSION_TYPES_DATA_KEY,
@@ -30,7 +31,11 @@ import {
 import { CurrencyValue } from './currency-value';
 import { ExtensionResponse, CurrencyValueType } from '../types/index.types';
 import { SHIPPING_COST_NAME } from './dovetech-property-constants';
-import { getCartAction, getCartCurrencyCode } from './cart-helpers';
+import {
+  getCartAction,
+  getCartCurrencyCode,
+  getCartDataInstance,
+} from './cart-helpers';
 
 const invalidCouponCodeResponse: ExtensionResponse = {
   success: false,
@@ -85,6 +90,7 @@ export default (
     dtResponse,
     couponCodeAcceptedActions,
     getCartCurrencyCode(commerceToolsCart),
+    getCartDataInstance(commerceToolsCart),
     commitId
   );
 
@@ -249,6 +255,7 @@ const buildSetCustomTypeAction = (
   dtResponse: DoveTechDiscountsResponse,
   couponCodeAcceptedActions: CouponCodeAcceptedAction[],
   currencyCode: string,
+  dataInstance: string,
   commitId: string | null = null
 ) => {
   const fields: FieldContainer = {
@@ -256,6 +263,7 @@ const buildSetCustomTypeAction = (
     // Note. We're removing the dovetech-discounts-cart-action field by not setting it
     [EVALUATION_RESPONSE]: JSON.stringify(dtResponse),
     [EVALUATION_CURRENCY]: currencyCode,
+    [DATA_INSTANCE]: dataInstance,
   };
 
   if (commitId && commitId !== null) {

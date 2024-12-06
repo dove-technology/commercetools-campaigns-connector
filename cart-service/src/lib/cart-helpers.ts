@@ -1,5 +1,6 @@
 import { CartAction, CartOrOrder } from '../types/custom-commerce-tools.types';
-import { CART_ACTION } from './cart-constants';
+import { DoveTechDiscountsDataInstance } from '../types/dovetech.types';
+import { CART_ACTION, DATA_INSTANCE } from './cart-constants';
 
 export const getCartAction = (
   cartOrOrder: CartOrOrder
@@ -10,4 +11,11 @@ export const getCartAction = (
 
 export const getCartCurrencyCode = (cartOrOrder: CartOrOrder): string => {
   return cartOrOrder.totalPrice.currencyCode;
+};
+
+export const getCartDataInstance = (cartOrOrder: CartOrOrder): string => {
+  return (
+    cartOrOrder.custom?.fields[DATA_INSTANCE] ??
+    DoveTechDiscountsDataInstance.Live
+  );
 };

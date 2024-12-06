@@ -5,18 +5,24 @@ import {
   EVALUATION_CURRENCY,
   EVALUATION_RESPONSE,
   COMMIT_ID,
+  DATA_INSTANCE,
 } from '../lib/cart-constants';
-import { DoveTechDiscountsResponse } from '../types/dovetech.types';
+import {
+  DoveTechDiscountsDataInstance,
+  DoveTechDiscountsResponse,
+} from '../types/dovetech.types';
 
 export const buildSetCustomTypeAction = (
   dtResponse: DoveTechDiscountsResponse,
   currencyCode: string,
-  arrayOfCouponCodes: string[]
+  arrayOfCouponCodes: string[],
+  dataInstance: string = DoveTechDiscountsDataInstance.Live
 ): CartSetCustomTypeAction => {
   const fields: { [key: string]: string | string[] } = {
     [COUPON_CODES]: arrayOfCouponCodes,
     [EVALUATION_RESPONSE]: JSON.stringify(dtResponse),
     [EVALUATION_CURRENCY]: currencyCode,
+    [DATA_INSTANCE]: dataInstance,
   };
 
   if (dtResponse.commitId && dtResponse.commitId !== null) {
