@@ -81,14 +81,14 @@ export default (
     (a) => a.type === DoveTechActionType.CouponCodeAccepted
   ) as CouponCodeAcceptedAction[];
 
-  const setCustomTypeActionArray = buildSetCustomTypeActions(
+  const setCustomTypeAction = buildSetCustomTypeAction(
     dtResponse,
     couponCodeAcceptedActions,
     getCartCurrencyCode(commerceToolsCart),
     commitId
   );
 
-  actions.push(...setCustomTypeActionArray);
+  actions.push(setCustomTypeAction);
 
   return {
     success: true,
@@ -245,13 +245,12 @@ const getDirectDiscountShippingAction = (
   return shippingDiscount;
 };
 
-const buildSetCustomTypeActions = (
+const buildSetCustomTypeAction = (
   dtResponse: DoveTechDiscountsResponse,
   couponCodeAcceptedActions: CouponCodeAcceptedAction[],
   currencyCode: string,
   commitId: string | null = null
 ) => {
-  // set metadata action
   const fields: FieldContainer = {
     [COUPON_CODES]: couponCodeAcceptedActions.map((a) => a.code),
     // Note. We're removing the dovetech-discounts-cartAction field by not setting it
@@ -272,9 +271,7 @@ const buildSetCustomTypeActions = (
     fields: fields,
   };
 
-  const actions: CartUpdateAction[] = [setCustomTypeMetadataAction];
-
-  return actions;
+  return setCustomTypeMetadataAction;
 };
 
 const getCurrencyValueInMinorUnits = (

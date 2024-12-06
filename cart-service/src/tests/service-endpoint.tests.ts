@@ -21,7 +21,7 @@ import { buildAmountOffAction } from '../test-helpers/dovetech-action-builders';
 import { SHIPPING_COST_NAME } from '../lib/dovetech-property-constants';
 import * as cartWithSingleShippingModeDiscounted from '../test-helpers/cart-with-single-shipping-mode-discounted.json';
 import * as orderWithEvaluationResult from '../test-helpers/order-with-evaluation-result.json';
-import { buildSetCustomTypeActions } from '../test-helpers/commerce-tools-action-builders';
+import { buildSetCustomTypeAction } from '../test-helpers/commerce-tools-action-builders';
 
 jest.mock('../../src/utils/config.utils');
 
@@ -41,7 +41,7 @@ test('should only return custom type action when Dovetech service returns no dis
 
   expect(response.status).toBe(200);
   expect(response.body).toEqual({
-    actions: buildSetCustomTypeActions(dtResponse, currencyCode, []),
+    actions: [buildSetCustomTypeAction(dtResponse, currencyCode, [])],
   });
 });
 
@@ -111,7 +111,7 @@ test('should return set direct discount line item actions when Dovetech service 
   expect(response.body).toEqual({
     actions: [
       expectedAction,
-      ...buildSetCustomTypeActions(dtResponse, currencyCode, []),
+      buildSetCustomTypeAction(dtResponse, currencyCode, []),
     ],
   });
 });
@@ -200,7 +200,7 @@ test('should return set direct discounts when Dovetech service returns discounte
   expect(response.body).toEqual({
     actions: [
       expectedAction,
-      ...buildSetCustomTypeActions(dtResponse, currencyCode, []),
+      buildSetCustomTypeAction(dtResponse, currencyCode, []),
     ],
   });
 });
@@ -234,9 +234,9 @@ test('should return action to set coupon codes on cart when Dovetech service ret
   expect(response.status).toBe(200);
 
   expect(response.body).toEqual({
-    actions: buildSetCustomTypeActions(dtResponse, currencyCode, [
-      'TEST_COUPON',
-    ]),
+    actions: [
+      buildSetCustomTypeAction(dtResponse, currencyCode, ['TEST_COUPON']),
+    ],
   });
 });
 
@@ -269,7 +269,7 @@ test('should return setCustomType action including commitId field if type is Ord
   expect(response.status).toBe(200);
 
   expect(response.body).toEqual({
-    actions: buildSetCustomTypeActions(dtResponse, currencyCode, []),
+    actions: [buildSetCustomTypeAction(dtResponse, currencyCode, [])],
   });
 });
 

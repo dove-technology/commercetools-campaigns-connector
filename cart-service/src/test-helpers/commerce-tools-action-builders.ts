@@ -8,11 +8,11 @@ import {
 } from '../lib/cart-constants';
 import { DoveTechDiscountsResponse } from '../types/dovetech.types';
 
-export const buildSetCustomTypeActions = (
+export const buildSetCustomTypeAction = (
   dtResponse: DoveTechDiscountsResponse,
   currencyCode: string,
   arrayOfCouponCodes: string[]
-): CartSetCustomTypeAction[] => {
+): CartSetCustomTypeAction => {
   const fields: { [key: string]: string | string[] } = {
     [COUPON_CODES]: arrayOfCouponCodes,
     [EVALUATION_RESPONSE]: JSON.stringify(dtResponse),
@@ -32,5 +32,5 @@ export const buildSetCustomTypeActions = (
     fields: fields,
   };
 
-  return [setCustomTypeMetadataAction];
+  return setCustomTypeMetadataAction;
 };
