@@ -1,5 +1,6 @@
 import {
   COUPON_CODES,
+  DATA_INSTANCE,
   EVALUATION_CURRENCY,
   EVALUATION_RESPONSE,
 } from './cart-constants';
@@ -35,7 +36,7 @@ import { merge } from 'object-mapper';
 
 export default (
   commerceToolsCart: CartOrOrder,
-  dataInstance: DoveTechDiscountsDataInstance,
+  defaultDataInstance: DoveTechDiscountsDataInstance,
   config: Configuration
 ): DoveTechDiscountsRequest => {
   const basket: DoveTechDiscountsBasket = {
@@ -82,7 +83,8 @@ export default (
   const isOrder = commerceToolsCart.type === 'Order';
 
   const settings: DoveTechDiscountsSettings = {
-    dataInstance,
+    dataInstance:
+      commerceToolsCart.custom?.fields[DATA_INSTANCE] ?? defaultDataInstance,
     commit: isOrder,
     explain: false,
   };
