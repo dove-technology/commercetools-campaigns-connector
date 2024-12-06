@@ -310,7 +310,7 @@ test("should not error if mapping configuration has nested path that doesn't exi
   expect(result.context?.test).toBeUndefined();
 });
 
-test("should use the default data instance if it's not set in the cart", async () => {
+test("should use data instance from cart if set", async () => {
   const ctCart = cartUsingStagingDataInstance as CartOrOrder;
 
   const result = map(ctCart);
