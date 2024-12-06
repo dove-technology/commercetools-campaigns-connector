@@ -10,9 +10,9 @@
   },
   "custom": {
     "fields": {
-      "dovetech-discounts-couponCodes": [],
-      "dovetech-discounts-evaluationCurrency": "EUR",
-      "dovetech-discounts-evaluationResponse": "{\"actions\":[],\"basket\":null,\"aggregates\":{\"total\":0,\"totalAmountOff\":0},\"costs\":[],\"commitId\":null,\"evaluationLog\":null}",
+      "dovetech-discounts-coupon-codes": [],
+      "dovetech-discounts-evaluation-currency": "EUR",
+      "dovetech-discounts-evaluation-response": "{\"actions\":[],\"basket\":null,\"aggregates\":{\"total\":0,\"totalAmountOff\":0},\"costs\":[],\"commitId\":null,\"evaluationLog\":null}",
       "test-field": "test-value"
     },
     "type": { "id": "51cc98cc-4b3f-4d8b-8320-ec53836c3f88", "typeId": "type" }

@@ -253,7 +253,7 @@ const buildSetCustomTypeAction = (
 ) => {
   const fields: FieldContainer = {
     [COUPON_CODES]: couponCodeAcceptedActions.map((a) => a.code),
-    // Note. We're removing the dovetech-discounts-cartAction field by not setting it
+    // Note. We're removing the dovetech-discounts-cart-action field by not setting it
     [EVALUATION_RESPONSE]: JSON.stringify(dtResponse),
     [EVALUATION_CURRENCY]: currencyCode,
   };
