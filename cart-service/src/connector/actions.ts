@@ -11,6 +11,7 @@ import {
   DATA_INSTANCE,
 } from '../lib/cart-constants';
 import { ExtensionDestination } from '@commercetools/platform-sdk';
+import { getLogger } from '../utils/logger.utils';
 
 const CART_EXTENSION_KEY = 'dovetech-discounts-extension';
 
@@ -18,6 +19,7 @@ export async function createCartUpdateExtension(
   apiRoot: ByProjectKeyRequestBuilder,
   applicationUrl: string
 ): Promise<void> {
+  const logger = getLogger(false);
   const extension = await getExtension(apiRoot);
   const configuration = readConfiguration();
   const encodedPassword = Buffer.from(
@@ -34,6 +36,7 @@ export async function createCartUpdateExtension(
   };
 
   if (!extension) {
+    logger.info('Creating cart extension...');
     await apiRoot
       .extensions()
       .post({
@@ -54,6 +57,7 @@ export async function createCartUpdateExtension(
       })
       .execute();
   } else {
+    logger.info('Updating cart extension...');
     await apiRoot
       .extensions()
       .withKey({ key: CART_EXTENSION_KEY })
@@ -75,6 +79,7 @@ export async function createCartUpdateExtension(
 export async function deleteCartUpdateExtension(
   apiRoot: ByProjectKeyRequestBuilder
 ): Promise<void> {
+  getLogger(false).info('Deleting cart extension...');
   const extension = await getExtension(apiRoot);
 
   if (extension) {
@@ -105,6 +110,7 @@ export async function createCustomTypes(
     .execute();
 
   if (types.length === 0) {
+    getLogger(false).info('Creating custom types...');
     await apiRoot
       .types()
       .post({
