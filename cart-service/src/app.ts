@@ -16,38 +16,38 @@ app.disable('x-powered-by');
 app.use(bodyParser.json());
 
 app.post('/cart-service', async (req: Request, res: Response) => {
-  //check if the request has a basic auth header
-  if (!req.headers.authorization) {
-    setErrorResponse(res, 403, 'Forbidden');
-    return;
-  }
-
-  //check if the request header has the correct basic auth password and return 403 if it does not
-  const currentBasicAuthPassword = configuration.basicAuthPwdCurrent;
-  const previousBasicAuthPassword = configuration.basicAuthPwdPrevious;
-
-  const authHeader = req.headers.authorization;
-  const encodedPassword = authHeader.split(' ')[1];
-  const decodedPassword = Buffer.from(encodedPassword, 'base64').toString(
-    'utf-8'
-  );
-
-  if (
-    decodedPassword !== currentBasicAuthPassword &&
-    decodedPassword !== previousBasicAuthPassword
-  ) {
-    setErrorResponse(res, 403, 'Forbidden');
-    return;
-  }
-
-  const { resource } = req.body;
-
-  if (!resource?.obj) {
-    setErrorResponse(res, 400, 'Bad request - Missing resource object.');
-    return;
-  }
-
   try {
+    //check if the request has a basic auth header
+    if (!req.headers.authorization) {
+      setErrorResponse(res, 403, 'Forbidden');
+      return;
+    }
+
+    //check if the request header has the correct basic auth password and return 403 if it does not
+    const currentBasicAuthPassword = configuration.basicAuthPwdCurrent;
+    const previousBasicAuthPassword = configuration.basicAuthPwdPrevious;
+
+    const authHeader = req.headers.authorization;
+    const encodedPassword = authHeader.split(' ')[1];
+    const decodedPassword = Buffer.from(encodedPassword, 'base64').toString(
+      'utf-8'
+    );
+
+    if (
+      decodedPassword !== currentBasicAuthPassword &&
+      decodedPassword !== previousBasicAuthPassword
+    ) {
+      setErrorResponse(res, 403, 'Forbidden');
+      return;
+    }
+
+    const { resource } = req.body;
+
+    if (!resource?.obj) {
+      setErrorResponse(res, 400, 'Bad request - Missing resource object.');
+      return;
+    }
+
     const resourceObject = resource.obj;
 
     const extensionResponse = await proxy(configuration, resourceObject);
@@ -65,8 +65,9 @@ app.post('/cart-service', async (req: Request, res: Response) => {
     const logger = getLogger();
 
     if (error instanceof CustomError) {
-      logger.error(error.statusCode + ' ' + error.message);
+      logger.error(error.statusCode + ' ' + error.message, error);
     } else if (error instanceof AggregateTotalMismatchError) {
+      logger.warn('AggregateTotalMismatchError occured:', error);
       res.status(400).json({
         errors: [
           {
@@ -78,7 +79,7 @@ app.post('/cart-service', async (req: Request, res: Response) => {
       });
       return;
     } else {
-      logger.error(error);
+      logger.error('Unhandled Error:', error);
     }
 
     // we don't want to fail the action if the extension fails so return empty actions

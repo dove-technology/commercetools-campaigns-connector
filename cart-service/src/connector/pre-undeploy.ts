@@ -13,6 +13,7 @@ async function preUndeploy(): Promise<void> {
 async function run(): Promise<void> {
   const logger = getLogger(false);
   try {
+    logger.info('Running pre-undeploy...');
     await preUndeploy();
   } catch (error) {
     logger.error('Pre-undeploy failed:', error);

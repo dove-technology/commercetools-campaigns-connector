@@ -22,6 +22,7 @@ async function run(): Promise<void> {
   const logger = getLogger(false);
 
   try {
+    logger.info('Running post-deploy...');
     const properties = new Map(Object.entries(process.env));
     await postDeploy(properties);
   } catch (error) {
