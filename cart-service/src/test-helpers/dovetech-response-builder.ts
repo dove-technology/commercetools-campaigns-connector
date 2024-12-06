@@ -1,6 +1,5 @@
 import {
   DoveTechAction,
-  //DoveTechDiscountsDataInstance,
   DoveTechDiscountsResponse,
   DoveTechDiscountsResponseBasket,
   DoveTechDiscountsResponseCost,
