@@ -53,7 +53,6 @@ export interface DoveTechDiscountsResponse {
   actions: DoveTechAction[];
   basket: DoveTechDiscountsResponseBasket | null;
   commitId: string | null;
-  dataInstance: string | null;
   aggregates: DoveTechDiscountsAggregates;
   costs: DoveTechDiscountsResponseCost[];
 }

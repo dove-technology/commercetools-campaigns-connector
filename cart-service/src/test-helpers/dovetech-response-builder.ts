@@ -1,6 +1,6 @@
 import {
   DoveTechAction,
-  DoveTechDiscountsDataInstance,
+  //DoveTechDiscountsDataInstance,
   DoveTechDiscountsResponse,
   DoveTechDiscountsResponseBasket,
   DoveTechDiscountsResponseCost,
@@ -12,12 +12,6 @@ export default class DoveTechResponseBuilder {
   private actions: DoveTechAction[] = [];
   private costs: DoveTechDiscountsResponseCost[] = [];
   private commitId: string | null = null;
-  private dataInstance: string | null = DoveTechDiscountsDataInstance.Live;
-
-  addDataInstance(dataInstance: string) {
-    this.dataInstance = dataInstance;
-    return this;
-  }
 
   addCommitId(commitId: string) {
     this.commitId = commitId;
@@ -63,7 +57,6 @@ export default class DoveTechResponseBuilder {
       actions: this.actions,
       basket: this.basket,
       commitId: this.commitId,
-      dataInstance: this.dataInstance,
       aggregates: {
         total: aggregateTotal,
         totalAmountOff: aggregateTotalAmountOff,
