@@ -9,7 +9,6 @@ import { getLogger } from '../utils/logger.utils';
 const CONNECT_APPLICATION_URL_KEY = 'CONNECT_SERVICE_URL';
 
 async function postDeploy(properties: Map<string, unknown>): Promise<void> {
-
   const applicationUrl = properties.get(CONNECT_APPLICATION_URL_KEY);
 
   assertString(applicationUrl, CONNECT_APPLICATION_URL_KEY);
