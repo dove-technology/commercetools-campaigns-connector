@@ -41,7 +41,7 @@ test('should only return custom type action when Dovetech service returns no dis
 
   expect(response.status).toBe(200);
   expect(response.body).toEqual({
-    actions: [buildSetCustomTypeAction(dtResponse, currencyCode, '[]')],
+    actions: [buildSetCustomTypeAction(dtResponse, currencyCode, [])],
   });
 });
 
@@ -111,7 +111,7 @@ test('should return set direct discount line item actions when Dovetech service 
   expect(response.body).toEqual({
     actions: [
       expectedAction,
-      buildSetCustomTypeAction(dtResponse, currencyCode, '[]'),
+      buildSetCustomTypeAction(dtResponse, currencyCode, []),
     ],
   });
 });
@@ -200,7 +200,7 @@ test('should return set direct discounts when Dovetech service returns discounte
   expect(response.body).toEqual({
     actions: [
       expectedAction,
-      buildSetCustomTypeAction(dtResponse, currencyCode, '[]'),
+      buildSetCustomTypeAction(dtResponse, currencyCode, []),
     ],
   });
 });
@@ -235,11 +235,7 @@ test('should return action to set coupon codes on cart when Dovetech service ret
 
   expect(response.body).toEqual({
     actions: [
-      buildSetCustomTypeAction(
-        dtResponse,
-        currencyCode,
-        '[{"code":"TEST_COUPON"}]'
-      ),
+      buildSetCustomTypeAction(dtResponse, currencyCode, ['TEST_COUPON']),
     ],
   });
 });
@@ -273,7 +269,7 @@ test('should return setCustomType action including commitId field if type is Ord
   expect(response.status).toBe(200);
 
   expect(response.body).toEqual({
-    actions: [buildSetCustomTypeAction(dtResponse, currencyCode, '[]')],
+    actions: [buildSetCustomTypeAction(dtResponse, currencyCode, [])],
   });
 });
 

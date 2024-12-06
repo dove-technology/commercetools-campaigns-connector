@@ -21,7 +21,7 @@ import { buildAmountOffAction } from '../test-helpers/dovetech-action-builders';
 import * as cartWithSingleShippingModeDiscounted from '../test-helpers/cart-with-single-shipping-mode-discounted.json';
 import * as cartWithSingleShippingModeDirectDiscounts from '../test-helpers/cart-with-single-shipping-mode-direct-discounts.json';
 import { SHIPPING_COST_NAME } from './dovetech-property-constants';
-import { buildSetCustomTypeAction } from '../test-helpers/commerce-tools-action-builders';
+import { buildSetCustomTypeAction as buildSetCustomTypeAction } from '../test-helpers/commerce-tools-action-builders';
 
 it('should return no actions if there are no line items or shipping methods', () => {
   const currencyCode = 'USD';
@@ -32,7 +32,7 @@ it('should return no actions if there are no line items or shipping methods', ()
 
   expect(result).toEqual({
     success: true,
-    actions: [buildSetCustomTypeAction(dtResponse, currencyCode, '[]')],
+    actions: [buildSetCustomTypeAction(dtResponse, currencyCode, [])],
   });
 });
 
@@ -399,11 +399,7 @@ it('should map CouponCodeAccepted actions correctly', () => {
   expect(result).toEqual({
     success: true,
     actions: [
-      buildSetCustomTypeAction(
-        dtResponse,
-        currencyCode,
-        '[{"code":"TEST_COUPON"}]'
-      ),
+      buildSetCustomTypeAction(dtResponse, currencyCode, ['TEST_COUPON']),
     ],
   });
 });
@@ -452,7 +448,7 @@ it('CouponCodeRejected action for existing coupon code should remove coupon code
   const existingCouponCode = 'EXISTING_COUPON';
 
   const ctCart = new CommerceToolsCartBuilder(currencyCode)
-    .addCouponCode({ code: existingCouponCode })
+    .addCouponCode(existingCouponCode)
     .build();
 
   const couponCodeRejectedAction: CouponCodeRejectedAction = {
@@ -470,7 +466,7 @@ it('CouponCodeRejected action for existing coupon code should remove coupon code
 
   expect(result).toEqual({
     success: true,
-    actions: [buildSetCustomTypeAction(dtResponse, currencyCode, '[]')],
+    actions: [buildSetCustomTypeAction(dtResponse, currencyCode, [])],
   });
 });
 
@@ -501,7 +497,7 @@ it('should return setCustomType action including commitId field if type is Order
 
   expect(result).toEqual({
     success: true,
-    actions: [buildSetCustomTypeAction(dtResponse, currencyCode, '[]')],
+    actions: [buildSetCustomTypeAction(dtResponse, currencyCode, [])],
   });
 });
 
@@ -575,7 +571,7 @@ describe('shipping costs', () => {
 
     expect(result).toEqual({
       success: true,
-      actions: [buildSetCustomTypeAction(dtResponse, 'EUR', '[]')],
+      actions: [buildSetCustomTypeAction(dtResponse, 'EUR', [])],
     });
   });
 });

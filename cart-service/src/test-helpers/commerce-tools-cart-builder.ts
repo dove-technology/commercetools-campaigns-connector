@@ -7,7 +7,6 @@ import crypto from 'crypto';
 import type {
   CartAction,
   CartOrOrder,
-  CouponCode,
 } from '../types/custom-commerce-tools.types';
 import {
   CART_ACTION,
@@ -19,7 +18,7 @@ import { DoveTechDiscountsResponse } from '../types/dovetech.types';
 
 export default class CommerceToolsCartBuilder {
   private lineItems: LineItem[] = [];
-  private couponCodes: CouponCode[] = [];
+  private couponCodes: string[] = [];
   private cartAction?: CartAction;
   private type: 'Cart' | 'Order' = 'Cart';
   private customerId: string | undefined = undefined;
@@ -50,7 +49,7 @@ export default class CommerceToolsCartBuilder {
     return this;
   }
 
-  addCouponCode(couponCode: CouponCode): this {
+  addCouponCode(couponCode: string): this {
     this.couponCodes.push(couponCode);
     return this;
   }
@@ -92,7 +91,7 @@ export default class CommerceToolsCartBuilder {
 
   build(): CartOrOrder {
     const customFields: FieldContainer = {
-      [COUPON_CODES]: JSON.stringify(this.couponCodes),
+      [COUPON_CODES]: this.couponCodes,
       [CART_ACTION]: JSON.stringify(this.cartAction),
     };
 

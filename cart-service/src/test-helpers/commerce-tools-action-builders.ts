@@ -1,6 +1,6 @@
 import { CartSetCustomTypeAction } from '@commercetools/platform-sdk';
 import {
-  CART_METADATA,
+  EXTENSION_TYPES_DATA_KEY,
   COUPON_CODES,
   EVALUATION_CURRENCY,
   EVALUATION_RESPONSE,
@@ -11,10 +11,10 @@ import { DoveTechDiscountsResponse } from '../types/dovetech.types';
 export const buildSetCustomTypeAction = (
   dtResponse: DoveTechDiscountsResponse,
   currencyCode: string,
-  serialisedCouponCodes: string
+  arrayOfCouponCodes: string[]
 ): CartSetCustomTypeAction => {
-  const fields: { [key: string]: string } = {
-    [COUPON_CODES]: `${serialisedCouponCodes}`,
+  const fields: { [key: string]: string | string[] } = {
+    [COUPON_CODES]: arrayOfCouponCodes,
     [EVALUATION_RESPONSE]: JSON.stringify(dtResponse),
     [EVALUATION_CURRENCY]: currencyCode,
   };
@@ -23,12 +23,14 @@ export const buildSetCustomTypeAction = (
     fields[COMMIT_ID] = dtResponse.commitId;
   }
 
-  return {
+  const setCustomTypeMetadataAction: CartSetCustomTypeAction = {
     action: 'setCustomType',
     type: {
-      key: CART_METADATA,
+      key: EXTENSION_TYPES_DATA_KEY,
       typeId: 'type',
     },
     fields: fields,
   };
+
+  return setCustomTypeMetadataAction;
 };

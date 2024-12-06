@@ -120,7 +120,7 @@ test('existing coupon codes mapped correctly', async () => {
   };
   const ctCart = new CommerceToolsCartBuilder(currencyCode)
     .addCartAction(addCouponCodeAction)
-    .addCouponCode({ code: 'EXISTING_COUPON' })
+    .addCouponCode('EXISTING_COUPON')
     .build();
 
   const result = map(ctCart);

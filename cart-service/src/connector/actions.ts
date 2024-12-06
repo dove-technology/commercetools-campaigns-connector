@@ -1,16 +1,18 @@
 import { ByProjectKeyRequestBuilder } from '@commercetools/platform-sdk/dist/declarations/src/generated/client/by-project-key-request-builder';
 import { readConfiguration } from '../utils/config.utils';
 import {
-  CART_METADATA,
   CART_ACTION,
   COUPON_CODES,
   EVALUATION_RESPONSE,
   EVALUATION_CURRENCY,
   COMMIT_ID,
+  EXTENSION_TYPES_DATA_KEY,
+  EXTENSION_TYPES_DATA_LABEL,
+  DATA_INSTANCE,
 } from '../lib/cart-constants';
 import { ExtensionDestination } from '@commercetools/platform-sdk';
 
-const CART_EXTENSION_KEY = 'dovetech-discountsExtension';
+const CART_EXTENSION_KEY = 'dovetech-discounts-extension';
 
 export async function createCartUpdateExtension(
   apiRoot: ByProjectKeyRequestBuilder,
@@ -97,7 +99,7 @@ export async function createCustomTypes(
     .types()
     .get({
       queryArgs: {
-        where: `key = "${CART_METADATA}"`,
+        where: `key = "${EXTENSION_TYPES_DATA_KEY}"`,
       },
     })
     .execute();
@@ -107,19 +109,33 @@ export async function createCustomTypes(
       .types()
       .post({
         body: {
-          key: CART_METADATA,
+          key: EXTENSION_TYPES_DATA_KEY,
           name: {
-            en: 'Dovetech Cart Metadata',
+            en: EXTENSION_TYPES_DATA_LABEL,
           },
           resourceTypeIds: ['order'],
           fieldDefinitions: [
             {
               name: COUPON_CODES,
               type: {
-                name: 'String',
+                name: 'Set',
+                elementType: {
+                  name: 'String',
+                },
               },
               label: {
                 en: 'Dovetech Coupon Codes',
+              },
+              required: false,
+              inputHint: 'SingleLine',
+            },
+            {
+              name: COMMIT_ID,
+              type: {
+                name: 'String',
+              },
+              label: {
+                en: 'Dovetech Commit ID',
               },
               required: false,
               inputHint: 'SingleLine',
@@ -158,12 +174,22 @@ export async function createCustomTypes(
               inputHint: 'SingleLine',
             },
             {
-              name: COMMIT_ID,
+              name: DATA_INSTANCE,
               type: {
-                name: 'String',
+                name: 'Enum',
+                values: [
+                  {
+                    key: 'Staging',
+                    label: 'Staging',
+                  },
+                  {
+                    key: 'Live',
+                    label: 'Live',
+                  },
+                ],
               },
               label: {
-                en: 'Dovetech Commit ID',
+                en: 'Dovetech Data Instance',
               },
               required: false,
               inputHint: 'SingleLine',

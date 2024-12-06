@@ -1,9 +1,9 @@
 import {
-  CART_METADATA,
   COMMIT_ID,
   COUPON_CODES,
   EVALUATION_CURRENCY,
   EVALUATION_RESPONSE,
+  EXTENSION_TYPES_DATA_KEY,
 } from './cart-constants';
 import type {
   LineItem,
@@ -12,12 +12,12 @@ import type {
   CartSetDirectDiscountsAction,
   DirectDiscountDraft,
   Money,
+  FieldContainer,
 } from '@commercetools/platform-sdk';
 import {
   AddCouponCodeCartAction,
   CartActionType,
   CartOrOrder,
-  CouponCode,
 } from '../types/custom-commerce-tools.types';
 import {
   CouponCodeAcceptedAction,
@@ -251,15 +251,9 @@ const buildSetCustomTypeAction = (
   currencyCode: string,
   commitId: string | null = null
 ) => {
-  const couponCodes: CouponCode[] = couponCodeAcceptedActions.map((a) => ({
-    code: a.code,
-  }));
-
-  const serialisedCouponCodes = JSON.stringify(couponCodes);
-
-  const fields: { [key: string]: string } = {
-    // Note. We're removing the dovetech-discounts-cartAction field by not setting it
-    [COUPON_CODES]: serialisedCouponCodes,
+  const fields: FieldContainer = {
+    [COUPON_CODES]: couponCodeAcceptedActions.map((a) => a.code),
+    // Note. We're removing the dovetech-discounts-cart-action field by not setting it
     [EVALUATION_RESPONSE]: JSON.stringify(dtResponse),
     [EVALUATION_CURRENCY]: currencyCode,
   };
@@ -268,15 +262,16 @@ const buildSetCustomTypeAction = (
     fields[COMMIT_ID] = commitId;
   }
 
-  const setCustomTypeAction: CartSetCustomTypeAction = {
+  const setCustomTypeMetadataAction: CartSetCustomTypeAction = {
     action: 'setCustomType',
     type: {
-      key: CART_METADATA,
+      key: EXTENSION_TYPES_DATA_KEY,
       typeId: 'type',
     },
     fields: fields,
   };
-  return setCustomTypeAction;
+
+  return setCustomTypeMetadataAction;
 };
 
 const getCurrencyValueInMinorUnits = (
