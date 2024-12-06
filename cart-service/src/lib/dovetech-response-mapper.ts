@@ -12,6 +12,7 @@ import type {
   CartSetDirectDiscountsAction,
   DirectDiscountDraft,
   Money,
+  FieldContainer,
 } from '@commercetools/platform-sdk';
 import {
   AddCouponCodeCartAction,
@@ -251,7 +252,7 @@ const buildSetCustomTypeActions = (
   commitId: string | null = null
 ) => {
   // set metadata action
-  const fields: { [key: string]: string | string[] } = {
+  const fields: FieldContainer = {
     [COUPON_CODES]: couponCodeAcceptedActions.map((a) => a.code),
     // Note. We're removing the dovetech-discounts-cartAction field by not setting it
     [EVALUATION_RESPONSE]: JSON.stringify(dtResponse),

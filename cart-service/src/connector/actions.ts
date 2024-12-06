@@ -104,8 +104,6 @@ export async function createCustomTypes(
     })
     .execute();
 
-  console.log('types', types);
-
   if (types.length === 0) {
     await apiRoot
       .types()
