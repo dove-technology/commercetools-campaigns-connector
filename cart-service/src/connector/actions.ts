@@ -116,17 +116,6 @@ export async function createCustomTypes(
           resourceTypeIds: ['order'],
           fieldDefinitions: [
             {
-              name: COMMIT_ID,
-              type: {
-                name: 'String',
-              },
-              label: {
-                en: 'Dovetech Commit ID',
-              },
-              required: false,
-              inputHint: 'SingleLine',
-            },
-            {
               name: COUPON_CODES,
               type: {
                 name: 'Set',
@@ -136,6 +125,17 @@ export async function createCustomTypes(
               },
               label: {
                 en: 'Dovetech Coupon Codes',
+              },
+              required: false,
+              inputHint: 'SingleLine',
+            },
+            {
+              name: COMMIT_ID,
+              type: {
+                name: 'String',
+              },
+              label: {
+                en: 'Dovetech Commit ID',
               },
               required: false,
               inputHint: 'SingleLine',
