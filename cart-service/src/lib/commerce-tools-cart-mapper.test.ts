@@ -310,6 +310,14 @@ test("should not error if mapping configuration has nested path that doesn't exi
   expect(result.context?.test).toBeUndefined();
 });
 
+test('should use Live as the default value for the data instance if not set in the cart', async () => {
+  const ctCart = cartWithSingleLineItem as CartOrOrder;
+
+  const result = map(ctCart);
+
+  expect(result.settings.dataInstance).toBe(DoveTechDiscountsDataInstance.Live);
+});
+
 test('should use data instance from cart if set', async () => {
   const ctCart = cartUsingStagingDataInstance as CartOrOrder;
 
