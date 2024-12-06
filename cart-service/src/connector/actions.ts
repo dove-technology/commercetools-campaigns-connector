@@ -12,7 +12,7 @@ import {
 } from '../lib/cart-constants';
 import { ExtensionDestination } from '@commercetools/platform-sdk';
 
-const CART_EXTENSION_KEY = 'dovetech-discountsExtension';
+const CART_EXTENSION_KEY = 'dovetech-discounts-extension';
 
 export async function createCartUpdateExtension(
   apiRoot: ByProjectKeyRequestBuilder,
