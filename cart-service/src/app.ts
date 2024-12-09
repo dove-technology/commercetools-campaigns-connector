@@ -90,7 +90,7 @@ app.post('/cart-service', async (req: Request, res: Response) => {
   }
 });
 
-app.use('*', (_req: Request, res: Response) => {
+app.use('*wildcard', (_req: Request, res: Response) => {
   setErrorResponse(res, 404, 'Path not found.');
 });
 
