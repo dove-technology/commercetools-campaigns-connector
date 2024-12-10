@@ -11,6 +11,15 @@ deployAs:
           description: commercetools API region
           required: true
           default: "europe-west1.gcp"
+        - key: CTP_PROJECT_KEY
+          description: commercetools project key
+          required: true
+        - key: CTP_CLIENT_ID
+          description: commercetools client ID
+          required: true
+        - key: CTP_SCOPES
+          description: commercetools client scopes (e.g. manage_extensions:${project key} manage_types:${project key})
+          required: true
         - key: DOVETECH_API_HOST
           description: Dovetech Processor API host
           required: true
@@ -24,17 +33,8 @@ deployAs:
         - key: DOVETECH_API_KEY
           description: Dovetech Processor API key
           required: true
-        - key: CTP_PROJECT_KEY
-          description: commercetools project key
-          required: true
-        - key: CTP_CLIENT_ID
-          description: commercetools client ID
-          required: true
         - key: CTP_CLIENT_SECRET
           description: commercetools client secret
-          required: true
-        - key: CTP_SCOPES
-          description: commercetools client scopes (e.g. manage_extensions:${project key} manage_types:${project key})
           required: true
         - key: BASIC_AUTH_PASSWORD_CURRENT
           description: Basic auth password for the connector to prevent unauthorized access. Use this to set a password for the first time or to change the password
