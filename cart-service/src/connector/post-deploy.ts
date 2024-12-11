@@ -10,7 +10,7 @@ const CONNECT_APPLICATION_URL_KEY = 'CONNECT_SERVICE_URL';
 
 async function postDeploy(properties: Map<string, unknown>): Promise<void> {
   // todo: remove this in time
-  getLogger(false).info("In postDeploy function");
+  getLogger(false).info('In postDeploy function');
   const applicationUrl = properties.get(CONNECT_APPLICATION_URL_KEY);
 
   assertString(applicationUrl, CONNECT_APPLICATION_URL_KEY);
