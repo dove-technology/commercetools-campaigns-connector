@@ -25,6 +25,7 @@ async function run(): Promise<void> {
     logger.info('Running post-deploy...');
     const properties = new Map(Object.entries(process.env));
     await postDeploy(properties);
+    logger.end();
   } catch (error) {
     logger.error('Post-deploy failed:', error);
     process.exitCode = 1;
