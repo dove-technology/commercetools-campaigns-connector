@@ -56,7 +56,7 @@ export const evaluate = async (
 const callService = async (
   configuration: Configuration,
   request: DoveTechDiscountsRequest
-): Promise<Response> => {
+) => {
   return await fetch(`${configuration.dovetechApiHost}/evaluate`, {
     method: 'POST',
     headers: {
