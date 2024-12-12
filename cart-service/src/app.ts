@@ -64,29 +64,21 @@ app.post('/cart-service', async (req: Request, res: Response) => {
       .status(extensionResponse.errorResponse.statusCode)
       .json(extensionResponse.errorResponse);
   } catch (error) {
-    const logger = getLogger();
-    const isOrder = resourceObject?.type === 'Order';
+    logError(error);
 
-    if (error instanceof CustomError) {
-      logger.error(error.statusCode + ' ' + error.message, error);
-
-      if (isOrder) {
+    if (resourceObject?.type === 'Order') {
+      if (error instanceof CustomError) {
         setErrorResponse(res, error.statusCode as number, error.message);
-        return;
+      } else {
+        setErrorResponse(res, 500, 'Internal Server Error');
       }
     } else {
-      logger.error('Unhandled Error:', error);
+      // we don't want to fail the action if the extension fails so return empty actions
+      res.status(200).json({
+        actions: [],
+      });
     }
 
-    if (isOrder) {
-      setErrorResponse(res, 500, 'Internal Server Error');
-      return;
-    }
-
-    // we don't want to fail the action if the extension fails so return empty actions
-    res.status(200).json({
-      actions: [],
-    });
     return;
   }
 });
@@ -94,6 +86,16 @@ app.post('/cart-service', async (req: Request, res: Response) => {
 app.use('*wildcard', (_req: Request, res: Response) => {
   setErrorResponse(res, 404, 'Path not found.');
 });
+
+const logError = (error: unknown) => {
+  const logger = getLogger();
+
+  if (error instanceof CustomError) {
+    logger.error(error.statusCode + ' ' + error.message, error);
+  } else {
+    logger.error('Unhandled Error:', error);
+  }
+};
 
 const setErrorResponse = (
   res: Response,
