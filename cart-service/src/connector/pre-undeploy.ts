@@ -6,8 +6,6 @@ import { deleteCartUpdateExtension } from './actions';
 import { getLogger } from '../utils/logger.utils';
 
 async function preUndeploy(): Promise<void> {
-  // todo: remove this in time
-  getLogger(false).info('In preUndeploy function');
   const apiRoot = createApiRoot();
   await deleteCartUpdateExtension(apiRoot);
 }
