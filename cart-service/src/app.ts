@@ -5,7 +5,6 @@ import CustomError from './errors/custom.error';
 import { proxy } from './lib/commerce-tools-dovetech-proxy';
 import { readConfiguration } from './utils/config.utils';
 import { getLogger } from './utils/logger.utils';
-import AggregateTotalMismatchError from './errors/aggregate-total-mismatch.error';
 import { CartOrOrder } from './types/custom-commerce-tools.types';
 
 dotenv.config();
