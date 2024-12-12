@@ -51,18 +51,26 @@ app.post('/cart-service', async (req: Request, res: Response) => {
     }
 
     resourceObject = resource.obj as CartOrOrder;
+  } catch (error) {
+    logError(error);
 
+    setErrorResponse(res, 500, 'Internal Server Error');
+
+    return;
+  }
+
+  try {
     const extensionResponse = await proxy(configuration, resourceObject);
 
     if (extensionResponse.success) {
       res.status(200).json({
         actions: extensionResponse.actions,
       });
-      return;
+    } else {
+      res
+        .status(extensionResponse.errorResponse.statusCode)
+        .json(extensionResponse.errorResponse);
     }
-    res
-      .status(extensionResponse.errorResponse.statusCode)
-      .json(extensionResponse.errorResponse);
   } catch (error) {
     logError(error);
 
@@ -73,7 +81,8 @@ app.post('/cart-service', async (req: Request, res: Response) => {
         setErrorResponse(res, 500, 'Internal Server Error');
       }
     } else {
-      // we don't want to fail the action if the extension fails so return empty actions
+      // for carts, we don't want to fail the whole cart update if the extension fails
+      // E.g. we don't want to stop add to cart if the calculation of discounts fails
       res.status(200).json({
         actions: [],
       });
