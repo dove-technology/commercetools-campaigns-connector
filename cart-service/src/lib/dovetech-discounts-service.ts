@@ -15,6 +15,7 @@ export const evaluate = async (
     async () => {
       const response = await callService(configuration, request);
 
+      // error we can retry
       if (!response.ok && response.status !== 400) {
         throw new CustomError(
           response.status,
