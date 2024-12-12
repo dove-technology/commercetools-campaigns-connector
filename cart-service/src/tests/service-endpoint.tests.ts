@@ -384,7 +384,7 @@ test('should return error when Dovetech service returns 500 and type is order', 
   });
 });
 
-test('transient error from Dovetech service is retried', async () => {
+test('should retry call to Dovetech service when error returned and type is order', async () => {
   fetchMock.mockResponseOnce('', { status: 500 });
 
   const dtResponse = new DoveTechResponseBuilder().addCommitId('123').build();

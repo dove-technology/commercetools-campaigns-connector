@@ -27,7 +27,7 @@ export const evaluate = async (
     },
     {
       delay: 100,
-      maxTry: 2,
+      maxTry: request.settings.commit ? 2 : 1, // only retry for orders
     }
   );
 
