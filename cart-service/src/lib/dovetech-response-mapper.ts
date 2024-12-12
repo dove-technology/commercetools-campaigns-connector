@@ -42,6 +42,12 @@ const invalidCouponCodeResponse: ExtensionResponse = {
   errorResponse: {
     statusCode: 400,
     message: 'Discount code is not applicable',
+    errors: [
+      {
+        code: 'InvalidInput',
+        message: 'Discount code is not applicable',
+      },
+    ],
   },
 };
 
