@@ -372,7 +372,7 @@ test('should return empty actions when Dovetech service returns 500', async () =
 });
 
 test('should return error when Dovetech service returns 500 for order', async () => {
-  fetchMock.mockResponseOnce('', { status: 500 });
+  fetchMock.mockResponse('', { status: 500 });
 
   const ctCart = new CommerceToolsCartBuilder('USD').setType('Order').build();
 
