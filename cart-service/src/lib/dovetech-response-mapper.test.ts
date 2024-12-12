@@ -433,12 +433,6 @@ it('CouponCodeRejected action for new coupon code should return error', () => {
     errorResponse: {
       statusCode: 400,
       message: 'Discount code is not applicable',
-      errors: [
-        {
-          code: 'InvalidInput',
-          message: 'Discount code is not applicable',
-        },
-      ],
     },
   });
 });

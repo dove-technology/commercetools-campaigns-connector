@@ -6,6 +6,7 @@ import { proxy } from './lib/commerce-tools-dovetech-proxy';
 import { readConfiguration } from './utils/config.utils';
 import { getLogger } from './utils/logger.utils';
 import AggregateTotalMismatchError from './errors/aggregate-total-mismatch.error';
+import { CartOrOrder } from './types/custom-commerce-tools.types';
 
 dotenv.config();
 
@@ -16,6 +17,8 @@ app.disable('x-powered-by');
 app.use(bodyParser.json());
 
 app.post('/cart-service', async (req: Request, res: Response) => {
+  let resourceObject: CartOrOrder | undefined;
+
   try {
     //check if the request has a basic auth header
     if (!req.headers.authorization) {
@@ -48,7 +51,7 @@ app.post('/cart-service', async (req: Request, res: Response) => {
       return;
     }
 
-    const resourceObject = resource.obj;
+    resourceObject = resource.obj as CartOrOrder;
 
     const extensionResponse = await proxy(configuration, resourceObject);
 
@@ -63,23 +66,26 @@ app.post('/cart-service', async (req: Request, res: Response) => {
       .json(extensionResponse.errorResponse);
   } catch (error) {
     const logger = getLogger();
+    const isOrder = resourceObject?.type === 'Order';
 
     if (error instanceof CustomError) {
       logger.error(error.statusCode + ' ' + error.message, error);
-    } else if (error instanceof AggregateTotalMismatchError) {
-      logger.warn('AggregateTotalMismatchError occured:', error);
-      res.status(400).json({
-        errors: [
-          {
-            code: 'InvalidOperation',
-            message:
-              'Expected aggregate total does not match latest aggregate total',
-          },
-        ],
-      });
-      return;
+
+      if (isOrder) {
+        res.status(error.statusCode as number).json({
+          message: error.message,
+        });
+        return;
+      }
     } else {
       logger.error('Unhandled Error:', error);
+    }
+
+    if (isOrder) {
+      res.status(500).json({
+        message: 'Internal Server Error',
+      });
+      return;
     }
 
     // we don't want to fail the action if the extension fails so return empty actions

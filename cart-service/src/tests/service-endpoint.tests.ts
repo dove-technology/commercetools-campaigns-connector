@@ -371,6 +371,19 @@ test('should return empty actions when Dovetech service returns 500', async () =
   });
 });
 
+test('should return error when Dovetech service returns 500 for order', async () => {
+  fetchMock.mockResponseOnce('', { status: 500 });
+
+  const ctCart = new CommerceToolsCartBuilder('USD').setType('Order').build();
+
+  const response = await postCart(ctCart);
+
+  expect(response.status).toBe(500);
+  expect(response.body).toEqual({
+    message: 'Error while calling DoveTech discounts service.',
+  });
+});
+
 test('should reject order if aggregate-total-mismatch error returned', async () => {
   const currencyCode = 'USD';
 
@@ -394,13 +407,7 @@ test('should reject order if aggregate-total-mismatch error returned', async () 
   expect(response.status).toBe(400);
 
   expect(response.body).toEqual({
-    errors: [
-      {
-        code: 'InvalidOperation',
-        message:
-          'Expected aggregate total does not match latest aggregate total',
-      },
-    ],
+    message: 'Expected aggregate total does not match latest aggregate total',
   });
 });
 

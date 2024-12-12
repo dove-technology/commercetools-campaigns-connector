@@ -28,7 +28,10 @@ export const evaluate = async (
         problemDetails.type ===
         'https://dovetech.com/problem-responses/aggregate-total-mismatch'
       ) {
-        throw new AggregateTotalMismatchError();
+        throw new CustomError(
+          400,
+          'Expected aggregate total does not match latest aggregate total'
+        );
       }
 
       const logger = getLogger();
