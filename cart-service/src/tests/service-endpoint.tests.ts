@@ -337,7 +337,7 @@ test('should return 400 bad request when post invalid resource', async () => {
   });
 });
 
-test('should return empty actions when Dovetech service returns 400', async () => {
+test('should return empty actions when Dovetech service returns 400 and type is cart', async () => {
   const dtResponse = {
     type: 'https://httpstatuses.io/400',
     title: 'Bad Request',
@@ -358,7 +358,7 @@ test('should return empty actions when Dovetech service returns 400', async () =
   });
 });
 
-test('should return empty actions when Dovetech service returns 500', async () => {
+test('should return empty actions when Dovetech service returns 500 and type is cart', async () => {
   fetchMock.mockResponseOnce('', { status: 500 });
 
   const ctCart = new CommerceToolsCartBuilder('USD').build();
@@ -371,7 +371,7 @@ test('should return empty actions when Dovetech service returns 500', async () =
   });
 });
 
-test('should return error when Dovetech service returns 500 for order', async () => {
+test('should return error when Dovetech service returns 500 and type is order', async () => {
   fetchMock.mockResponse('', { status: 500 });
 
   const ctCart = new CommerceToolsCartBuilder('USD').setType('Order').build();
