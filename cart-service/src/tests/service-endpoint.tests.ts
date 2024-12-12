@@ -384,6 +384,23 @@ test('should return error when Dovetech service returns 500 for order', async ()
   });
 });
 
+test('transient error from Dovetech service is retried', async () => {
+  fetchMock.mockResponseOnce('', { status: 500 });
+
+  const dtResponse = new DoveTechResponseBuilder().addCommitId('123').build();
+
+  fetchMock.mockResponseOnce(JSON.stringify(dtResponse));
+
+  const ctCart = new CommerceToolsCartBuilder('USD').setType('Order').build();
+
+  const response = await postCart(ctCart);
+
+  expect(response.status).toBe(200);
+  expect(response.body).toEqual({
+    actions: [buildSetCustomTypeAction(dtResponse, 'USD', [])],
+  });
+});
+
 test('should reject order if aggregate-total-mismatch error returned', async () => {
   const currencyCode = 'USD';
 
