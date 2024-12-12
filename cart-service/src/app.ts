@@ -6,6 +6,7 @@ import { proxy } from './lib/commerce-tools-dovetech-proxy';
 import { readConfiguration } from './utils/config.utils';
 import { getLogger } from './utils/logger.utils';
 import { CartOrOrder } from './types/custom-commerce-tools.types';
+import winston from 'winston';
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(bodyParser.json());
 
 app.post('/cart-service', async (req: Request, res: Response) => {
   let resourceObject: CartOrOrder | undefined;
+  const logger = getLogger();
 
   try {
     //check if the request has a basic auth header
@@ -52,7 +54,7 @@ app.post('/cart-service', async (req: Request, res: Response) => {
 
     resourceObject = resource.obj as CartOrOrder;
   } catch (error) {
-    logError(error);
+    logError(error, logger);
 
     setErrorResponse(res, 500, 'Internal Server Error');
 
@@ -72,9 +74,11 @@ app.post('/cart-service', async (req: Request, res: Response) => {
         .json(extensionResponse.errorResponse);
     }
   } catch (error) {
-    logError(error);
+    logError(error, logger);
 
     if (resourceObject?.type === 'Order') {
+      logger.error('Failed to process order', error);
+
       if (error instanceof CustomError) {
         setErrorResponse(res, error.statusCode as number, error.message);
       } else {
@@ -96,9 +100,7 @@ app.use('*wildcard', (_req: Request, res: Response) => {
   setErrorResponse(res, 404, 'Path not found.');
 });
 
-const logError = (error: unknown) => {
-  const logger = getLogger();
-
+const logError = (error: unknown, logger: winston.Logger) => {
   if (error instanceof CustomError) {
     logger.error(error.statusCode + ' ' + error.message, error);
   } else {
