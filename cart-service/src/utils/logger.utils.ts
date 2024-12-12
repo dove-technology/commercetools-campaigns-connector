@@ -38,7 +38,6 @@ export const getLogger = (useBatchLogRecordProcessor: boolean = true) => {
         headers: {
           'api-key': configuration.otlpExporterEndpointApiKey,
         },
-        concurrencyLimit: 1,
       });
       loggerProvider.addLogRecordProcessor(
         useBatchLogRecordProcessor
