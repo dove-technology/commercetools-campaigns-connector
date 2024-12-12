@@ -206,11 +206,12 @@ const verifyEvaluatedCartCurrencyMatchesOrderCurrency = (
   order: CartOrOrder
 ) => {
   const evaluationCurrency = order.custom?.fields[EVALUATION_CURRENCY];
+  const currentCurrencyCode = getCartCurrencyCode(order);
 
-  if (evaluationCurrency && evaluationCurrency !== getCartCurrencyCode(order)) {
+  if (evaluationCurrency && evaluationCurrency !== currentCurrencyCode) {
     throw new CustomError(
       400,
-      'Cart currency does not match the currency of the order'
+      `Currency code on the order (${currentCurrencyCode}) does not match the currency of the previous evaluation (${evaluationCurrency})`
     );
   }
 };
