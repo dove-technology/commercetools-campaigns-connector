@@ -71,9 +71,7 @@ app.post('/cart-service', async (req: Request, res: Response) => {
       logger.error(error.statusCode + ' ' + error.message, error);
 
       if (isOrder) {
-        res.status(error.statusCode as number).json({
-          message: error.message,
-        });
+        setErrorResponse(res, error.statusCode as number, error.message);
         return;
       }
     } else {
@@ -81,9 +79,7 @@ app.post('/cart-service', async (req: Request, res: Response) => {
     }
 
     if (isOrder) {
-      res.status(500).json({
-        message: 'Internal Server Error',
-      });
+      setErrorResponse(res, 500, 'Internal Server Error');
       return;
     }
 
