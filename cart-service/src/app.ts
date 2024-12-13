@@ -80,7 +80,7 @@ app.post('/cart-service', async (req: Request, res: Response) => {
       logger.error('Failed to process order', error);
 
       if (error instanceof CustomError) {
-        setErrorResponse(res, error.statusCode, error.message);
+        setErrorResponse2(res, error);
       } else {
         setErrorResponse(res, 500, 'Internal Server Error');
       }
@@ -115,6 +115,13 @@ const setErrorResponse = (
 ) => {
   res.status(statusCode).json({
     message: message,
+  });
+};
+
+const setErrorResponse2 = (res: Response, customError: CustomError) => {
+  res.status(customError.statusCode).json({
+    message: customError.message,
+    errors: customError.errors,
   });
 };
 

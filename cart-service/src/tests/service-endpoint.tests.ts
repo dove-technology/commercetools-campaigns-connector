@@ -389,6 +389,12 @@ test('should return 400 when Dovetech service returns 400 and type is order', as
   expect(response.status).toBe(400);
   expect(response.body).toEqual({
     message: 'Bad request returned from DoveTech discounts service',
+    errors: [
+      {
+        code: 'InvalidInput',
+        message: 'Bad request returned from DoveTech discounts service',
+      },
+    ],
   });
 });
 
@@ -402,6 +408,12 @@ test('should return error when Dovetech service returns 500 and type is order', 
   expect(response.status).toBe(500);
   expect(response.body).toEqual({
     message: 'Error while calling DoveTech discounts service.',
+    errors: [
+      {
+        code: 'General',
+        message: 'Error while calling DoveTech discounts service.',
+      },
+    ],
   });
 });
 
@@ -446,6 +458,13 @@ test('should reject order if aggregate-total-mismatch error returned', async () 
 
   expect(response.body).toEqual({
     message: 'Expected aggregate total does not match latest aggregate total',
+    errors: [
+      {
+        code: 'InvalidInput',
+        message:
+          'Expected aggregate total does not match latest aggregate total',
+      },
+    ],
   });
 });
 

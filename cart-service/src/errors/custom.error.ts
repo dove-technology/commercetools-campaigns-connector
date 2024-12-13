@@ -1,12 +1,12 @@
 type CustomErrorItem = {
-  code: number | string;
+  code: string;
   message: string;
 };
 
 class CustomError extends Error {
   statusCode: number;
   message: string;
-  errors?: CustomErrorItem[];
+  errors: CustomErrorItem[];
 
   constructor(statusCode: number, code: string, message: string) {
     super(message);
