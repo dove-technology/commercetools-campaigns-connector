@@ -48,6 +48,11 @@ export const evaluate = async (
     logger.error('Bad request returned from DoveTech discounts service', {
       meta: problemDetails,
     });
+
+    throw new CustomError(
+      response.status,
+      'Bad request returned from DoveTech discounts service'
+    );
   }
 
   return await response.json();
