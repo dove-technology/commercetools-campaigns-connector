@@ -32,7 +32,7 @@ import { CurrencyValue } from './currency-value';
 import { CurrencyValueType } from '../types/index.types';
 import type { Configuration } from '../types/index.types';
 import { merge } from 'object-mapper';
-import CustomError from '../errors/custom.error';
+import ServiceError from '../errors/service.error';
 
 export default (
   commerceToolsCart: CartOrOrder,
@@ -209,7 +209,7 @@ const verifyEvaluatedCartCurrencyMatchesOrderCurrency = (
   const currentCurrencyCode = getCartCurrencyCode(order);
 
   if (evaluationCurrency && evaluationCurrency !== currentCurrencyCode) {
-    throw new CustomError(
+    throw new ServiceError(
       400,
       'InvalidInput',
       `Currency code on the order (${currentCurrencyCode}) does not match the currency of the previous evaluation (${evaluationCurrency})`

@@ -18,7 +18,7 @@ import * as cartWithSingleLineItem from '../test-helpers/cart-with-single-line-i
 import { getConfig } from '../test-helpers/test-config-helper';
 import { SHIPPING_COST_NAME } from './dovetech-property-constants';
 import { Configuration } from '../types/index.types';
-import CustomError from '../errors/custom.error';
+import ServiceError from '../errors/service.error';
 
 jest.mock('../utils/config.utils');
 
@@ -210,7 +210,7 @@ test('should throw error if evaluation result currency is different and type is 
     .setType('Order')
     .build();
 
-  expect(() => map(ctCart)).toThrow(CustomError);
+  expect(() => map(ctCart)).toThrow(ServiceError);
 });
 
 test('should map if evaluation result currency is different when type is Cart', async () => {

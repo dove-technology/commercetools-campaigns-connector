@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import CustomError from './errors/custom.error';
+import ServiceError from './errors/service.error';
 import { proxy } from './lib/commerce-tools-dovetech-proxy';
 import { readConfiguration } from './utils/config.utils';
 import { getLogger } from './utils/logger.utils';
@@ -84,8 +84,8 @@ app.post('/cart-service', async (req: Request, res: Response) => {
     if (resourceObject?.type === 'Order') {
       logger.error('Failed to process order', error);
 
-      if (error instanceof CustomError) {
-        setErrorCustomErrorResponse(res, error);
+      if (error instanceof ServiceError) {
+        setServiceErrorResponse(res, error);
       } else {
         setErrorResponse(res, 500, 'General', 'Internal Server Error');
       }
@@ -106,7 +106,7 @@ app.use('*wildcard', (_req: Request, res: Response) => {
 });
 
 const logError = (error: unknown, logger: winston.Logger) => {
-  if (error instanceof CustomError) {
+  if (error instanceof ServiceError) {
     logger.error(error.statusCode + ' ' + error.message, error);
   } else {
     logger.error('Unhandled Error:', error);
@@ -125,13 +125,10 @@ const setErrorResponse = (
   });
 };
 
-const setErrorCustomErrorResponse = (
-  res: Response,
-  customError: CustomError
-) => {
-  res.status(customError.statusCode).json({
-    message: customError.message,
-    errors: customError.errors,
+const setServiceErrorResponse = (res: Response, serviceError: ServiceError) => {
+  res.status(serviceError.statusCode).json({
+    message: serviceError.message,
+    errors: serviceError.errors,
   });
 };
 
