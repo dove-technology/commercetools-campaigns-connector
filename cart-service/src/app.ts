@@ -80,7 +80,7 @@ app.post('/cart-service', async (req: Request, res: Response) => {
       logger.error('Failed to process order', error);
 
       if (error instanceof CustomError) {
-        setErrorResponse(res, error.statusCode as number, error.message);
+        setErrorResponse(res, error.statusCode, error.message);
       } else {
         setErrorResponse(res, 500, 'Internal Server Error');
       }

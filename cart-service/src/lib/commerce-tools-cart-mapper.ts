@@ -211,6 +211,7 @@ const verifyEvaluatedCartCurrencyMatchesOrderCurrency = (
   if (evaluationCurrency && evaluationCurrency !== currentCurrencyCode) {
     throw new CustomError(
       400,
+      'InvalidInput',
       `Currency code on the order (${currentCurrencyCode}) does not match the currency of the previous evaluation (${evaluationCurrency})`
     );
   }

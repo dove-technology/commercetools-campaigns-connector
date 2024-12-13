@@ -19,6 +19,7 @@ export const evaluate = async (
       if (!response.ok && response.status !== 400) {
         throw new CustomError(
           response.status,
+          'General',
           'Error while calling DoveTech discounts service.'
         );
       }
@@ -40,6 +41,7 @@ export const evaluate = async (
     ) {
       throw new CustomError(
         400,
+        'InvalidInput',
         'Expected aggregate total does not match latest aggregate total'
       );
     }
@@ -51,6 +53,7 @@ export const evaluate = async (
 
     throw new CustomError(
       response.status,
+      'InvalidInput',
       'Bad request returned from DoveTech discounts service'
     );
   }
