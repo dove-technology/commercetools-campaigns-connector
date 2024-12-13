@@ -371,7 +371,7 @@ test('should return empty actions when Dovetech service returns 500 and type is 
   });
 });
 
-test('should return error when Dovetech service returns 400 and type is order', async () => {
+test('should return 400 when Dovetech service returns 400 and type is order', async () => {
   const dtResponse = {
     type: 'https://httpstatuses.io/400',
     title: 'Bad Request',
