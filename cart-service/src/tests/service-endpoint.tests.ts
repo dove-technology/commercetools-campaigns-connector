@@ -371,6 +371,27 @@ test('should return empty actions when Dovetech service returns 500 and type is 
   });
 });
 
+test('should return 400 when Dovetech service returns 400 and type is order', async () => {
+  const dtResponse = {
+    type: 'https://httpstatuses.io/400',
+    title: 'Bad Request',
+    status: 400,
+    detail:
+      "A currency code of 'Invalid' doesn't match any currencies in the project",
+  };
+
+  fetchMock.mockResponseOnce(JSON.stringify(dtResponse), { status: 400 });
+
+  const ctCart = new CommerceToolsCartBuilder('USD').setType('Order').build();
+
+  const response = await postCart(ctCart);
+
+  expect(response.status).toBe(400);
+  expect(response.body).toEqual({
+    message: 'Bad request returned from DoveTech discounts service',
+  });
+});
+
 test('should return error when Dovetech service returns 500 and type is order', async () => {
   fetchMock.mockResponse('', { status: 500 });
 
