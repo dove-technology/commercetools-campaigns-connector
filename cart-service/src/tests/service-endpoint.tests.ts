@@ -337,7 +337,7 @@ test('should return 400 bad request when post invalid resource', async () => {
   });
 });
 
-test('should return empty actions when Dovetech service returns 400', async () => {
+test('should return empty actions when Dovetech service returns 400 and type is cart', async () => {
   const dtResponse = {
     type: 'https://httpstatuses.io/400',
     title: 'Bad Request',
@@ -358,7 +358,7 @@ test('should return empty actions when Dovetech service returns 400', async () =
   });
 });
 
-test('should return empty actions when Dovetech service returns 500', async () => {
+test('should return empty actions when Dovetech service returns 500 and type is cart', async () => {
   fetchMock.mockResponseOnce('', { status: 500 });
 
   const ctCart = new CommerceToolsCartBuilder('USD').build();
@@ -368,6 +368,36 @@ test('should return empty actions when Dovetech service returns 500', async () =
   expect(response.status).toBe(200);
   expect(response.body).toEqual({
     actions: [],
+  });
+});
+
+test('should return error when Dovetech service returns 500 and type is order', async () => {
+  fetchMock.mockResponse('', { status: 500 });
+
+  const ctCart = new CommerceToolsCartBuilder('USD').setType('Order').build();
+
+  const response = await postCart(ctCart);
+
+  expect(response.status).toBe(500);
+  expect(response.body).toEqual({
+    message: 'Error while calling DoveTech discounts service.',
+  });
+});
+
+test('should retry call to Dovetech service when error returned and type is order', async () => {
+  fetchMock.mockResponseOnce('', { status: 500 });
+
+  const dtResponse = new DoveTechResponseBuilder().addCommitId('123').build();
+
+  fetchMock.mockResponseOnce(JSON.stringify(dtResponse));
+
+  const ctCart = new CommerceToolsCartBuilder('USD').setType('Order').build();
+
+  const response = await postCart(ctCart);
+
+  expect(response.status).toBe(200);
+  expect(response.body).toEqual({
+    actions: [buildSetCustomTypeAction(dtResponse, 'USD', [])],
   });
 });
 
@@ -394,13 +424,7 @@ test('should reject order if aggregate-total-mismatch error returned', async () 
   expect(response.status).toBe(400);
 
   expect(response.body).toEqual({
-    errors: [
-      {
-        code: 'InvalidOperation',
-        message:
-          'Expected aggregate total does not match latest aggregate total',
-      },
-    ],
+    message: 'Expected aggregate total does not match latest aggregate total',
   });
 });
 

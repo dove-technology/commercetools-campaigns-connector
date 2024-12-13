@@ -5,7 +5,8 @@ import CustomError from './errors/custom.error';
 import { proxy } from './lib/commerce-tools-dovetech-proxy';
 import { readConfiguration } from './utils/config.utils';
 import { getLogger } from './utils/logger.utils';
-import AggregateTotalMismatchError from './errors/aggregate-total-mismatch.error';
+import { CartOrOrder } from './types/custom-commerce-tools.types';
+import winston from 'winston';
 
 dotenv.config();
 
@@ -16,6 +17,9 @@ app.disable('x-powered-by');
 app.use(bodyParser.json());
 
 app.post('/cart-service', async (req: Request, res: Response) => {
+  let resourceObject: CartOrOrder | undefined;
+  const logger = getLogger();
+
   try {
     //check if the request has a basic auth header
     if (!req.headers.authorization) {
@@ -48,44 +52,46 @@ app.post('/cart-service', async (req: Request, res: Response) => {
       return;
     }
 
-    const resourceObject = resource.obj;
+    resourceObject = resource.obj as CartOrOrder;
+  } catch (error) {
+    logError(error, logger);
 
+    setErrorResponse(res, 500, 'Internal Server Error');
+
+    return;
+  }
+
+  try {
     const extensionResponse = await proxy(configuration, resourceObject);
 
     if (extensionResponse.success) {
       res.status(200).json({
         actions: extensionResponse.actions,
       });
-      return;
-    }
-    res
-      .status(extensionResponse.errorResponse.statusCode)
-      .json(extensionResponse.errorResponse);
-  } catch (error) {
-    const logger = getLogger();
-
-    if (error instanceof CustomError) {
-      logger.error(error.statusCode + ' ' + error.message, error);
-    } else if (error instanceof AggregateTotalMismatchError) {
-      logger.warn('AggregateTotalMismatchError occured:', error);
-      res.status(400).json({
-        errors: [
-          {
-            code: 'InvalidOperation',
-            message:
-              'Expected aggregate total does not match latest aggregate total',
-          },
-        ],
-      });
-      return;
     } else {
-      logger.error('Unhandled Error:', error);
+      res
+        .status(extensionResponse.errorResponse.statusCode)
+        .json(extensionResponse.errorResponse);
+    }
+  } catch (error) {
+    logError(error, logger);
+
+    if (resourceObject?.type === 'Order') {
+      logger.error('Failed to process order', error);
+
+      if (error instanceof CustomError) {
+        setErrorResponse(res, error.statusCode as number, error.message);
+      } else {
+        setErrorResponse(res, 500, 'Internal Server Error');
+      }
+    } else {
+      // for carts, we don't want to fail the whole cart update if the extension fails
+      // E.g. we don't want to stop add to cart if the calculation of discounts fails
+      res.status(200).json({
+        actions: [],
+      });
     }
 
-    // we don't want to fail the action if the extension fails so return empty actions
-    res.status(200).json({
-      actions: [],
-    });
     return;
   }
 });
@@ -93,6 +99,14 @@ app.post('/cart-service', async (req: Request, res: Response) => {
 app.use('*wildcard', (_req: Request, res: Response) => {
   setErrorResponse(res, 404, 'Path not found.');
 });
+
+const logError = (error: unknown, logger: winston.Logger) => {
+  if (error instanceof CustomError) {
+    logger.error(error.statusCode + ' ' + error.message, error);
+  } else {
+    logger.error('Unhandled Error:', error);
+  }
+};
 
 const setErrorResponse = (
   res: Response,

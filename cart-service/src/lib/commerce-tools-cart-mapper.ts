@@ -27,12 +27,12 @@ import {
 } from '../types/dovetech.types';
 import { SHIPPING_COST_NAME } from './dovetech-property-constants';
 import { getLogger } from '../utils/logger.utils';
-import AggregateTotalMismatchError from '../errors/aggregate-total-mismatch.error';
 import { getCartAction, getCartCurrencyCode } from './cart-helpers';
 import { CurrencyValue } from './currency-value';
 import { CurrencyValueType } from '../types/index.types';
 import type { Configuration } from '../types/index.types';
 import { merge } from 'object-mapper';
+import CustomError from '../errors/custom.error';
 
 export default (
   commerceToolsCart: CartOrOrder,
@@ -206,9 +206,13 @@ const verifyEvaluatedCartCurrencyMatchesOrderCurrency = (
   order: CartOrOrder
 ) => {
   const evaluationCurrency = order.custom?.fields[EVALUATION_CURRENCY];
+  const currentCurrencyCode = getCartCurrencyCode(order);
 
-  if (evaluationCurrency && evaluationCurrency !== getCartCurrencyCode(order)) {
-    throw new AggregateTotalMismatchError();
+  if (evaluationCurrency && evaluationCurrency !== currentCurrencyCode) {
+    throw new CustomError(
+      400,
+      `Currency code on the order (${currentCurrencyCode}) does not match the currency of the previous evaluation (${evaluationCurrency})`
+    );
   }
 };
 
