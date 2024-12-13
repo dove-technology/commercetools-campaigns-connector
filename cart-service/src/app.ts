@@ -23,7 +23,7 @@ app.post('/cart-service', async (req: Request, res: Response) => {
   try {
     //check if the request has a basic auth header
     if (!req.headers.authorization) {
-      setErrorResponse(res, 403, 'Forbidden');
+      setErrorResponse(res, 403, 'Forbidden', 'Forbidden');
       return;
     }
 
@@ -41,14 +41,19 @@ app.post('/cart-service', async (req: Request, res: Response) => {
       decodedPassword !== currentBasicAuthPassword &&
       decodedPassword !== previousBasicAuthPassword
     ) {
-      setErrorResponse(res, 403, 'Forbidden');
+      setErrorResponse(res, 403, 'Forbidden', 'Forbidden');
       return;
     }
 
     const { resource } = req.body;
 
     if (!resource?.obj) {
-      setErrorResponse(res, 400, 'Bad request - Missing resource object.');
+      setErrorResponse(
+        res,
+        400,
+        'InvalidInput',
+        'Bad request - Missing resource object.'
+      );
       return;
     }
 
@@ -56,7 +61,7 @@ app.post('/cart-service', async (req: Request, res: Response) => {
   } catch (error) {
     logError(error, logger);
 
-    setErrorResponse(res, 500, 'Internal Server Error');
+    setErrorResponse(res, 500, 'General', 'Internal Server Error');
 
     return;
   }
@@ -80,9 +85,9 @@ app.post('/cart-service', async (req: Request, res: Response) => {
       logger.error('Failed to process order', error);
 
       if (error instanceof CustomError) {
-        setErrorResponse2(res, error);
+        setErrorCustomErrorResponse(res, error);
       } else {
-        setErrorResponse(res, 500, 'Internal Server Error');
+        setErrorResponse(res, 500, 'General', 'Internal Server Error');
       }
     } else {
       // for carts, we don't want to fail the whole cart update if the extension fails
@@ -97,7 +102,7 @@ app.post('/cart-service', async (req: Request, res: Response) => {
 });
 
 app.use('*wildcard', (_req: Request, res: Response) => {
-  setErrorResponse(res, 404, 'Path not found.');
+  setErrorResponse(res, 404, 'ResourceNotFound', 'Path not found.');
 });
 
 const logError = (error: unknown, logger: winston.Logger) => {
@@ -111,14 +116,19 @@ const logError = (error: unknown, logger: winston.Logger) => {
 const setErrorResponse = (
   res: Response,
   statusCode: number,
+  code: string,
   message: string
 ) => {
   res.status(statusCode).json({
     message: message,
+    errors: [{ code, message }],
   });
 };
 
-const setErrorResponse2 = (res: Response, customError: CustomError) => {
+const setErrorCustomErrorResponse = (
+  res: Response,
+  customError: CustomError
+) => {
   res.status(customError.statusCode).json({
     message: customError.message,
     errors: customError.errors,

@@ -276,7 +276,15 @@ test('should return setCustomType action including commitId field if type is Ord
 test('should return 403 if no basic auth is provided', async () => {
   const response = await request(app).post('/cart-service');
   expect(response.status).toBe(403);
-  expect(response.body).toEqual({ message: 'Forbidden' });
+  expect(response.body).toEqual({
+    message: 'Forbidden',
+    errors: [
+      {
+        code: 'Forbidden',
+        message: 'Forbidden',
+      },
+    ],
+  });
 });
 
 test('should return 403 if incorrect basic auth is provided', async () => {
@@ -284,7 +292,15 @@ test('should return 403 if incorrect basic auth is provided', async () => {
     .post('/cart-service')
     .set('Authorization', 'Basic 123');
   expect(response.status).toBe(403);
-  expect(response.body).toEqual({ message: 'Forbidden' });
+  expect(response.body).toEqual({
+    message: 'Forbidden',
+    errors: [
+      {
+        code: 'Forbidden',
+        message: 'Forbidden',
+      },
+    ],
+  });
 });
 
 test('should return valid response if the correct basic auth is the current password', async () => {
@@ -318,6 +334,12 @@ test('should return 404 when non existing route', async () => {
   expect(response.status).toBe(404);
   expect(response.body).toEqual({
     message: 'Path not found.',
+    errors: [
+      {
+        code: 'ResourceNotFound',
+        message: 'Path not found.',
+      },
+    ],
   });
 });
 
@@ -334,6 +356,12 @@ test('should return 400 bad request when post invalid resource', async () => {
   expect(response.status).toBe(400);
   expect(response.body).toEqual({
     message: 'Bad request - Missing resource object.',
+    errors: [
+      {
+        code: 'InvalidInput',
+        message: 'Bad request - Missing resource object.',
+      },
+    ],
   });
 });
 
