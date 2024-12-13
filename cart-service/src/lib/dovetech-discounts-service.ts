@@ -3,7 +3,7 @@ import {
   DoveTechDiscountsRequest,
   DoveTechDiscountsResponse,
 } from '../types/dovetech.types';
-import CustomError from '../errors/custom.error';
+import ServiceError from '../errors/service.error';
 import { getLogger } from '../utils/logger.utils';
 import { retryAsync } from 'ts-retry';
 
@@ -17,8 +17,9 @@ export const evaluate = async (
 
       // error we can retry
       if (!response.ok && response.status !== 400) {
-        throw new CustomError(
+        throw new ServiceError(
           response.status,
+          'General',
           'Error while calling DoveTech discounts service.'
         );
       }
@@ -38,8 +39,9 @@ export const evaluate = async (
       problemDetails.type ===
       'https://dovetech.com/problem-responses/aggregate-total-mismatch'
     ) {
-      throw new CustomError(
+      throw new ServiceError(
         400,
+        'InvalidInput',
         'Expected aggregate total does not match latest aggregate total'
       );
     }
@@ -49,8 +51,9 @@ export const evaluate = async (
       meta: problemDetails,
     });
 
-    throw new CustomError(
+    throw new ServiceError(
       response.status,
+      'InvalidInput',
       'Bad request returned from DoveTech discounts service'
     );
   }
