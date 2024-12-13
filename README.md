@@ -67,6 +67,14 @@ For an example of using the connector, see the [demo repo](https://github.com/do
 
 See the [Coupon Codes](https://github.com/dove-technology/commercetools-campaigns-connector-demo?tab=readme-ov-file#coupon-codes) section of the demo readme for more information on how to use coupon codes.
 
+## Error Handling
+
+Just like in any system errors can occur when calling external services.
+
+To try and ensure any unexpected errors don't impact a customer's experience, this connector service doesn't return errors back to commercetools for cart changes. The errors are logged, but no actions are returned from the service. This is to try and avoid errors impacting things like add to cart. In this scenario any discounts on the cart will not be updated.
+
+When an order is being placed, we retry any failed requests to the Dovetech Processor API. If the error persists, an error is returned from the connector service and placing the order will fail. This is to ensure consistency in the order process.
+
 ## Limitations
 
 ### Carts with Multiple Shipping Methods
