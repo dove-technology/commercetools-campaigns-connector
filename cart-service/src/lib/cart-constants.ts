@@ -6,6 +6,9 @@ export const EXTENSION_TYPES_DATA_KEY = `${fieldPrefix}extension-data`;
 export const COMMIT_ID = `${fieldPrefix}commit-id`;
 export const COUPON_CODES = `${fieldPrefix}coupon-codes`;
 export const CART_ACTION = `${fieldPrefix}cart-action`;
+export const EVALUATION_RESULT_SUMMARY = `${fieldPrefix}evaluation-result-summary`;
+export const DATA_INSTANCE = `${fieldPrefix}data-instance`;
+
+// to remove
 export const EVALUATION_RESPONSE = `${fieldPrefix}evaluation-response`;
 export const EVALUATION_CURRENCY = `${fieldPrefix}evaluation-currency`;
-export const DATA_INSTANCE = `${fieldPrefix}data-instance`;
