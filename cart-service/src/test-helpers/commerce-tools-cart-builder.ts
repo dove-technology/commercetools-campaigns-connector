@@ -14,7 +14,6 @@ import {
   COUPON_CODES,
   EVALUATION_RESULT_SUMMARY,
 } from '../lib/cart-constants';
-import { DoveTechDiscountsResponse } from '../types/dovetech.types';
 
 export default class CommerceToolsCartBuilder {
   private lineItems: LineItem[] = [];
@@ -22,10 +21,8 @@ export default class CommerceToolsCartBuilder {
   private cartAction?: CartAction;
   private type: 'Cart' | 'Order' = 'Cart';
   private customerId: string | undefined = undefined;
-  private evaluationResponse: string | undefined = undefined;
   private evaluationResultSummary: EvaluationResultSummary | undefined =
     undefined;
-  private evaluationCurrency: string | undefined = undefined;
   private billingAddress: Address | undefined = undefined;
   private shippingAddress: Address | undefined = undefined;
 
@@ -68,16 +65,6 @@ export default class CommerceToolsCartBuilder {
 
   setCustomerId(customerId: string): this {
     this.customerId = customerId;
-    return this;
-  }
-
-  setEvaluationResponse(evaluationResponse: DoveTechDiscountsResponse): this {
-    this.evaluationResponse = JSON.stringify(evaluationResponse);
-    return this;
-  }
-
-  setEvaluationCurrency(evaluationCurrency: string): this {
-    this.evaluationCurrency = evaluationCurrency;
     return this;
   }
 

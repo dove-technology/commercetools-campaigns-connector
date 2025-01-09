@@ -93,7 +93,7 @@ export default (
   if (isOrder && evaluationResultSummary?.currencyCode) {
     verifyEvaluatedCartCurrencyMatchesOrderCurrency(
       commerceToolsCart,
-      evaluationResultSummary?.currencyCode
+      evaluationResultSummary.currencyCode
     );
   }
 
@@ -103,7 +103,9 @@ export default (
     couponCodes,
     context,
     settings,
-    expectedAggregateTotal: evaluationResultSummary?.aggregateTotal,
+    expectedAggregateTotal: isOrder
+      ? evaluationResultSummary?.aggregateTotal
+      : undefined,
     billingAddress: buildAddressObject(commerceToolsCart.billingAddress),
     shippingAddress: buildAddressObject(commerceToolsCart.shippingAddress),
     shipping: buildShippingObject(commerceToolsCart),
