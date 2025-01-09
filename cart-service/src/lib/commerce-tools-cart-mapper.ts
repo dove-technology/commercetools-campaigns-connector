@@ -63,7 +63,7 @@ export default (
     commerceToolsCart.custom?.fields[COUPON_CODES] ?? [];
 
   if (arrayOfCouponCodes.length > 0) {
-    arrayOfCouponCodes.map((code: string) => {
+    arrayOfCouponCodes.forEach((code: string) => {
       couponCodes.push({
         code: code,
       });
