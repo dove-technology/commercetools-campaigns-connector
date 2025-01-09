@@ -1,8 +1,7 @@
 import {
   COUPON_CODES,
   DATA_INSTANCE,
-  EVALUATION_CURRENCY,
-  EVALUATION_RESPONSE,
+  EVALUATION_RESULT_SUMMARY,
 } from './cart-constants';
 import type {
   Address,
@@ -13,6 +12,7 @@ import {
   AddCouponCodeCartAction,
   CartActionType,
   CartOrOrder,
+  EvaluationResultSummary,
 } from '../types/custom-commerce-tools.types';
 import {
   DoveTechDiscountsBasket,
@@ -21,7 +21,6 @@ import {
   DoveTechDiscountsDataInstance,
   DoveTechDiscountsLineItem,
   DoveTechDiscountsRequest,
-  DoveTechDiscountsResponse,
   DoveTechDiscountsSettings,
   ShippingObject,
 } from '../types/dovetech.types';
@@ -89,13 +88,13 @@ export default (
     explain: false,
   };
 
-  const expectedAggregateTotal = getExpectedAggregateTotal(
-    isOrder,
-    commerceToolsCart
-  );
+  const evaluationResultSummary = getEvaluationResultSummary(commerceToolsCart);
 
-  if (isOrder) {
-    verifyEvaluatedCartCurrencyMatchesOrderCurrency(commerceToolsCart);
+  if (isOrder && evaluationResultSummary?.currencyCode) {
+    verifyEvaluatedCartCurrencyMatchesOrderCurrency(
+      commerceToolsCart,
+      evaluationResultSummary?.currencyCode
+    );
   }
 
   const dtRequest: DoveTechDiscountsRequest = {
@@ -104,7 +103,7 @@ export default (
     couponCodes,
     context,
     settings,
-    expectedAggregateTotal,
+    expectedAggregateTotal: evaluationResultSummary?.aggregateTotal,
     billingAddress: buildAddressObject(commerceToolsCart.billingAddress),
     shippingAddress: buildAddressObject(commerceToolsCart.shippingAddress),
     shipping: buildShippingObject(commerceToolsCart),
@@ -203,12 +202,12 @@ const buildCustomerObject = (commerceToolsCart: CartOrOrder) => {
 };
 
 const verifyEvaluatedCartCurrencyMatchesOrderCurrency = (
-  order: CartOrOrder
+  order: CartOrOrder,
+  evaluationCurrency: string
 ) => {
-  const evaluationCurrency = order.custom?.fields[EVALUATION_CURRENCY];
   const currentCurrencyCode = getCartCurrencyCode(order);
 
-  if (evaluationCurrency && evaluationCurrency !== currentCurrencyCode) {
+  if (evaluationCurrency !== currentCurrencyCode) {
     throw new ServiceError(
       400,
       'InvalidInput',
@@ -217,24 +216,15 @@ const verifyEvaluatedCartCurrencyMatchesOrderCurrency = (
   }
 };
 
-const getExpectedAggregateTotal = (
-  isOrder: boolean,
-  commerceToolsCart: CartOrOrder
-) => {
-  if (!isOrder) {
+const getEvaluationResultSummary = (commerceToolsCart: CartOrOrder) => {
+  const serialisedEvaluationResultSummary =
+    commerceToolsCart.custom?.fields[EVALUATION_RESULT_SUMMARY];
+
+  if (!serialisedEvaluationResultSummary) {
     return undefined;
   }
 
-  const serialisedEvaluationResponse =
-    commerceToolsCart.custom?.fields[EVALUATION_RESPONSE];
-
-  if (!serialisedEvaluationResponse) {
-    return undefined;
-  }
-
-  const previousDovetechResponse = JSON.parse(
-    serialisedEvaluationResponse
-  ) as DoveTechDiscountsResponse;
-
-  return previousDovetechResponse.aggregates.total;
+  return JSON.parse(
+    serialisedEvaluationResultSummary
+  ) as EvaluationResultSummary;
 };

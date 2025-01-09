@@ -7,12 +7,12 @@ import crypto from 'crypto';
 import type {
   CartAction,
   CartOrOrder,
+  EvaluationResultSummary,
 } from '../types/custom-commerce-tools.types';
 import {
   CART_ACTION,
   COUPON_CODES,
-  EVALUATION_CURRENCY,
-  EVALUATION_RESPONSE,
+  EVALUATION_RESULT_SUMMARY,
 } from '../lib/cart-constants';
 import { DoveTechDiscountsResponse } from '../types/dovetech.types';
 
@@ -23,6 +23,8 @@ export default class CommerceToolsCartBuilder {
   private type: 'Cart' | 'Order' = 'Cart';
   private customerId: string | undefined = undefined;
   private evaluationResponse: string | undefined = undefined;
+  private evaluationResultSummary: EvaluationResultSummary | undefined =
+    undefined;
   private evaluationCurrency: string | undefined = undefined;
   private billingAddress: Address | undefined = undefined;
   private shippingAddress: Address | undefined = undefined;
@@ -79,6 +81,13 @@ export default class CommerceToolsCartBuilder {
     return this;
   }
 
+  setEvaluationResultSummary(
+    evaluationResultSummary: EvaluationResultSummary
+  ): this {
+    this.evaluationResultSummary = evaluationResultSummary;
+    return this;
+  }
+
   setBillingAddress(billingAddress: Address): this {
     this.billingAddress = billingAddress;
     return this;
@@ -95,14 +104,10 @@ export default class CommerceToolsCartBuilder {
       [CART_ACTION]: JSON.stringify(this.cartAction),
     };
 
-    if (this.evaluationResponse) {
-      customFields[EVALUATION_RESPONSE] = JSON.stringify(
-        this.evaluationResponse
+    if (this.evaluationResultSummary) {
+      customFields[EVALUATION_RESULT_SUMMARY] = JSON.stringify(
+        this.evaluationResultSummary
       );
-    }
-
-    if (this.evaluationCurrency) {
-      customFields[EVALUATION_CURRENCY] = this.evaluationCurrency;
     }
 
     return {
