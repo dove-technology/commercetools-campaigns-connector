@@ -12,8 +12,6 @@ import { OTLPLogExporter } from '@opentelemetry/exporter-logs-otlp-http';
 import { OpenTelemetryTransportV3 } from '@opentelemetry/winston-transport';
 import { readConfiguration } from '../utils/config.utils';
 
-export const logger = createApplicationLogger();
-
 let loggerInstance: winston.Logger | undefined = undefined;
 
 export const getLogger = (useBatchLogRecordProcessor: boolean = true) => {
