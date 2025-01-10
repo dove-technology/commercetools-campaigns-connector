@@ -231,8 +231,7 @@
     },
     "fields": {
       "dovetech-discounts-coupon-codes": [],
-      "dovetech-discounts-evaluation-response": "{\"actions\":[{\"id\":\"0b47cdf2-e0a5-4a7f-8958-a00aad81897e\",\"discountId\":\"e919f82b-6f83-4151-a048-4a489721ba50\",\"type\":\"AmountOffLineItem\",\"qualifiedCouponCode\":null,\"amountOffType\":\"AmountOff\",\"value\":10,\"amountOff\":10,\"displayMessages\":[]}],\"basket\":{\"total\":42.99,\"totalAmountOff\":10,\"items\":[{\"total\":42.99,\"totalAmountOff\":10,\"actions\":[{\"id\":\"0b47cdf2-e0a5-4a7f-8958-a00aad81897e\",\"subItemId\":1,\"amountOff\":10}]}]},\"aggregates\":{\"total\":42.99,\"totalAmountOff\":10},\"costs\":[],\"commitId\":null,\"evaluationLog\":null}",
-      "dovetech-discounts-evaluation-currency": "EUR"
+      "dovetech-discounts-evaluation-result-summary": "{\"actions\":[{\"id\":\"0b47cdf2-e0a5-4a7f-8958-a00aad81897e\",\"discountId\":\"e919f82b-6f83-4151-a048-4a489721ba50\",\"type\":\"AmountOffLineItem\",\"qualifiedCouponCode\":null,\"amountOffType\":\"AmountOff\",\"value\":10,\"amountOff\":10,\"displayMessages\":[]}],\"basket\":{\"total\":42.99,\"totalAmountOff\":10,\"items\":[{\"total\":42.99,\"totalAmountOff\":10,\"actions\":[{\"id\":\"0b47cdf2-e0a5-4a7f-8958-a00aad81897e\",\"subItemId\":1,\"amountOff\":10}]}]},\"aggregateTotal\":42.99,\"currencyCode\":\"EUR\"}"
     }
   },
   "inventoryMode": "None",

@@ -10,7 +10,7 @@ async function preUndeploy(): Promise<void> {
   await deleteCartUpdateExtension(apiRoot);
 }
 
-async function run(): Promise<void> {
+export async function run(): Promise<void> {
   const logger = getLogger(false);
   try {
     logger.info('Running pre-undeploy...');

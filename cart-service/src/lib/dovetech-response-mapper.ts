@@ -2,8 +2,7 @@ import {
   COMMIT_ID,
   COUPON_CODES,
   DATA_INSTANCE,
-  EVALUATION_CURRENCY,
-  EVALUATION_RESPONSE,
+  EVALUATION_RESULT_SUMMARY,
   EXTENSION_TYPES_DATA_KEY,
 } from './cart-constants';
 import type {
@@ -19,6 +18,7 @@ import {
   AddCouponCodeCartAction,
   CartActionType,
   CartOrOrder,
+  EvaluationResultSummary,
 } from '../types/custom-commerce-tools.types';
 import {
   CouponCodeAcceptedAction,
@@ -258,11 +258,16 @@ const buildSetCustomTypeAction = (
   dataInstance: string,
   commitId: string | null = null
 ) => {
+  const evaluationResultSummary: EvaluationResultSummary = {
+    aggregateTotal: dtResponse.aggregates.total,
+    currencyCode,
+    actions: dtResponse.actions,
+  };
+
   const fields: FieldContainer = {
-    [COUPON_CODES]: couponCodeAcceptedActions.map((a) => a.code),
     // Note. We're removing the dovetech-discounts-cart-action field by not setting it
-    [EVALUATION_RESPONSE]: JSON.stringify(dtResponse),
-    [EVALUATION_CURRENCY]: currencyCode,
+    [COUPON_CODES]: couponCodeAcceptedActions.map((a) => a.code),
+    [EVALUATION_RESULT_SUMMARY]: JSON.stringify(evaluationResultSummary),
     [DATA_INSTANCE]: dataInstance,
   };
 

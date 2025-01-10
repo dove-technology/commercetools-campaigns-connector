@@ -1,4 +1,5 @@
 import type { Cart, Order } from '@commercetools/platform-sdk';
+import { DoveTechAction } from './dovetech.types';
 
 export enum CartActionType {
   AddCouponCode = 'addCouponCode',
@@ -19,6 +20,12 @@ interface CustomCart extends Cart {
 
 interface CustomOrder extends Order {
   type: 'Order';
+}
+
+export interface EvaluationResultSummary {
+  aggregateTotal: number;
+  currencyCode: string;
+  actions: DoveTechAction[];
 }
 
 export type CartOrOrder = CustomCart | CustomOrder;

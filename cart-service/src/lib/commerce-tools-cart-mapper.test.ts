@@ -206,7 +206,11 @@ test('should throw error if evaluation result currency is different and type is 
 
   const ctCart = new CommerceToolsCartBuilder(currencyCode)
     .addLineItem(lineItem)
-    .setEvaluationCurrency('EUR')
+    .setEvaluationResultSummary({
+      aggregateTotal: 50,
+      currencyCode: 'EUR',
+      actions: [],
+    })
     .setType('Order')
     .build();
 
@@ -220,7 +224,11 @@ test('should map if evaluation result currency is different when type is Cart', 
 
   const ctCart = new CommerceToolsCartBuilder(currencyCode)
     .addLineItem(lineItem)
-    .setEvaluationCurrency('EUR')
+    .setEvaluationResultSummary({
+      aggregateTotal: 50,
+      currencyCode: 'EUR',
+      actions: [],
+    })
     .build();
 
   const result = map(ctCart);

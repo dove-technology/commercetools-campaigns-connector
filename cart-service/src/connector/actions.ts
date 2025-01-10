@@ -3,12 +3,11 @@ import { readConfiguration } from '../utils/config.utils';
 import {
   CART_ACTION,
   COUPON_CODES,
-  EVALUATION_RESPONSE,
-  EVALUATION_CURRENCY,
   COMMIT_ID,
   EXTENSION_TYPES_DATA_KEY,
   EXTENSION_TYPES_DATA_LABEL,
   DATA_INSTANCE,
+  EVALUATION_RESULT_SUMMARY,
 } from '../lib/cart-constants';
 import { ExtensionDestination } from '@commercetools/platform-sdk';
 import { getLogger } from '../utils/logger.utils';
@@ -158,23 +157,12 @@ export async function createCustomTypes(
               inputHint: 'SingleLine',
             },
             {
-              name: EVALUATION_RESPONSE,
+              name: EVALUATION_RESULT_SUMMARY,
               type: {
                 name: 'String',
               },
               label: {
-                en: 'Dovetech Evaluation Result',
-              },
-              required: false,
-              inputHint: 'SingleLine',
-            },
-            {
-              name: EVALUATION_CURRENCY,
-              type: {
-                name: 'String',
-              },
-              label: {
-                en: 'Dovetech Evaluation Currency',
+                en: 'Dovetech Evaluation Result Summary',
               },
               required: false,
               inputHint: 'SingleLine',
