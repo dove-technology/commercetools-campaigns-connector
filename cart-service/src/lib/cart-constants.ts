@@ -1,6 +1,6 @@
 const fieldPrefix = 'dovetech-discounts-';
 
-export const EXTENSION_TYPES_DATA_LABEL = `Dovetech Extension Data`;
+export const EXTENSION_TYPES_DATA_LABEL = 'Dovetech Extension Data';
 export const EXTENSION_TYPES_DATA_KEY = `${fieldPrefix}extension-data`;
 
 export const COMMIT_ID = `${fieldPrefix}commit-id`;

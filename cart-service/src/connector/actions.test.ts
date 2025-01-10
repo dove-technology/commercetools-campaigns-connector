@@ -2,6 +2,7 @@ import { it, expect, beforeEach, describe } from '@jest/globals';
 import {
   createCartUpdateExtension,
   deleteCartUpdateExtension,
+  createCustomTypes,
 } from './actions';
 import { readConfiguration } from '../../src/utils/config.utils';
 import { ByProjectKeyRequestBuilder } from '@commercetools/platform-sdk';
@@ -11,7 +12,7 @@ jest.mock('../utils/config.utils');
 let mockDelete: typeof jest.fn;
 let mockPost: typeof jest.fn;
 
-const emptyGetExtensionsResponse = {
+const emptyGetResponse = {
   body: {
     results: [],
   },
@@ -48,7 +49,7 @@ beforeEach(() => {
 
 describe('createCartUpdateExtension', () => {
   it('when cart extension does not exist it should be created', async () => {
-    const mockApiRoot = getMockApiRoot(emptyGetExtensionsResponse);
+    const mockApiRoot = getMockApiRoot(emptyGetResponse);
     await createCartUpdateExtension(mockApiRoot, serviceUrl);
 
     expect(mockPost).toHaveBeenCalledWith({
@@ -102,7 +103,7 @@ describe('deleteCartUpdateExtension', () => {
   });
 
   it('when cart extension does not exist then nothing deleted', async () => {
-    const mockApiRoot = getMockApiRoot(emptyGetExtensionsResponse);
+    const mockApiRoot = getMockApiRoot(emptyGetResponse);
 
     await deleteCartUpdateExtension(mockApiRoot);
 
@@ -110,9 +111,63 @@ describe('deleteCartUpdateExtension', () => {
   });
 });
 
+describe('createCustomTypes', () => {
+  it('when custom type does not exist it should be created', async () => {
+    const mockApiRoot = getMockApiRoot(emptyGetResponse);
+
+    await createCustomTypes(mockApiRoot);
+
+    expect(mockPost).toHaveBeenCalledWith({
+      body: {
+        key: 'dovetech-discounts-extension-data',
+        name: {
+          en: 'Dovetech Extension Data',
+        },
+        resourceTypeIds: ['order'],
+        fieldDefinitions: expect.arrayContaining([
+          expect.objectContaining({
+            name: 'dovetech-discounts-coupon-codes',
+          }),
+          expect.objectContaining({
+            name: 'dovetech-discounts-commit-id',
+          }),
+          expect.objectContaining({
+            name: 'dovetech-discounts-cart-action',
+          }),
+          expect.objectContaining({
+            name: 'dovetech-discounts-evaluation-result-summary',
+          }),
+          expect.objectContaining({
+            name: 'dovetech-discounts-data-instance',
+          }),
+        ]),
+      },
+    });
+  });
+
+  it('when custom type exists it should not be created', async () => {
+    const getTypesResponse = {
+      body: {
+        results: [
+          {
+            key: 'dovetech-discounts-extension-data',
+            version: 1,
+          },
+        ],
+      },
+    };
+    const mockApiRoot = getMockApiRoot(getTypesResponse);
+
+    await createCustomTypes(mockApiRoot);
+
+    expect(mockPost).not.toHaveBeenCalled();
+  });
+});
+
 const getMockApiRoot = (mockGetResponse: any) => {
   return {
     extensions: jest.fn().mockReturnThis(),
+    types: jest.fn().mockReturnThis(),
     get: jest.fn().mockReturnThis(),
     withKey: jest.fn().mockReturnThis(),
     delete: mockDelete,
