@@ -164,7 +164,7 @@ describe('createCustomTypes', () => {
   });
 });
 
-const getMockApiRoot = (mockGetResponse: any) => {
+const getMockApiRoot = (mockGetResponse: object) => {
   return {
     extensions: jest.fn().mockReturnThis(),
     types: jest.fn().mockReturnThis(),
