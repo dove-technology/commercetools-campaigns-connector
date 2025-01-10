@@ -18,7 +18,7 @@ async function postDeploy(properties: Map<string, unknown>): Promise<void> {
   await createCustomTypes(apiRoot);
 }
 
-async function run(): Promise<void> {
+export async function run(): Promise<void> {
   const logger = getLogger(false);
 
   try {
