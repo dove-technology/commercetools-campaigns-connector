@@ -1,5 +1,8 @@
-import { it, expect, beforeEach } from '@jest/globals';
-import { createCartUpdateExtension } from './actions';
+import { it, expect, beforeEach, describe } from '@jest/globals';
+import {
+  createCartUpdateExtension,
+  deleteCartUpdateExtension,
+} from './actions';
 import { readConfiguration } from '../../src/utils/config.utils';
 import { ByProjectKeyRequestBuilder } from '@commercetools/platform-sdk';
 
@@ -8,9 +11,20 @@ jest.mock('../utils/config.utils');
 let mockDelete: typeof jest.fn;
 let mockPost: typeof jest.fn;
 
-const emptyGetResponse = {
+const emptyGetExtensionsResponse = {
   body: {
     results: [],
+  },
+};
+
+const getExtensionsResponse = {
+  body: {
+    results: [
+      {
+        key: 'dovetech-discounts-extension',
+        version: 1,
+      },
+    ],
   },
 };
 
@@ -34,7 +48,7 @@ beforeEach(() => {
 
 describe('createCartUpdateExtension', () => {
   it('when cart extension does not exist it should be created', async () => {
-    const mockApiRoot = getMockApiRoot(emptyGetResponse);
+    const mockApiRoot = getMockApiRoot(emptyGetExtensionsResponse);
     await createCartUpdateExtension(mockApiRoot, serviceUrl);
 
     expect(mockPost).toHaveBeenCalledWith({
@@ -56,16 +70,7 @@ describe('createCartUpdateExtension', () => {
   });
 
   it('when cart extension exists it should be updated', async () => {
-    const mockApiRoot = getMockApiRoot({
-      body: {
-        results: [
-          {
-            key: 'dovetech-discounts-extension',
-            version: 1,
-          },
-        ],
-      },
-    });
+    const mockApiRoot = getMockApiRoot(getExtensionsResponse);
 
     await createCartUpdateExtension(mockApiRoot, serviceUrl);
 
@@ -80,6 +85,28 @@ describe('createCartUpdateExtension', () => {
         ],
       },
     });
+  });
+});
+
+describe('deleteCartUpdateExtension', () => {
+  it('when cart extension exists it should be deleted', async () => {
+    const mockApiRoot = getMockApiRoot(getExtensionsResponse);
+
+    await deleteCartUpdateExtension(mockApiRoot);
+
+    expect(mockDelete).toHaveBeenCalledWith({
+      queryArgs: {
+        version: 1,
+      },
+    });
+  });
+
+  it('when cart extension does not exist then nothing deleted', async () => {
+    const mockApiRoot = getMockApiRoot(emptyGetExtensionsResponse);
+
+    await deleteCartUpdateExtension(mockApiRoot);
+
+    expect(mockDelete).not.toHaveBeenCalled();
   });
 });
 
