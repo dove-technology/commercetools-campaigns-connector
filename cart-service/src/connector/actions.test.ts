@@ -32,52 +32,54 @@ beforeEach(() => {
   mockPost = jest.fn().mockReturnThis();
 });
 
-it('when cart extension does not exist it should be created', async () => {
-  const mockApiRoot = getMockApiRoot(emptyGetResponse);
-  await createCartUpdateExtension(mockApiRoot, serviceUrl);
+describe('createCartUpdateExtension', () => {
+  it('when cart extension does not exist it should be created', async () => {
+    const mockApiRoot = getMockApiRoot(emptyGetResponse);
+    await createCartUpdateExtension(mockApiRoot, serviceUrl);
 
-  expect(mockPost).toHaveBeenCalledWith({
-    body: {
-      key: 'dovetech-discounts-extension',
-      destination: extensionDestination,
-      triggers: [
-        {
-          resourceTypeId: 'cart',
-          actions: ['Create', 'Update'],
-        },
-        {
-          resourceTypeId: 'order',
-          actions: ['Create'],
-        },
-      ],
-    },
-  });
-});
-
-it('when cart extension exists it should be updated', async () => {
-  const mockApiRoot = getMockApiRoot({
-    body: {
-      results: [
-        {
-          key: 'dovetech-discounts-extension',
-          version: 1,
-        },
-      ],
-    },
+    expect(mockPost).toHaveBeenCalledWith({
+      body: {
+        key: 'dovetech-discounts-extension',
+        destination: extensionDestination,
+        triggers: [
+          {
+            resourceTypeId: 'cart',
+            actions: ['Create', 'Update'],
+          },
+          {
+            resourceTypeId: 'order',
+            actions: ['Create'],
+          },
+        ],
+      },
+    });
   });
 
-  await createCartUpdateExtension(mockApiRoot, serviceUrl);
+  it('when cart extension exists it should be updated', async () => {
+    const mockApiRoot = getMockApiRoot({
+      body: {
+        results: [
+          {
+            key: 'dovetech-discounts-extension',
+            version: 1,
+          },
+        ],
+      },
+    });
 
-  expect(mockPost).toHaveBeenCalledWith({
-    body: {
-      version: 1,
-      actions: [
-        {
-          action: 'changeDestination',
-          destination: extensionDestination,
-        },
-      ],
-    },
+    await createCartUpdateExtension(mockApiRoot, serviceUrl);
+
+    expect(mockPost).toHaveBeenCalledWith({
+      body: {
+        version: 1,
+        actions: [
+          {
+            action: 'changeDestination',
+            destination: extensionDestination,
+          },
+        ],
+      },
+    });
   });
 });
 
